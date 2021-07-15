@@ -39,7 +39,6 @@ Searches device(s) using the query information provided.
 | last_seen | Filters devices based on the date when the devices were last seen.<br/><br/>Format accepted:<br/>(&lt;number&gt; &lt;time unit&gt;, e.g., "12 hours ago", "7 days ago", "1 week", "1 month") or (&lt;date&gt; &lt;time&gt;, e.g. "yyyy-mm-ddTHH-MM-SS") or ( "YYYY-MM-ddTHH:mm:ss.sssZ", e.g. 2020-07-22T07:10:02.782Z) or (&lt;date&gt;, e.g. "2020-07-22"). | Optional | 
 | ownership | Filters devices based on ownership type. Possible values are: Corporate owned, Employee owned, Shared, or Undefined. | Optional | 
 | lgid | Limits the search to a given Organization Group, defaults to the user's Organization Group. | Optional | 
-| compliance_status | Filters devices based on specified compliant status. Possible values are: true (for Compliant) and false (for NonCompliant). | Optional | 
 | page | Filters search results to return results based on the page number. Starts from 0. Default is 0. | Optional | 
 | page_size | Maximum records per page. Default is 10. | Optional | 
 | order_by | Sorts results based on the provided field. Possible values are: model, lastseen, ownership, platform, deviceid, etc. Default is deviceid. | Optional | 
@@ -445,14 +444,14 @@ Get basic information about the device.
 >| iPhone iOS 14.4.2 HFLN | 12345678-1234-1234-1234-123456789ABC | Apple | iPhone 6s (32 GB Silver) | CORPORATE | ABCD12345678 | ABABABABABAB | Compliant | dummy-email | June 29, 2021 at 04:08:37 PM |
 
 
-### vmwuem-device-osupdates-list
+### vmwuem-device-os-updates-list
 ***
 Retrieves a list of all available OS and software updates for the specified device.
 
 
 #### Base Command
 
-`vmwuem-device-osupdates-list`
+`vmwuem-device-os-updates-list`
 #### Input
 
 | **Argument Name** | **Description** | **Required** |
@@ -493,7 +492,7 @@ Retrieves a list of all available OS and software updates for the specified devi
 
 
 #### Command Example
-```!vmwuem-device-osupdates-list uuid=12345678-1234-1234-1234-123456789ABC```
+```!vmwuem-device-os-updates-list uuid=12345678-1234-1234-1234-123456789ABC```
 
 #### Context Example
 ```json
