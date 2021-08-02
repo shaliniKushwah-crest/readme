@@ -12,7 +12,7 @@ This integration was integrated and tested with API version 1.0.0 and 4.0.0 of F
     | Incident type |  | False |
     | Server URL | Server URL to connect to Flashpoint. | True |
     | API Key |  | True |
-    | Maximum number of incidents per fetch | The maximum limit is 1000. | False |
+    | Maximum number of incidents per fetch | The maximum limit is 100 for alerts and 1000 for compromised credentials. | False |
     | First fetch time interval | Date or relative timestamp to start fetching the incidents from. \(Formats accepted: 2 minutes, 2 hours, 2 days, 2 weeks, 2 months, 2 years, yyyy-mm-dd, yyyy-mm-ddTHH:MM:SSZ, etc\). | False |
     | Fetch Type | Whether to fetch the Flashpoint alerts or the compromised credentials. Would choose "Compromised Credentials" if nothing selected. | False |
     | Fetch fresh compromised credentials alerts | Whether to fetch the fresh compromised credentials alerts or not. | False |
@@ -1036,6 +1036,7 @@ Retrieves the details of a single event using event UUID or FPID. To retrieve th
 | Flashpoint.Event.ObservedTime | string | The date that the event was triggered. | 
 | Flashpoint.Event.EventCreatorEmail | string | The email address of the event creator. | 
 | Flashpoint.Event.Href | string | The display event reference. | 
+| Flashpoint.Event.MalwareDescription | string | The description of the malware. | 
 | Flashpoint.Event.Tags | unknown | The display event tags. | 
 | Flashpoint.Event.EventId | string | The display event ID \(event fpid\). | 
 | Flashpoint.Event.Name | string | The name of the event. | 
@@ -1052,6 +1053,7 @@ Retrieves the details of a single event using event UUID or FPID. To retrieve th
         "EventCreatorEmail": "info@flashpoint-intel.com",
         "EventId": "Hu2SoTWJWteLrH9mR94JbQ",
         "Href": "https://fp.tools/api/v4/indicators/event/Hu2SoTWJWteLrH9mR94JbQ",
+        "MalwareDescription" : "<p>\"Quasar\" is a publicly available, open-source remote access trojan (RAT) for Microsoft Windows operating systems written in the C# programming language. Quasar is authored by GitHub user "MaxXor" and publicly hosted as a GitHub repository. The functionality of the Quasar malware includes remote file management on the infected machine, registry alterations, recording the actions of the victim, and establishing remote desktop connections.</p>"
         "Name": "[CryptingService_4c0d570ecdf23529c91b8decf27107db5c5e9430_2019-06-17T03:01:03.000Z](https://fp.tools/home/technical_data/iocs/items/5d0960cc-6128-4416-9996-05d20a640c05)",
         "ObservedTime": "Jun 18, 2019  22:08",
         "Tags": "source:CryptingService2"
