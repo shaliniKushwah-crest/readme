@@ -1067,9 +1067,9 @@ Retrieves the details of a single event using event UUID or FPID. To retrieve th
 
 ##### Below are the detail found:
 
-| **Observed time (UTC)** | **Name** | **Tags** |
-| --- | --- | --- |
-| Jun 18, 2019 22:08 | CryptingService_4c0d570ecdf23529c91b8decf27107db5c5e9430_2019-06-17T03:01:03.000Z | source:CryptingService2 |
+| **Observed time (UTC)** | **Name** | **Tags** | **Malware Description** |
+| --- | --- | --- | --- |
+| Jun 18, 2019 22:08 | CryptingService_4c0d570ecdf23529c91b8decf27107db5c5e9430_2019-06-17T03:01:03.000Z | source:CryptingService2 | <p>\"Quasar\" is a publicly available, open-source remote access trojan (RAT) for Microsoft Windows operating systems written in the C# programming language. Quasar is authored by GitHub user "MaxXor" and publicly hosted as a GitHub repository. The functionality of the Quasar malware includes remote file management on the infected machine, registry alterations, recording the actions of the victim, and establishing remote desktop connections.</p> |
 
 ### flashpoint-get-events
 ***
@@ -1107,6 +1107,7 @@ Searches for events within the specified time-period, the report fpid, or attack
             "EventCreatorEmail": "info@flashpoint-intel.com",
             "EventId": "nx7tsJYKWKm259vMLduWGw",
             "Href": "https://fp.tools/api/v4/indicators/event/nx7tsJYKWKm259vMLduWGw",
+            "Malware Description": "dummy_malware_description1",
             "Name": "[Loki](https://fp.tools/home/technical_data/iocs/items/5d087e04-1464-4a26-964e-05cd0a640c05)",
             "ObservedTime": "Dec 18, 2019  12:00",
             "Tags": "source:VirusTotal, type:Stealer, malware:Loki, loki, os:Windows"
@@ -1115,6 +1116,7 @@ Searches for events within the specified time-period, the report fpid, or attack
             "EventCreatorEmail": "info@flashpoint-intel.com",
             "EventId": "yV-3FFFwXWW3xxB6IMnP0g",
             "Href": "https://fp.tools/api/v4/indicators/event/yV-3FFFwXWW3xxB6IMnP0g",
+            "Malware Description": "dummy_malware_description2",
             "Name": "[NetWire](https://fp.tools/home/technical_data/iocs/items/5d58176a-6020-418a-b5aa-05d20a640c05)",
             "ObservedTime": "Dec 18, 2019  12:00",
             "Tags": "source:VirusTotal, T1060, netwire, T1056, os:Windows, type:RAT, malware:NetWire, T1082, T1116, T1113, misp-galaxy:mitre-enterprise-attack-attack-pattern=\"Registry Run Keys / Start Folder - T1060\", misp-galaxy:mitre-enterprise-attack-attack-pattern=\"Input Capture - T1056\", misp-galaxy:mitre-enterprise-attack-attack-pattern=\"System Information Discovery - T1082\", misp-galaxy:mitre-enterprise-attack-attack-pattern=\"Code Signing - T1116\", misp-galaxy:mitre-enterprise-attack-attack-pattern=\"Screen Capture - T1113\""
@@ -1123,6 +1125,7 @@ Searches for events within the specified time-period, the report fpid, or attack
             "EventCreatorEmail": "info@flashpoint-intel.com",
             "EventId": "PSP0k-dFUiWbX9YWV9pMag",
             "Href": "https://fp.tools/api/v4/indicators/event/PSP0k-dFUiWbX9YWV9pMag",
+            "Malware Description": "dummy_malware_description3",
             "Name": "[unpacked_cutwailv4](https://fp.tools/home/technical_data/iocs/items/5dfa14da-d190-48ab-80b6-23fe0a212040)",
             "ObservedTime": "Dec 18, 2019  12:00",
             "Tags": "source:VirusTotal, v:4, os:Windows, T1204, unpacked_cutwailv4, malware:Cutwail, T1060, type:Botnet"
@@ -1131,6 +1134,7 @@ Searches for events within the specified time-period, the report fpid, or attack
             "EventCreatorEmail": "info@flashpoint-intel.com",
             "EventId": "hirKFHGUVAySCvUzchchgA",
             "Href": "https://fp.tools/api/v4/indicators/event/hirKFHGUVAySCvUzchchgA",
+            "Malware Description": "dummy_malware_description4",
             "Name": "[CyberGate](https://fp.tools/home/technical_data/iocs/items/5d07d55f-e9f8-4530-b57c-05cd0a640c05)",
             "ObservedTime": "Dec 18, 2019  12:00",
             "Tags": "source:VirusTotal, os:Windows, type:RAT, cybergate, malware:CyberGate"
@@ -1139,6 +1143,7 @@ Searches for events within the specified time-period, the report fpid, or attack
             "EventCreatorEmail": "info@flashpoint-intel.com",
             "EventId": "E1EnVbazXKOoV6eIMwz68A",
             "Href": "https://fp.tools/api/v4/indicators/event/E1EnVbazXKOoV6eIMwz68A",
+            "Malware Description": "dummy_malware_description5",
             "Name": "[UNKN actor profile (distributor of Revil Ransomware)](https://fp.tools/home/technical_data/iocs/items/5dfa10af-7470-4ac5-af4e-dc260a21270c)",
             "ObservedTime": "Dec 18, 2019  11:51",
             "Tags": "malware:ransomware, ransomware:Revil, actor:UNKN, origin:Russia"
@@ -1147,6 +1152,7 @@ Searches for events within the specified time-period, the report fpid, or attack
             "EventCreatorEmail": "info@flashpoint-intel.com",
             "EventId": "F8igomEDVVOG2bWhNcfBaQ",
             "Href": "https://fp.tools/api/v4/indicators/event/F8igomEDVVOG2bWhNcfBaQ",
+            "Malware Description": "dummy_malware_description6",
             "Name": "[win_snatch_loader_g2](https://fp.tools/home/technical_data/iocs/items/5db9a5f0-01a8-4f2b-867c-0a340a640c05)",
             "ObservedTime": "Dec 18, 2019  11:00",
             "Tags": "source:VirusTotal, win_snatch_loader_g2, malware:SnatchLoader, os:Windows, type:Downloader"
@@ -1155,6 +1161,7 @@ Searches for events within the specified time-period, the report fpid, or attack
             "EventCreatorEmail": "info@flashpoint-intel.com",
             "EventId": "vjqRiYHvWnWBweTqiqNTBQ",
             "Href": "https://fp.tools/api/v4/indicators/event/vjqRiYHvWnWBweTqiqNTBQ",
+            "Malware Description": "dummy_malware_description7",
             "Name": "[Sofacy_CollectorStealer_Gen2](https://fp.tools/home/technical_data/iocs/items/5de6be25-b70c-4077-9f8a-00bd0a2120d6)",
             "ObservedTime": "Dec 18, 2019  11:00",
             "Tags": "source:VirusTotal, actor:APT28, sofacy_collectorstealer_gen2, origin:Russia, type:Stealer"
@@ -1163,6 +1170,7 @@ Searches for events within the specified time-period, the report fpid, or attack
             "EventCreatorEmail": "info@flashpoint-intel.com",
             "EventId": "78hNTAcJWWezTL9t8WuUtg",
             "Href": "https://fp.tools/api/v4/indicators/event/78hNTAcJWWezTL9t8WuUtg",
+            "Malware Description": "dummy_malware_description8",
             "Name": "[crime_tinynuke_1](https://fp.tools/home/technical_data/iocs/items/5d0950fb-faa4-42f6-a116-05d00a640c05)",
             "ObservedTime": "Dec 18, 2019  10:00",
             "Tags": "source:VirusTotal, crime_tinynuke_1"
@@ -1171,6 +1179,7 @@ Searches for events within the specified time-period, the report fpid, or attack
             "EventCreatorEmail": "info@flashpoint-intel.com",
             "EventId": "_0VfrtauWN6VpZ5d2QFiUA",
             "Href": "https://fp.tools/api/v4/indicators/event/_0VfrtauWN6VpZ5d2QFiUA",
+            "Malware Description": "dummy_malware_description9",
             "Name": "[win_tinba_g1](https://fp.tools/home/technical_data/iocs/items/5df9f8be-e188-4516-80f9-03030a21270c)",
             "ObservedTime": "Dec 18, 2019  10:00",
             "Tags": "source:VirusTotal, type:Banker, malware:tinba, win_tinba_g1, os:Windows, target: Russia, target:Japan"
@@ -1179,6 +1188,7 @@ Searches for events within the specified time-period, the report fpid, or attack
             "EventCreatorEmail": "info@flashpoint-intel.com",
             "EventId": "Ajj-czMuVhO6MLsIYpcdUg",
             "Href": "https://fp.tools/api/v4/indicators/event/Ajj-czMuVhO6MLsIYpcdUg",
+            "Malware Description": "dummy_malware_description10",
             "Name": "[win_tinba_g0](https://fp.tools/home/technical_data/iocs/items/5d70500d-e88c-40ee-ae95-05cd0a640c05)",
             "ObservedTime": "Dec 18, 2019  10:00",
             "Tags": "source:VirusTotal, type:Banker, win_tinba_g0, target: Russia, malware:tinba, target:Japan, os:Windows"
@@ -1187,6 +1197,7 @@ Searches for events within the specified time-period, the report fpid, or attack
             "EventCreatorEmail": "info@flashpoint-intel.com",
             "EventId": "f97cPO5dVqO74ttWZwbFqQ",
             "Href": "https://fp.tools/api/v4/indicators/event/f97cPO5dVqO74ttWZwbFqQ",
+            "Malware Description": "dummy_malware_description11",
             "Name": "[MegaCortex_Load_Dinkum_CLib](https://fp.tools/home/technical_data/iocs/items/5da01a84-b3fc-4eef-961d-0a340a640c05)",
             "ObservedTime": "Dec 18, 2019  07:03",
             "Tags": "source:VirusTotal, megacortex_load_dinkum_clib, malware:MegaCortex, type:Ransomware, os:Windows"
@@ -1195,6 +1206,7 @@ Searches for events within the specified time-period, the report fpid, or attack
             "EventCreatorEmail": "info@flashpoint-intel.com",
             "EventId": "Y_0iIuFFXU-wuNBCs0kF_g",
             "Href": "https://fp.tools/api/v4/indicators/event/Y_0iIuFFXU-wuNBCs0kF_g",
+            "Malware Description": "dummy_malware_description12",
             "Name": "[Command_Line_Options](https://fp.tools/home/technical_data/iocs/items/5da01a75-0f20-41da-83e1-56550a640c05)",
             "ObservedTime": "Dec 18, 2019  07:03",
             "Tags": "source:VirusTotal, command_line_options"
@@ -1203,6 +1215,7 @@ Searches for events within the specified time-period, the report fpid, or attack
             "EventCreatorEmail": "info@flashpoint-intel.com",
             "EventId": "Lc3dCH1sXbOIYkKTyUQoow",
             "Href": "https://fp.tools/api/v4/indicators/event/Lc3dCH1sXbOIYkKTyUQoow",
+            "Malware Description": "dummy_malware_description13",
             "Name": "[Gandcrab](https://fp.tools/home/technical_data/iocs/items/5d07d587-a9ac-4da1-9c72-05cd0a640c05)",
             "ObservedTime": "Dec 18, 2019  07:03",
             "Tags": "source:VirusTotal, type:Ransomware, gandcrab, malware:GandCrab, os:Windows"
@@ -1211,6 +1224,7 @@ Searches for events within the specified time-period, the report fpid, or attack
             "EventCreatorEmail": "info@flashpoint-intel.com",
             "EventId": "Nc-OJiCGWaWqVgLbFHiotA",
             "Href": "https://fp.tools/api/v4/indicators/event/Nc-OJiCGWaWqVgLbFHiotA",
+            "Malware Description": "dummy_malware_description14",
             "Name": "[botox_lampeduza_amaterasu_output5E0600](https://fp.tools/home/technical_data/iocs/items/5d1504b4-572c-47dd-afb2-05d20a640c05)",
             "ObservedTime": "Dec 18, 2019  07:00",
             "Tags": "source:VirusTotal, botox_lampeduza_amaterasu_output5e0600"
@@ -1219,6 +1233,7 @@ Searches for events within the specified time-period, the report fpid, or attack
             "EventCreatorEmail": "info@flashpoint-intel.com",
             "EventId": "Ut6zC32_VMSg6vB-cvwNmg",
             "Href": "https://fp.tools/api/v4/indicators/event/Ut6zC32_VMSg6vB-cvwNmg",
+            "Malware Description": "dummy_malware_description15",
             "Name": "[Sodinokibi_Unreachable_After_MZ_Check](https://fp.tools/home/technical_data/iocs/items/5da01a74-4b5c-4160-83c6-05d00a640c05)",
             "ObservedTime": "Dec 18, 2019  06:02",
             "Tags": "source:VirusTotal, sodinokibi_unreachable_after_mz_check"
@@ -1227,6 +1242,7 @@ Searches for events within the specified time-period, the report fpid, or attack
             "EventCreatorEmail": "info@flashpoint-intel.com",
             "EventId": "w0B3dKLxX9aat0O0YyS-6A",
             "Href": "https://fp.tools/api/v4/indicators/event/w0B3dKLxX9aat0O0YyS-6A",
+            "Malware Description": "dummy_malware_description16",
             "Name": "[CryptingService_27a1ad076d1c155856c0ad08dd302018281aba1e_2019-12-18T02:01:02.000Z](https://fp.tools/home/technical_data/iocs/items/5df9a7f3-7260-44d7-bcdd-03010a21270c)",
             "ObservedTime": "Dec 18, 2019  04:15",
             "Tags": "source:CryptingService2"
@@ -1235,6 +1251,7 @@ Searches for events within the specified time-period, the report fpid, or attack
             "EventCreatorEmail": "info@flashpoint-intel.com",
             "EventId": "8tWwTNyfWY2oBqSmmI0AUg",
             "Href": "https://fp.tools/api/v4/indicators/event/8tWwTNyfWY2oBqSmmI0AUg",
+            "Malware Description": "dummy_malware_description17",
             "Name": "[ryuk3_exe](https://fp.tools/home/technical_data/iocs/items/5dc0f4cc-cb70-44bf-bdbf-00540a2123fc)",
             "ObservedTime": "Dec 18, 2019  01:00",
             "Tags": "source:VirusTotal, type:Ransomware, ryuk3_exe, os:Windows, malware:Ryuk"
@@ -1243,6 +1260,7 @@ Searches for events within the specified time-period, the report fpid, or attack
             "EventCreatorEmail": "info@flashpoint-intel.com",
             "EventId": "J7W0HoNDULyq7p6FqLEH6Q",
             "Href": "https://fp.tools/api/v4/indicators/event/J7W0HoNDULyq7p6FqLEH6Q",
+            "Malware Description": "dummy_malware_description18",
             "Name": "[Kovter](https://fp.tools/home/technical_data/iocs/items/5d0aa281-9768-4f33-9903-05d20a640c05)",
             "ObservedTime": "Dec 18, 2019  00:00",
             "Tags": "source:VirusTotal, actor:KovCoreG, kovter, os:Windows, type:Trojan, malware:Kovter"
@@ -1251,6 +1269,7 @@ Searches for events within the specified time-period, the report fpid, or attack
             "EventCreatorEmail": "info@flashpoint-intel.com",
             "EventId": "zzc5kPgfUzeUO3epfZs6ug",
             "Href": "https://fp.tools/api/v4/indicators/event/zzc5kPgfUzeUO3epfZs6ug",
+            "Malware Description": "dummy_malware_description19",
             "Name": "[predatorthethief retrohunt](https://fp.tools/home/technical_data/iocs/items/5df9165e-0e34-4cc8-b7f5-004e0a21253a)",
             "ObservedTime": "Dec 17, 2019  17:55",
             "Tags": "malware:trojan:PredatorTheThief"
@@ -1259,6 +1278,7 @@ Searches for events within the specified time-period, the report fpid, or attack
             "EventCreatorEmail": "info@flashpoint-intel.com",
             "EventId": "NXgn9Ty5VeiTzGMGNkHMnA",
             "Href": "https://fp.tools/api/v4/indicators/event/NXgn9Ty5VeiTzGMGNkHMnA",
+            "Malware Description": "dummy_malware_description20",
             "Name": "[Golang_Win](https://fp.tools/home/technical_data/iocs/items/5da90f11-2240-420f-849a-12a70a640c05)",
             "ObservedTime": "Dec 17, 2019  05:02",
             "Tags": "source:VirusTotal, golang_win"
@@ -1273,28 +1293,28 @@ Searches for events within the specified time-period, the report fpid, or attack
 
 ##### Below are the detail found:
 
-| **Observed time (UTC)** | **Name** | **Tags** |
-| --- | --- | --- |
-| Dec 11, 2019 10:16 | CryptingService_4273f08ae5f229f6301e7e0cc9e9005cebc4da20_2019-12-11T03:01:01.000Z | source:CryptingService2 |
-| Dec 11, 2019 09:00 | NetWire | source:VirusTotal, T1060, netwire, T1056, os:Windows, type:RAT, malware:NetWire, T1082, T1116, T1113, misp-galaxy:mitre-enterprise-attack-attack-pattern=“Registry Run Keys / Start Folder - T1060”, misp-galaxy:mitre-enterprise-attack-attack-pattern=“Input Capture - T1056”, misp-galaxy:mitre-enterprise-attack-attack-pattern=“System Information Discovery - T1082”, misp-galaxy:mitre-enterprise-attack-attack-pattern=“Code Signing - T1116”, misp-galaxy:mitre-enterprise-attack-attack-pattern=“Screen Capture - T1113” |
-| Dec 11, 2019 08:00 | CyberGate | source:VirusTotal, os:Windows, type:RAT, cybergate, malware:CyberGate |
-| Dec 11, 2019 07:04 | ROKRAT_Nov17_1 | source:VirusTotal, T1057, T1105, T1063, os:Windows, target:SouthKorea, T1003, T1012, T1082, rokrat_nov17_1, malware:Rokrat, T1071, exfil:C2, T1102, T1041, T1056, type:RAT, T1497, T1113, misp-galaxy:mitre-enterprise-attack-attack-pattern=“Process Discovery - T1057”, misp-galaxy:mitre-enterprise-attack-attack-pattern=“Remote File Copy - T1105”, misp-galaxy:mitre-enterprise-attack-attack-pattern=“Security Software Discovery - T1063”, misp-galaxy:mitre-enterprise-attack-attack-pattern=“Credential Dumping - T1003”, misp-galaxy:mitre-enterprise-attack-attack-pattern=“Query Registry - T1012”, misp-galaxy:mitre-enterprise-attack-attack-pattern=“System Information Discovery - T1082”, misp-galaxy:mitre-enterprise-attack-attack-pattern=“Standard Application Layer Protocol - T1071”, misp-galaxy:mitre-enterprise-attack-attack-pattern=“Web Service - T1102”, misp-galaxy:mitre-enterprise-attack-attack-pattern=“Exfiltration Over Command and Control Channel - T1041”, misp-galaxy:mitre-enterprise-attack-attack-pattern=“Input Capture - T1056”, misp-galaxy:mitre-enterprise-attack-attack-pattern=“Screen Capture - T1113” |
-| Dec 11, 2019 07:04 | Sodinokibi_Unreachable_After_MZ_Check | source:VirusTotal, sodinokibi_unreachable_after_mz_check |
-| Dec 11, 2019 07:04 | MegaCortex_Load_Dinkum_CLib | source:VirusTotal, megacortex_load_dinkum_clib, malware:MegaCortex, type:Ransomware, os:Windows |
-| Dec 11, 2019 07:04 | Command_Line_Options | source:VirusTotal, command_line_options |
-| Dec 11, 2019 06:17 | CryptingService_74dd32ce57900738cba4d945e4619289ff040a9e_2019-12-11T03:01:01.000Z | source:CryptingService2 |
-| Dec 11, 2019 06:03 | Gandcrab | source:VirusTotal, type:Ransomware, gandcrab, malware:GandCrab, os:Windows |
-| Dec 11, 2019 06:00 | botox_lampeduza_amaterasu_output5E0600 | source:VirusTotal, botox_lampeduza_amaterasu_output5e0600 |
-| Dec 11, 2019 04:17 | CryptingService_e2f163c72837c6b4386ef9158d017418ab149b13_2019-12-11T03:01:01.000Z | source:CryptingService2 |
-| Dec 11, 2019 04:16 | CryptingService_2c13004c346bf79bbec61f6a65fb5b11d5c6f557_2019-12-11T02:01:02.000Z | source:CryptingService2 |
-| Dec 11, 2019 04:16 | CryptingService_5eda60cd7c1d4e5dd4fc5e0d3746bd4879de3959_2019-12-11T03:01:01.000Z | source:CryptingService2 |
-| Dec 11, 2019 04:16 | CryptingService_981ad08f56f265e9e7209e09e3842d8a6b7f7563_2019-12-11T03:01:01.000Z | source:CryptingService2 |
-| Dec 11, 2019 04:16 | CryptingService_7dbfe923559cbb91031dbe2b616c16f5aa40233f_2019-12-11T02:01:02.000Z | source:CryptingService2 |
-| Dec 11, 2019 04:00 | cobalt_beacon | source:VirusTotal, cobalt_beacon |
-| Dec 10, 2019 19:00 | Loki | source:VirusTotal, type:Stealer, malware:Loki, loki, os:Windows |
-| Dec 10, 2019 19:00 | crime_alina_pos_3 | source:VirusTotal, crime_alina_pos_3, type:POS, malware:Alina |
-| Dec 10, 2019 19:00 | Kovter | source:VirusTotal, actor:KovCoreG, kovter, os:Windows, type:Trojan, malware:Kovter |
-| Dec 10, 2019 17:24 | zeroclear Oilrig | origin:Iran, actor:APT34, malware:ransomware:zeroclear |
+| **Observed time (UTC)** | **Name** | **Tags** | **Malware Description** |
+| --- | --- | --- | --- |
+| Dec 11, 2019 10:16 | CryptingService_4273f08ae5f229f6301e7e0cc9e9005cebc4da20_2019-12-11T03:01:01.000Z | source:CryptingService2 | dummy_malware_description1 |
+| Dec 11, 2019 09:00 | NetWire | source:VirusTotal, T1060, netwire, T1056, os:Windows, type:RAT, malware:NetWire, T1082, T1116, T1113, misp-galaxy:mitre-enterprise-attack-attack-pattern=“Registry Run Keys / Start Folder - T1060”, misp-galaxy:mitre-enterprise-attack-attack-pattern=“Input Capture - T1056”, misp-galaxy:mitre-enterprise-attack-attack-pattern=“System Information Discovery - T1082”, misp-galaxy:mitre-enterprise-attack-attack-pattern=“Code Signing - T1116”, misp-galaxy:mitre-enterprise-attack-attack-pattern=“Screen Capture - T1113” | dummy_malware_description2 |
+| Dec 11, 2019 08:00 | CyberGate | source:VirusTotal, os:Windows, type:RAT, cybergate, malware:CyberGate | dummy_malware_description3 |
+| Dec 11, 2019 07:04 | ROKRAT_Nov17_1 | source:VirusTotal, T1057, T1105, T1063, os:Windows, target:SouthKorea, T1003, T1012, T1082, rokrat_nov17_1, malware:Rokrat, T1071, exfil:C2, T1102, T1041, T1056, type:RAT, T1497, T1113, misp-galaxy:mitre-enterprise-attack-attack-pattern=“Process Discovery - T1057”, misp-galaxy:mitre-enterprise-attack-attack-pattern=“Remote File Copy - T1105”, misp-galaxy:mitre-enterprise-attack-attack-pattern=“Security Software Discovery - T1063”, misp-galaxy:mitre-enterprise-attack-attack-pattern=“Credential Dumping - T1003”, misp-galaxy:mitre-enterprise-attack-attack-pattern=“Query Registry - T1012”, misp-galaxy:mitre-enterprise-attack-attack-pattern=“System Information Discovery - T1082”, misp-galaxy:mitre-enterprise-attack-attack-pattern=“Standard Application Layer Protocol - T1071”, misp-galaxy:mitre-enterprise-attack-attack-pattern=“Web Service - T1102”, misp-galaxy:mitre-enterprise-attack-attack-pattern=“Exfiltration Over Command and Control Channel - T1041”, misp-galaxy:mitre-enterprise-attack-attack-pattern=“Input Capture - T1056”, misp-galaxy:mitre-enterprise-attack-attack-pattern=“Screen Capture - T1113” | dummy_malware_description4 |
+| Dec 11, 2019 07:04 | Sodinokibi_Unreachable_After_MZ_Check | source:VirusTotal, sodinokibi_unreachable_after_mz_check | dummy_malware_description5 |
+| Dec 11, 2019 07:04 | MegaCortex_Load_Dinkum_CLib | source:VirusTotal, megacortex_load_dinkum_clib, malware:MegaCortex, type:Ransomware, os:Windows | dummy_malware_description6 |
+| Dec 11, 2019 07:04 | Command_Line_Options | source:VirusTotal, command_line_options | dummy_malware_description7 |
+| Dec 11, 2019 06:17 | CryptingService_74dd32ce57900738cba4d945e4619289ff040a9e_2019-12-11T03:01:01.000Z | source:CryptingService2 | dummy_malware_description8 |
+| Dec 11, 2019 06:03 | Gandcrab | source:VirusTotal, type:Ransomware, gandcrab, malware:GandCrab, os:Windows | dummy_malware_description9 |
+| Dec 11, 2019 06:00 | botox_lampeduza_amaterasu_output5E0600 | source:VirusTotal, botox_lampeduza_amaterasu_output5e0600 | dummy_malware_description10 |
+| Dec 11, 2019 04:17 | CryptingService_e2f163c72837c6b4386ef9158d017418ab149b13_2019-12-11T03:01:01.000Z | source:CryptingService2 | dummy_malware_description11 |
+| Dec 11, 2019 04:16 | CryptingService_2c13004c346bf79bbec61f6a65fb5b11d5c6f557_2019-12-11T02:01:02.000Z | source:CryptingService2 | dummy_malware_description12 |
+| Dec 11, 2019 04:16 | CryptingService_5eda60cd7c1d4e5dd4fc5e0d3746bd4879de3959_2019-12-11T03:01:01.000Z | source:CryptingService2 | dummy_malware_description13 |
+| Dec 11, 2019 04:16 | CryptingService_981ad08f56f265e9e7209e09e3842d8a6b7f7563_2019-12-11T03:01:01.000Z | source:CryptingService2 | dummy_malware_description14 |
+| Dec 11, 2019 04:16 | CryptingService_7dbfe923559cbb91031dbe2b616c16f5aa40233f_2019-12-11T02:01:02.000Z | source:CryptingService2 | dummy_malware_description15 |
+| Dec 11, 2019 04:00 | cobalt_beacon | source:VirusTotal, cobalt_beacon | dummy_malware_description16 |
+| Dec 10, 2019 19:00 | Loki | source:VirusTotal, type:Stealer, malware:Loki, loki, os:Windows | dummy_malware_description17 |
+| Dec 10, 2019 19:00 | crime_alina_pos_3 | source:VirusTotal, crime_alina_pos_3, type:POS, malware:Alina | dummy_malware_description18 |
+| Dec 10, 2019 19:00 | Kovter | source:VirusTotal, actor:KovCoreG, kovter, os:Windows, type:Trojan, malware:Kovter | dummy_malware_description19 |
+| Dec 10, 2019 17:24 | zeroclear Oilrig | origin:Iran, actor:APT34, malware:ransomware:zeroclear | dummy_malware_description20 |
 
 All events and details (fp-tools):
 https:/<span></span>/fp.tools/home/search/iocs
