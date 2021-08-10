@@ -2494,8 +2494,7 @@ Follow this [link](https://fp.tools/home/search/forums?query=The%20Courtyard%20C
 
 ### flashpoint-alert-list
 ***
-Retrieves an alert or a list of alerts based on the filter values provided in the command arguments.
-
+Retrieves an alert or a list of alerts based on the filter values provided in the command arguments. Yields the alerts from Flashpoint collected sources and the alerts from data exposure.
 
 #### Base Command
 
@@ -2540,6 +2539,7 @@ Retrieves an alert or a list of alerts based on the filter values provided in th
 | Flashpoint.Alerts.source.last_observed_at.raw | String | The last time this piece of data was observed by Flashpoint, as raw format. | 
 | Flashpoint.Alerts.source.last_observed_at.timestamp | Number | The last time this piece of data was observed by Flashpoint, as a timestamp. | 
 | Flashpoint.Alerts.source.native_id | String | The ID used by the original site for the resource. | 
+| Flashpoint.Alerts.source.parent_message._schema | String | The schema of the parent of this resource. | 
 | Flashpoint.Alerts.source.parent_message.basetypes | Unknown | The data types of the parent of this resource. | 
 | Flashpoint.Alerts.source.parent_message.fpid | String | The ID of the parent of this resource. | 
 | Flashpoint.Alerts.source.parent_message.native_id | String | The ID used by the original site for the parent of this resource. | 
@@ -2549,6 +2549,12 @@ Retrieves an alert or a list of alerts based on the filter values provided in th
 | Flashpoint.Alerts.source.site_actor.names.handle | String | The handle of the user who created the message, authored the blog post, or posted a product for sale. | 
 | Flashpoint.Alerts.source.sort_date | Date | Sort date of the alert. | 
 | Flashpoint.Alerts.source.title | String | The title of the alert. | 
+| Flashpoint.Alerts.source.file | String | File name for the matched alert. |
+| Flashpoint.Alerts.source.owner | String | Author of the repo. |
+| Flashpoint.Alerts.source.repo | String | Repository name. |
+| Flashpoint.Alerts.source.snippet | String | Small blob of code/text that matched the keyword. |
+| Flashpoint.Alerts.source.source | String | Code repository platform. |
+| Flashpoint.Alerts.source.url | String | Link to the alerted source. |
 | Flashpoint.PageToken.Alert.scroll_id | String | The scroll_id for the next page. | 
 | Flashpoint.PageToken.Alert.size | String | The size for the next page. | 
 | Flashpoint.PageToken.Alert.since | String | The since date for the next page. | 
@@ -2644,7 +2650,41 @@ Retrieves an alert or a list of alerts based on the filter values provided in th
                 "sort_date": "2021-07-06T14:44:47Z",
                 "title": "Untitled"
             }
-        }
+        },
+        {
+            "alert_id": "dummy_alert_id2",
+            "basetypes": [
+              "code",
+              "file",
+              "github",
+              "repository"
+            ],
+            "fpid": "dummy_fpid2",
+            "highlights": [
+              "Contribute to <x-fp-highlight>onelogin</x-fp-highlight>/<x-fp-highlight>onelogin</x-fp-highlight>-java-sdk development by creating an account on GitHub."
+            ],
+            "keyword": {
+              "keyword_id": "dummy_keyword_id2",
+              "keyword_text": "\"onelogin\""
+            },
+            "source": {
+              "basetypes": [
+                "code",
+                "file",
+                "github",
+                "repository"
+              ],
+              "file": "dummy_file",
+              "fpid": "dummy_source_fpid2",
+              "owner": "onelogin",
+              "repo": "dummy_repo",
+              "snippet": "Contribute to onelogin/onelogin-java-sdk development by creating an account on GitHub.",
+              "source": "github",
+              "url": "dummy_url"
+            },
+            "tags": {},
+            "ts": 1627491367.66599
+       }
     ],
     "count": 1,
     "links": {
