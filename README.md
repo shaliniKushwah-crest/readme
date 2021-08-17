@@ -2787,7 +2787,7 @@ Retrieves the compromised credentials based on the filter values provided in the
 | Flashpoint.CompromisedCredential._source.password_complexity.has_symbol | Boolean | Boolean true/false if symbols are present. | 
 | Flashpoint.CompromisedCredential._source.password_complexity.has_uppercase | Boolean | Boolean true/false if uppercase letters are present. | 
 | Flashpoint.CompromisedCredential._source.password_complexity.length | Number | Integer value that represents number of characters in password. | 
-| Flashpoint.CompromisedCredential._source.password_complexity.probable_hash_algorithms | String | List of possible hash algorithms suspected based on textpattern of the password \(May include values like "MD5", "SHA-1", "SHA-256", "bcrypt", etc.\) | 
+| Flashpoint.CompromisedCredential._source.password_complexity.probable_hash_algorithms | Unknown | List of possible hash algorithms suspected based on textpattern of the password \(May include values like "MD5", "SHA-1", "SHA-256", "bcrypt", etc.\) | 
 | Flashpoint.CompromisedCredential._source.times_seen | Number | Integer representing the number of times the credential has been seen at Flashpoint. | 
 | Flashpoint.CompromisedCredential._type | String | Type of the IoC. | 
 | Flashpoint.CompromisedCredential.matched_queries | Unknown | Matching queries of the IoC. | 
