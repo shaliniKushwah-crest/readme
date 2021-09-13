@@ -162,7 +162,7 @@ Retrieves all the reports based on program handle and provided arguments.
 | HackerOne.Report.data.relationships.assignee.data.attributes.signal | Number | The signal of the assignee. The number ranges from -10 to 7. The closer to 7, the higher the average submission quality of the user. | 
 | HackerOne.Report.data.relationships.assignee.data.attributes.impact | Number | The impact of the assignee. This number ranges from 0 to 50. The closer to 50, the higher the average severity of the user's reports is. | 
 | HackerOne.Report.data.relationships.assignee.data.attributes.reputation | Number | The reputation of the assignee. | 
-| HackerOne.Report.data.relationships.assignee.data.attributes.bio | Unknown | The assignee's biography, as provided by the assignee. | 
+| HackerOne.Report.data.relationships.assignee.data.attributes.bio | String | The assignee's biography, as provided by the assignee. | 
 | HackerOne.Report.data.relationships.assignee.data.attributes.website | String | The assignee's website, as provided by the assignee. | 
 | HackerOne.Report.data.relationships.assignee.data.attributes.location | String | The assignee's location, as provided by the assignee. | 
 | HackerOne.Report.data.relationships.assignee.data.attributes.hackerone_triager | Boolean | Indicates if the assignee is a hackerone triager. | 
