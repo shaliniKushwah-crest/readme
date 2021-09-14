@@ -64,34 +64,34 @@ Retrieves all the reports based on program handle and provided arguments.
 | HackerOne.Report.type | String | The type of the object of HackerOne. | 
 | HackerOne.Report.attributes.title | String | The title of the report. | 
 | HackerOne.Report.attributes.state | String | The state of the Report. It can be new, pending-program-review, triaged, needs-more-info, resolved, not-applicable, informative, duplicate, spam or retesting. | 
-| HackerOne.Report.attributes.created_at | Date | The date and time the object was created. Formatted accordingto ISO 8601. | 
+| HackerOne.Report.attributes.created_at | Date | The date and time the object was created. Formatted according to ISO 8601. | 
 | HackerOne.Report.attributes.vulnerability_information | String | Detailed information about the vulnerability including the steps to reproduce as well as supporting material and references. | 
 | HackerOne.Report.attributes.triaged_at | Date | The date and time the object was triaged. Formatted according to ISO 8601. | 
 | HackerOne.Report.attributes.closed_at | Date | The date and time the object was closed. Formatted according to ISO 8601. | 
-| HackerOne.Report.attributes.last_reporter_activity_at | String | The date and time that the most recent reporter activity was posted on the report.Formatted according to ISO 8601. | 
-| HackerOne.Report.attributes.first_program_activity_at | String | The date and time that the first program activity was posted on the report.Formatted according to ISO 8601. | 
-| HackerOne.Report.attributes.last_program_activity_at | String | The date and time that the most recent program activity was posted on the report.Formatted according to ISO 8601. | 
-| HackerOne.Report.attributes.bounty_awarded_at | String | The date and time that the most recent bounty was awarded on the report.Formatted according to ISO 8601. | 
-| HackerOne.Report.attributes.swag_awarded_at | String | The date and time that the most recent swag was awarded on the report.Formatted according to ISO 8601. | 
+| HackerOne.Report.attributes.last_reporter_activity_at | String | The date and time that the most recent reporter activity was posted on the report. Formatted according to ISO 8601. | 
+| HackerOne.Report.attributes.first_program_activity_at | String | The date and time that the first program activity was posted on the report. Formatted according to ISO 8601. | 
+| HackerOne.Report.attributes.last_program_activity_at | String | The date and time that the most recent program activity was posted on the report. Formatted according to ISO 8601. | 
+| HackerOne.Report.attributes.bounty_awarded_at | String | The date and time that the most recent bounty was awarded on the report. Formatted according to ISO 8601. | 
+| HackerOne.Report.attributes.swag_awarded_at | String | The date and time that the most recent swag was awarded on the report. Formatted according to ISO 8601. | 
 | HackerOne.Report.attributes.disclosed_at | String | The date and time the report was disclosed. Formatted according to ISO 8601. | 
-| HackerOne.Report.attributes.reporter_agreed_on_going_public_at | String | The date and time the reporter agreed for the public disclosure.Formatted according to ISO 8601. | 
-| HackerOne.Report.attributes.last_public_activity_at | String | The date and time that the most recent public activity was posted on the report.Formatted according to ISO 8601. | 
-| HackerOne.Report.attributes.last_activity_at | String | The date and time that the most recent activity was posted on the report.Formatted according to ISO 8601. | 
-| HackerOne.Report.attributes.source | String | A free-form string defining the source of the report for tracking purposes.For example, "detectify", "rapid7" or "jira". | 
-| HackerOne.Report.attributes.timer_bounty_awarded_elapsed_time | Number | The total number of seconds that have elapsed between when the timer startedand when it stopped ticking. The timer does not take weekends into account. If the field is null and the corresponding miss_at field is set, it means the timer is still counting. | 
+| HackerOne.Report.attributes.reporter_agreed_on_going_public_at | String | The date and time the reporter agreed for the public disclosure. Formatted according to ISO 8601. | 
+| HackerOne.Report.attributes.last_public_activity_at | String | The date and time that the most recent public activity was posted on the report. Formatted according to ISO 8601. | 
+| HackerOne.Report.attributes.last_activity_at | String | The date and time that the most recent activity was posted on the report. Formatted according to ISO 8601. | 
+| HackerOne.Report.attributes.source | String | A free-form string defining the source of the report for tracking purposes. For example, "detectify", "rapid7" or "jira". | 
+| HackerOne.Report.attributes.timer_bounty_awarded_elapsed_time | Number | The total number of seconds that have elapsed between when the timer started and when it stopped ticking. The timer does not take weekends into account. If the field is null and the corresponding miss_at field is set, it means the timer is still counting. | 
 | HackerOne.Report.attributes.timer_bounty_awarded_miss_at | Date | The date and time the system expects the program to have awarded a bounty by. The field is null when the system does not expect the report to receive a bounty at the time. | 
-| HackerOne.Report.attributes.timer_first_program_response_miss_at | Date | The date and time the system expects the program to have posted an initialpublic comment to the report by. | 
-| HackerOne.Report.attributes.timer_first_program_response_elapsed_time | Number | The total number of seconds that have elapsed between when the timer startedand when it stopped ticking. The timer does not take weekends into account. If the field is null and the corresponding miss_at field is set, it means the timer is still counting. | 
-| HackerOne.Report.attributes.timer_report_resolved_miss_at | Date | The date and time the system expects the program to have closed the report by.The field is null when the report seems blocked by the reporter. | 
-| HackerOne.Report.attributes.timer_report_resolved_elapsed_time | Number | The total number of seconds that have elapsed between when the timer startedand when it stopped ticking. The timer does not take weekends into account. If the  field is null and the corresponding miss_at field is set, it means the timer is still counting. | 
+| HackerOne.Report.attributes.timer_first_program_response_miss_at | Date | The date and time the system expects the program to have posted an initial public comment to the report by. | 
+| HackerOne.Report.attributes.timer_first_program_response_elapsed_time | Number | The total number of seconds that have elapsed between when the timer started and when it stopped ticking. The timer does not take weekends into account. If the field is null and the corresponding miss_at field is set, it means the timer is still counting. | 
+| HackerOne.Report.attributes.timer_report_resolved_miss_at | Date | The date and time the system expects the program to have closed the report by. The field is null when the report seems blocked by the reporter. | 
+| HackerOne.Report.attributes.timer_report_resolved_elapsed_time | Number | The total number of seconds that have elapsed between when the timer started and when it stopped ticking. The timer does not take weekends into account. If the  field is null and the corresponding miss_at field is set, it means the timer is still counting. | 
 | HackerOne.Report.attributes.timer_report_triage_miss_at | Date | The date and time the system expects the program to have triaged the report by. The  field is null when the system does not expect the report to be triaged at the time. | 
-| HackerOne.Report.attributes.timer_report_triage_elapsed_time | Number | The total number of seconds that have elapsed between when the timer startedand when it stopped ticking. The timer does not take weekends into account. If the field is null and the corresponding miss_at field is set, it means the timer is still counting. | 
+| HackerOne.Report.attributes.timer_report_triage_elapsed_time | Number | The total number of seconds that have elapsed between when the timer started and when it stopped ticking. The timer does not take weekends into account. If the field is null and the corresponding miss_at field is set, it means the timer is still counting. | 
 | HackerOne.Report.relationships.reporter.data.id | String | The unique ID of the reporter. | 
 | HackerOne.Report.relationships.reporter.data.type | String | The type of the object of HackerOne. | 
 | HackerOne.Report.relationships.reporter.data.attributes.username | String | The username of the reporter. | 
 | HackerOne.Report.relationships.reporter.data.attributes.name | String | The name of the reporter. | 
 | HackerOne.Report.data.relationships.reporter.data.attributes.disabled | Boolean | Indicates if the reporter is disabled. | 
-| HackerOne.Report.data.relationships.reporter.data.attributes.created_at | String | The date and time the object was created. Formatted accordingto ISO 8601. | 
+| HackerOne.Report.data.relationships.reporter.data.attributes.created_at | String | The date and time the object was created. Formatted according to ISO 8601. | 
 | HackerOne.Report.data.relationships.reporter.data.attributes.profile_picture.62x62 | String | URL of the profile photo of a reporter of size 62x62. | 
 | HackerOne.Report.data.relationships.reporter.data.attributes.profile_picture.82x82 | String | URL of the profile photo of a reporter of size 82x82. | 
 | HackerOne.Report.data.relationships.reporter.data.attributes.profile_picture.110x110 | String | URL of the profile photo of a reporter of size 110x110. | 
@@ -99,7 +99,7 @@ Retrieves all the reports based on program handle and provided arguments.
 | HackerOne.Report.data.relationships.reporter.data.attributes.bio | String | The reporter's biography, as provided by the reporter. | 
 | HackerOne.Report.data.relationships.reporter.data.attributes.reputation | Number | The reputation of the reporter. | 
 | HackerOne.Report.data.relationships.reporter.data.attributes.signal | Number | The signal of the reporter. This number ranges from -10 to 7. The closer to 7, the higher the average submission quality of the reporter. | 
-| HackerOne.Report.data.relationships.reporter.data.attributes.impact | Number | The impact of the reporter. This number ranges from 0 to 50. The closer to 50,the higher the average severity of the reporter's reports is. | 
+| HackerOne.Report.data.relationships.reporter.data.attributes.impact | Number | The impact of the reporter. This number ranges from 0 to 50. The closer to 50, the higher the average severity of the reporter's reports is. | 
 | HackerOne.Report.data.relationships.reporter.data.attributes.website | String | The reporter's website, as provided by the reporter. | 
 | HackerOne.Report.data.relationships.reporter.data.attributes.location | String | The reporter's location, as provided by the reporter. | 
 | HackerOne.Report.data.relationships.reporter.data.attributes.hackerone_triager | Boolean | Indicates if the reporter is a hackerone triager. | 
@@ -120,7 +120,7 @@ Retrieves all the reports based on program handle and provided arguments.
 | HackerOne.Report.data.relationships.severity.data.attributes.availability | String | A CVSS metric that measures the availability of the impacted component resulting from a successfully exploited vulnerability. | 
 | HackerOne.Report.data.relationships.severity.data.attributes.confidentiality | String | A CVSS metric that measures the impact to the confidentiality of the information resources managed by a software component due to a successfully exploited vulnerability. | 
 | HackerOne.Report.data.relationships.severity.data.attributes.integrity | String | A CVSS metric that measures the impact to the integrity of a successfully exploited vulnerability. | 
-| HackerOne.Report.data.relationships.severity.data.attributes.privileges_required | String | A CVSS metric that describes the level of privileges an attacker must possess beforesuccessfully exploiting the vulnerability. | 
+| HackerOne.Report.data.relationships.severity.data.attributes.privileges_required | String | A CVSS metric that describes the level of privileges an attacker must possess before successfully exploiting the vulnerability. | 
 | HackerOne.Report.data.relationships.severity.data.attributes.user_interaction | String | A CVSS metric that captures the requirement for a user, other than the attacker, to participate in the successful compromise of the vulnerability component. | 
 | HackerOne.Report.data.relationships.severity.data.attributes.scope | String | A CVSS metric that determines if a successful attack impacts a component other than the vulnerable component. | 
 | HackerOne.Report.data.relationships.weakness.data.id | String | The unique ID of the weakness. | 
@@ -152,7 +152,7 @@ Retrieves all the reports based on program handle and provided arguments.
 | HackerOne.Report.data.relationships.assignee.data.type | String | The type of the object of HackerOne. | 
 | HackerOne.Report.data.relationships.assignee.data.attributes.name | Unknown | The name of the assignee. | 
 | HackerOne.Report.data.relationships.assignee.data.attributes.created_at | String | The date and time the object was created. Formatted according to ISO 8601. | 
-| HackerOne.Report.data.relationships.assignee.data.attributes.permissions | String | The permissions of the group/user. Possible values are reward_management,program_management, user_management, and report_management. | 
+| HackerOne.Report.data.relationships.assignee.data.attributes.permissions | String | The permissions of the group/user. Possible values are reward_management, program_management, user_management, and report_management. | 
 | HackerOne.Report.data.relationships.assignee.data.attributes.username | String | The username of the assignee. | 
 | HackerOne.Report.data.relationships.assignee.data.attributes.disabled | Boolean | Indicates if the assignee is disabled. | 
 | HackerOne.Report.data.relationships.assignee.data.attributes.profile_picture.62x62 | String | URL of the profile photo of the assignee of size 62x62. | 
