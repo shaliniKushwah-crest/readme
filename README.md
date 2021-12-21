@@ -38,8 +38,8 @@ Find data classification hits on an object.
 
 | **Argument Name** | **Description** | **Required** |
 | --- | --- | --- |
-| objectName | The name of the Rubrik object to check for sensitive hits.  When used in combination with "Rubrik Radar Anomaly" incidents, this value will automatically be looked up using the incident context. Otherwise it is a required value.<br/><br/>Note: Users can get the list of the object names by executing the "rubrik-polaris-object-list" or "rubrik-polaris-object-search" command.<br/>. | Optional | 
-| searchTimePeriod | The number of days in the past to look for sensitive hits. If no value is provided, then today's data will be returned and, if there is no data for today then the argument will default to 7 days.<br/>. Default is 7. | Optional | 
+| objectName | The name of the Rubrik object to check for sensitive hits.  When used in combination with "Rubrik Radar Anomaly" incidents, this value will automatically be looked up using the incident context. Otherwise it is a required value.<br/><br/>Note: Users can get the list of the object names by executing the "rubrik-polaris-object-list" or "rubrik-polaris-object-search" command. | Optional | 
+| searchTimePeriod | The number of days in the past to look for sensitive hits. If no value is provided, then today's data will be returned and, if there is no data for today then the argument will default to 7 days.<br/> Default is 7. | Optional | 
 
 
 #### Context Output
@@ -153,8 +153,8 @@ Search for Rubrik discovered objects of any type, return zero or more matches.
 | --- | --- | --- |
 | limit | Number of results to retrieve in the response. Maximum size allowed is 1000. Default is 50. | Optional | 
 | object_name | The name of the object to search for. | Required | 
-| sort_by | Specify the field to use for sorting the response.<br/><br/>Note: Supported values are "ID" and "NAME" only. For any other values, the obtained result is sorted or not is not confirmed. Possible values are: ID, NAME. Default is ID. | Optional | 
-| sort_order | Specify the order to sort the data in.<br/><br/>Possible values are: "ASC", "DESC". Possible values are: ASC, DESC. Default is ASC. | Optional | 
+| sort_by | Specify the field to use for sorting the response.<br/><br/>Note: Supported values are "ID" and "NAME" only. For any other values, the obtained result is sorted or not is not confirmed. Default is ID. | Optional | 
+| sort_order | Specify the order to sort the data in.<br/><br/>Possible values are: "ASC", "DESC". Default is ASC. | Optional | 
 | next_page_token | The next page cursor to retrieve the next set of results. | Optional | 
 
 
@@ -204,7 +204,7 @@ Search for Rubrik discovered objects of any type, return zero or more matches.
 | 0f667954-9052-42c8-ac20-2149da4d0ec4 | Hoang-Admin Nguyen | O365Mailbox | UNPROTECTED |
 | 3e5d0800-71f6-4e42-badc-ae8b98c8a808 | Admin o365 | O365Mailbox | UNPROTECTED |
 
- Note: To retrieve the next set of results use, "next_page_token" = Y3Vyc29yOmludDox
+ Note: To retrieve the next set of results use, "next_page_token" = xyz
 
 
 ### rubrik-sonar-policies-list
@@ -399,11 +399,11 @@ Retrieve a list of all the objects of the Vsphere Vm known to the Rubrik.
 
 | **Argument Name** | **Description** | **Required** |
 | --- | --- | --- |
-| is_relic | Filter based on whether VM objects are moved to relic/archive or not.<br/><br/>Possible values are: "True", "False". Possible values are: True, False. | Optional | 
-| is_replicated | Filter based on whether VM objects are replicated or not.<br/><br/>Possible values are: "True", "False". Possible values are: True, False. | Optional | 
+| is_relic | Filter based on whether VM objects are moved to relic/archive or not.<br/><br/>Possible values are: "True", "False". | Optional | 
+| is_replicated | Filter based on whether VM objects are replicated or not.<br/><br/>Possible values are: "True", "False". | Optional | 
 | limit | Number of results to retrieve in the response. Maximum size allowed is 1000. Default is 50. | Optional | 
-| sort_by | Specify the field to use for sorting the response.<br/><br/>Note: Supported values are "ID" and "NAME" only. For any other values, the obtained result is sorted or not is not confirmed. Possible values are: ID, NAME. Default is ID. | Optional | 
-| sort_order | Specify the order to sort the data in.<br/><br/>Possible values are: "ASC", "DESC". Possible values are: ASC, DESC. Default is ASC. | Optional | 
+| sort_by | Specify the field to use for sorting the response.<br/><br/>Note: Supported values are "ID" and "NAME" only. For any other values, the obtained result is sorted or not is not confirmed. Default is ID. | Optional | 
+| sort_order | Specify the order to sort the data in.<br/><br/>Possible values are: "ASC", "DESC". Default is ASC. | Optional | 
 | next_page_token | The next page cursor to retrieve the next set of results. | Optional | 
 
 
@@ -462,7 +462,7 @@ Retrieve a list of all the objects of the Vsphere Vm known to the Rubrik.
 | 0242e84c-773a-5877-b955-1d52765ac852 | sx1-ganebala-l1 | VirtualMachine:::868aa03d-4145-4cb1-808b-e10c4f7a3741-vm-206037 | sand1-rbk01 | VmwareVirtualMachine | DO_NOT_PROTECT | Direct | 0 | Unregistered | 0 | 0 |
 | 0556f691-b750-556c-baea-800dbb2920e7 | linux-a-Fri Feb 15 2019 04:43:40 GMT+0000 (Greenwich Mean Time)-9P4t | VirtualMachine:::d2f41f4b-5d53-4063-a618-25046a0f4c7d-vm-35806 | sand1-rbk01 | VmwareVirtualMachine | UNPROTECTED | Unassigned | 34 | Unregistered | 0 | 1.115023609 GB |
 
- Note: To retrieve the next set of results use, "next_page_token" = Y3Vyc29yOmludDox
+ Note: To retrieve the next set of results use, "next_page_token" = xyz
 
 
 ### rubrik-sonar-ondemand-scan
@@ -479,7 +479,7 @@ Note: To know the scan status use the "rubrik-sonar-ondemand-scan-status" comman
 
 | **Argument Name** | **Description** | **Required** |
 | --- | --- | --- |
-| scan_name | Name of the scan. If not provided, it defaults to "&lt;today's date&gt; Classification".<br/>. | Optional | 
+| scan_name | Name of the scan. If not provided, it defaults to "&lt;today's date&gt; Classification". | Optional | 
 | sonar_policy_analyzer_groups | List of sonar policies to scan.<br/><br/>Note: Users can get the list of analyzer groups by executing the "rubrik-sonar-policy-analyzer-groups-list" command. <br/><br/>Format Accepted: <br/>[<br/>        {<br/>            "id": "543dd5e0-c72c-50e2-a3d9-1688343f472c",<br/>            "name": "HIPAA",<br/>            "groupType": "HIPAA",<br/>            "analyzers": [<br/>                {<br/>                    "id": "9da675b3-944b-5da3-a2da-ed149d300075",<br/>                    "name": "US/UK Passport",<br/>                    "analyzerType": "PASSPORT"<br/>                },<br/>                {<br/>                    "id": "18665533-c28c-5a40-b747-4b6508fecdfa",<br/>                    "name": "US NPI",<br/>                    "analyzerType": "US_HEALTHCARE_NPI"<br/>                }<br/>            ]<br/>      }<br/>]. | Required | 
 | objects_to_scan | List of VM object IDs to scan.<br/><br/>Note: Users can get the list of VM object IDs by executing the "rubrik-polaris-vm-objects-list" command. | Required | 
 
@@ -578,12 +578,12 @@ Search for a Rubrik snapshot of  an object based on the  provided snapshot ID, e
 | **Argument Name** | **Description** | **Required** |
 | --- | --- | --- |
 | object_id | The object ID for which the snapshots are to be searched.<br/><br/>Note: Users can get the list of the object IDs by executing the "rubrik-polaris-vm-objects-list" command. | Required | 
-| snapshot_group_by | Grouping the snapshots on the basis of the selected value.<br/><br/>Possible values are: "Month", "Day", "Year", "Week", "Hour", "Quarter". Possible values are: Month, Day, Year, Week, Hour, Quarter. Default is Day. | Optional | 
-| missed_snapshot_group_by | Grouping the missed snapshots on the basis of the selected value.<br/><br/>Possible values are: "Month", "Day", "Year", "Week", "Hour", "Quarter". Possible values are: Month, Day, Year, Week, Hour, Quarter. Default is Day. | Optional | 
+| snapshot_group_by | Grouping the snapshots on the basis of the selected value.<br/><br/>Possible values are: "Month", "Day", "Year", "Week", "Hour", "Quarter". Default is Day. | Optional | 
+| missed_snapshot_group_by | Grouping the missed snapshots on the basis of the selected value.<br/><br/>Possible values are: "Month", "Day", "Year", "Week", "Hour", "Quarter". Default is Day. | Optional | 
 | start_date | The start date to get snapshots from.<br/><br/>Formats accepted: 2 minutes, 2 hours, 2 days, 2 weeks, 2 months, 2 years, yyyy-mm-dd, yyyy-mm-ddTHH:MM:SSZ, etc. | Required | 
 | end_date | The end date to get snapshots until.<br/><br/>Formats accepted: 2 minutes, 2 hours, 2 days, 2 weeks, 2 months, 2 years, yyyy-mm-dd, yyyy-mm-ddTHH:MM:SSZ, etc. | Required | 
 | timezone_offset | The timezone offset from UTC changes to match the configured time zone. Use this argument to filter the data according to the provided timezone offset.<br/><br/>Formats accepted: 1, 1.5, 2, 2.5, 5.5, etc. | Required | 
-| cluster_connected | Whether the cluster is connected or not.<br/><br/>Possible values are: "True", "False". Possible values are: True, False. Default is True. | Optional | 
+| cluster_connected | Whether the cluster is connected or not.<br/><br/>Possible values are: "True", "False". Default is True. | Optional | 
 
 
 #### Context Output
@@ -624,7 +624,7 @@ Retrieve the download link for the requested scanned file.
 | **Argument Name** | **Description** | **Required** |
 | --- | --- | --- |
 | crawl_id | ID for which file needs to be downloaded.<br/><br/>Note: Users can get the crawl_id by executing the "rubrik-sonar-ondemand-scan" command. | Required | 
-| file_type | The type of the file that needs to be downloaded.<br/><br/>Possible values are: "ANY", "HITS", "STALE", "OPEN_ACCESS", "STALE_HITS", "OPEN_ACCESS_HITS". Possible values are: ANY, HITS, STALE, OPEN_ACCESS, STALE_HITS, OPEN_ACCESS_HITS. | Required | 
+| file_type | The type of the file that needs to be downloaded.<br/><br/>Possible values are: "ANY", "HITS", "STALE", "OPEN_ACCESS", "STALE_HITS", "OPEN_ACCESS_HITS". | Required | 
 
 
 #### Context Output
@@ -660,7 +660,7 @@ Request for the analysis and retrieve the download link for the Radar CSV analyz
 | --- | --- | --- |
 | cluster_id | The unique ID of the cluster.<br/><br/>Note: Users can retrieve the list of the cluster IDs by executing the "rubrik-gps-cluster-list" command. | Required | 
 | snapshot_id | The snapshot ID.<br/><br/>Note: Users can retrieve the list of snapshot IDs by executing the "rubrik-polaris-vm-object-snapshot-list" command. | Required | 
-| object_id | The VM object ID.<br/><br/>Note: Users can retrieve the list of object IDs by executing the "rubrik-polaris-vm-object-list" command. | Required | 
+| object_id | The VM object ID.<br/><br/>Note: Users can retrieve the list of object IDs by executing the "rubrik-polaris-vm-objects-list" command. | Required | 
 
 
 #### Context Output
@@ -700,7 +700,7 @@ Note: To know the ID and status of the download, use the "rubrik-user-downloads-
 | --- | --- | --- |
 | snapshot_id | ID of the snapshot.<br/><br/>Note: Users can retrieve the list of snapshot IDs by executing the "rubrik-polaris-vm-object-snapshot-list"  command. | Required | 
 | object_id | Object ID.<br/><br/>Note: Users can retrieve the list of object IDs by executing "rubrik-polaris-vm-objects-list" command. | Required | 
-| file_type | The type of the file that needs to be downloaded.<br/><br/>Possible values are: "ANY", "HITS", "STALE", "OPEN_ACCESS", "STALE_HITS", "OPEN_ACCESS_HITS". Possible values are: ANY, HITS, STALE, OPEN_ACCESS, STALE_HITS, OPEN_ACCESS_HITS. | Optional | 
+| file_type | The type of the file that needs to be downloaded.<br/><br/>Possible values are: "ANY", "HITS", "STALE", "OPEN_ACCESS", "STALE_HITS", "OPEN_ACCESS_HITS". | Optional | 
 
 
 #### Context Output
@@ -770,7 +770,8 @@ Note: To initiate the file download request use the "rubrik-gps-snapshot-files-d
 |---|---|---|---|---|
 | C: | /C: | C: | DIRECTORY | 2020-10-05T18:56:18.000Z |
 | disk_0_part_1 | /disk_0_part_1 |  | DIRECTORY | 2018-06-14T00:47:18.000Z |
-Note: To retrieve the next set of results use, "next_page_token" = Y3Vyc29yOmludDox
+
+Note: To retrieve the next set of results use, "next_page_token" = xyz
 
 
 ### rubrik-gps-vm-export
@@ -793,11 +794,11 @@ Note: To know about the exported VM's status, use the "rubrik-gps-async-result" 
 | datastore_id | The ID of the datastore which will be used by the new VM.<br/><br/>Note: Users can get the list of  datastore IDs by executing the "rubrik-gps-vm-datastore-list" command. | Required | 
 | host_id | The ID of the Vsphere ESXi host on which the new VM will be made. Either host_id or host_compute_cluster_id must be provided.\n<br/>Note: Users can get the list of host IDs by executing the "rubrik-gps-vm-host-list" command. | Optional | 
 | host_compute_cluster_id | The ID of the VSphere Compute Cluster of a host. Either host_id or host_compute_cluster_id must be provided. <br/><br/>Note: Users can get the list of Compute Cluster IDs by executing the "rubrik-gps-vm-host-list" command. The ID must belong to the VSphereComputeCluster objectType. | Optional | 
-| power_on | Whether to turn on the new VM or not.<br/><br/>Possible values are: "True", "False". Possible values are: True, False. | Optional | 
-| keep_mac_addresses | Whether the mac addresses of network devices of the new VM be removed or not.<br/><br/>Possible values are: "True", "False". Possible values are: True, False. | Optional | 
-| remove_network_devices | Whether the network devices on the original VM be kept or not.<br/><br/>Possible values are: "True", "False". Possible values are: True, False. | Optional | 
-| recover_tags | Whether to keep vSphere tags associated with the original VM or not.<br/><br/>Possible values are: "True", "False". Possible values are: True, False. | Optional | 
-| disable_network | Whether to disable networking on the new VM or not.<br/><br/>Possible values are: "True", "False". Possible values are: True, False. | Optional | 
+| power_on | Whether to turn on the new VM or not.<br/><br/>Possible values are: "True", "False". | Optional | 
+| keep_mac_addresses | Whether the mac addresses of network devices of the new VM be removed or not.<br/><br/>Possible values are: "True", "False". | Optional | 
+| remove_network_devices | Whether the network devices on the original VM be kept or not.<br/><br/>Possible values are: "True", "False". | Optional | 
+| recover_tags | Whether to keep vSphere tags associated with the original VM or not.<br/><br/>Possible values are: "True", "False". | Optional | 
+| disable_network | Whether to disable networking on the new VM or not.<br/><br/>Possible values are: "True", "False". | Optional | 
 
 
 #### Context Output
@@ -871,9 +872,9 @@ Enumerates the available SLA Domains to apply to the on-demand snapshot as a ret
 | name | Name of the SLA Domain to search for. | Optional | 
 | cluster_id | Cluster, the SLA domain is managed by.<br/><br/>Note: Users can retrieve the list of the cluster IDs by executing the "rubrik-gps-cluster-list" command. | Optional | 
 | object_type | Filters SLA domain based on the provided object types. Supports comma separated values. <br/><br/>Possible values are: "FILESET_OBJECT_TYPE", "VSPHERE_OBJECT_TYPE". | Optional | 
-| show_cluster_slas_only | Whether to show Cluster SLAs and not Global SLAs. "False" value will result in showing only Global SLAs. <br/><br/>Possible values are: "True", "False". Possible values are: True, False. Default is True. | Optional | 
-| sort_by | Specify the field to use for sorting the response.<br/><br/>Possible values are: "NAME", "PROTECTED_OBJECT_COUNT". Possible values are: NAME, PROTECTED_OBJECT_COUNT. Default is NAME. | Optional | 
-| sort_order | Specify the order to sort the data in.<br/><br/>Possible values are: "ASC", "DESC". Possible values are: ASC, DESC. Default is ASC. | Optional | 
+| show_cluster_slas_only | Whether to show Cluster SLAs and not Global SLAs. "False" value will result in showing only Global SLAs. <br/><br/>Possible values are: "True", "False". Default is True. | Optional | 
+| sort_by | Specify the field to use for sorting the response.<br/><br/>Possible values are: "NAME", "PROTECTED_OBJECT_COUNT". Default is NAME. | Optional | 
+| sort_order | Specify the order to sort the data in.<br/><br/>Possible values are: "ASC", "DESC". Default is ASC. | Optional | 
 | limit | The number of results to retrieve in the response. Maximum allowed size is 1000. Default is 50. | Optional | 
 | next_page_token | The next page cursor to retrieve the next set of results. | Optional | 
 
@@ -963,7 +964,7 @@ Enumerates the available SLA Domains to apply to the on-demand snapshot as a ret
 | 00000000-0000-0000-0000-000000000002 | Bronzecd | 1 Days | 0 | AWS S3:bucket-1234 | Rubrik default Bronze level SLA Domain policy | sand2-rbk01 | sand2-rbk02 |
 | 00000000-0000-0000-0000-000000000000 | Gold | 4 Hours | 0 |  | Rubrik default Gold level SLA Domain policy | sand2-rbk01 |  |
 
- Note: To retrieve the next set of results use, "next_page_token" = Y3Vyc29yOmludDox
+ Note: To retrieve the next set of results use, "next_page_token" = xyz
 
 
 
@@ -1034,7 +1035,7 @@ Note: To know about the status of the on-demand snapshot creation, use the "rubr
 ### GPS VM Snapshot
 |On-Demand Snapshot Request ID|Status|
 |---|---|
-| CREATE_VMWARE_SNAPSHOT_868aa03d-4145-4cb1-808b-e10c4f7a3741-vm-247778_a64de851-7033-4b7f-b43b-9d56ce867c37:::0 | QUEUED |
+| dummy_id | QUEUED |
 
 
 
@@ -1094,11 +1095,11 @@ Note: To know about the live mount status, use the "rubrik-gps-async-result" com
 | snapshot_id | The ID of the snapshot that is to be mounted.<br/><br/>Note: Users can get the snapshot ID by executing the "rubrik-polaris-vm-object-snapshot-list" command. | Required | 
 | host_id | The ID of the Vsphere ESXi host on which the new VM will be mounted.<br/><br/>Note: Users can get the list of host IDs by executing the "rubrik-gps-vm-host-list" command. | Optional | 
 | vm_name | Name given to the VM that runs the snapshot. If not provided the name will be "&lt;Snapshot VM Name&gt; &lt;MM/DD of snapshot creation&gt; &lt;hh/mm of snapshot creation&gt; &lt;Num&gt;". | Optional | 
-| power_on | Whether to power on the mount or not.<br/><br/>Possible values are: "True", "False". Possible values are: True, False. Default is True. | Optional | 
-| keep_mac_addresses | Whether the mac addresses of network devices be removed or not.<br/><br/>Possible values are: "True", "False". Possible values are: True, False. Default is False. | Optional | 
-| remove_network_devices | Whether the network devices of the original VM be kept.<br/><br/>Possible values are: "True", "False". Possible values are: True, False. Default is False. | Optional | 
-| disable_network | Whether to disable networking on the mount or not.<br/><br/>Possible values are: "True", "False". Possible values are: True, False. | Optional | 
-| recover_tags | Whether to keep vSphere tags associated with the VM or not.<br/><br/>Possible values are: "True", "False". Possible values are: True, False. Default is True. | Optional | 
+| power_on | Whether to power on the mount or not.<br/><br/>Possible values are: "True", "False". Default is True. | Optional | 
+| keep_mac_addresses | Whether the mac addresses of network devices be removed or not.<br/><br/>Possible values are: "True", "False". Default is False. | Optional | 
+| remove_network_devices | Whether the network devices of the original VM be kept.<br/><br/>Possible values are: "True", "False". Default is False. | Optional | 
+| disable_network | Whether to disable networking on the mount or not.<br/><br/>Possible values are: "True", "False". | Optional | 
+| recover_tags | Whether to keep vSphere tags associated with the VM or not.<br/><br/>Possible values are: "True", "False". Default is True. | Optional | 
 | datastore_name | The name of the datastore that the live mount uses.<br/><br/>Note: Users can get the datastore name by executing the "rubrik-gps-vm-datastore-list" command. | Optional | 
 
 
@@ -1136,8 +1137,8 @@ Retrieve the list of available Vsphere Hosts.
 | cluster_id | To list hosts from the specific cluster.<br/><br/>Note: Users can retrieve the list of the cluster IDs by executing the "rubrik-gps-cluster-list" command. | Optional | 
 | limit | Number of results to retrieve in the response. Maximum size allowed is 1000. Default is 50. | Optional | 
 | next_page_token | The next page cursor to retrieve the next set of results. | Optional | 
-| sort_by | Specify the field to use for sorting the response.<br/><br/>Note: Supported values are "ID" and "NAME" only. For any other values, the obtained result is sorted or not is not confirmed. Possible values are: ID, NAME. Default is ID. | Optional | 
-| sort_order | Specify the order to sort the data in.<br/><br/>Possible values are: "ASC", "DESC". Possible values are: ASC, DESC. Default is ASC. | Optional | 
+| sort_by | Specify the field to use for sorting the response.<br/><br/>Note: Supported values are "ID" and "NAME" only. For any other values, the obtained result is sorted or not is not confirmed. Default is ID. | Optional | 
+| sort_order | Specify the order to sort the data in.<br/><br/>Possible values are: "ASC", "DESC". Default is ASC. | Optional | 
 
 
 #### Context Output
@@ -1181,8 +1182,8 @@ Retrieve the list of the available datastores on a Vsphere Host.
 | host_id | The ID of a Vsphere host whose datastores are to be listed.<br/><br/>Note: Users can get the list of host IDs by executing the "rubrik-gps-vm-host-list" command. | Required | 
 | limit | Number of results to retrieve in the response. Maximum size allowed is 1000. Default is 50. | Optional | 
 | next_page_token | The next page cursor to retrieve the next set of results. | Optional | 
-| sort_by | Specify the field to use for sorting the response.<br/><br/>Note: Supported values are "ID" and "NAME" only. For any other values, the obtained result is sorted or not is not confirmed. Possible values are: ID, NAME. Default is ID. | Optional | 
-| sort_order | Specify the order to sort the data in.<br/><br/>Possible values are: "ASC", "DESC". Possible values are: ASC, DESC. Default is ASC. | Optional | 
+| sort_by | Specify the field to use for sorting the response.<br/><br/>Note: Supported values are "ID" and "NAME" only. For any other values, the obtained result is sorted or not is not confirmed. Default is ID. | Optional | 
+| sort_order | Specify the order to sort the data in.<br/><br/>Possible values are: "ASC", "DESC". Default is ASC. | Optional | 
 
 
 #### Context Output
@@ -1192,9 +1193,9 @@ Retrieve the list of the available datastores on a Vsphere Host.
 | RubrikPolaris.GPSVMHost.id | String | ID of the Vsphere host. | 
 | RubrikPolaris.GPSVMHost.Datastore.id | String | ID of the Vsphere datastore. | 
 | RubrikPolaris.GPSVMHost.Datastore.name | String | Name of the Vsphere datastore. | 
-| RubrikPolaris.GPSVMHost.Datastore.capacity | String | Datastore capacity in bytes. | 
+| RubrikPolaris.GPSVMHost.Datastore.capacity | Number | Datastore capacity in bytes. | 
 | RubrikPolaris.GPSVMHost.Datastore.isLocal | Boolean | Whether the datastore is local or remote. | 
-| RubrikPolaris.GPSVMHost.Datastore.freeSpace | String | Free space on the datastore in bytes. | 
+| RubrikPolaris.GPSVMHost.Datastore.freeSpace | Number | Free space on the datastore in bytes. | 
 | RubrikPolaris.GPSVMHost.Datastore.datastoreType | String | Type of datastore, for example, "NFS",  "VMFS" etc. | 
 | RubrikPolaris.PageToken.GPSVMHost.Datastore.next_page_token | String | Next page token. | 
 | RubrikPolaris.PageToken.GPSVMHost.Datastore.name | String | Name of the command. | 
@@ -1228,14 +1229,14 @@ Retrieve the list of events.
 | activity_type | Filter the events based on provided activity types. Supports comma separated values.<br/><br/>Possible values are: "Sync", "LocalRecovery", "TestFailover", "Anomaly", "RadarAnalysis", "Archive", "VolumeGroup", "VCenter", "Index", "CloudNativeVirtualMachine", "StormResource", "HostEvent", "Recovery", "Conversion", "CloudNativeVm", "EmbeddedEvent", "Maintenance", "Failover", "AuthDomain", "LegalHold", "Vcd", "Instantiate", "Configuration", "Fileset", "Discovery", "System", "Hdfs", "Classification", "StorageArray", "Storage", "Backup", "Hardware", "HypervServer", "HypervScvmm", "Diagnostic", "UnknownEventType", "Upgrade", "NutanixCluster", "Replication", "AwsEvent", "Support", "CloudNativeSource", "Download", "Connection", "ResourceOperations". | Optional | 
 | severity | Filter the events based on provided severities. Supports comma separated values.<br/><br/>Possible values are: "Critical", "Warning", "Info". | Optional | 
 | object_name | Filter out events based on object name.<br/><br/>Note: Users can get the object names by executing the "rubrik-polaris-vm-objects-list" or "rubrik-polaris-object-search" command. | Optional | 
-| object_type | Filter the events based on provided object types. Supports comma separated values.<br/><br/>Possible values are: "ShareFileset", "NutanixVm", "VolumeGroup", "HypervVm", "LinuxFileset", "WindowsFileset", "VmwareVm".<br/><br/>Additional values can be found in the documentation. | Optional | 
+| object_type | Filter the events based on provided object types. Supports comma separated values.<br/><br/>Possible values are: "ShareFileset", "NutanixVm", "VolumeGroup", "HypervVm", "LinuxFileset", "WindowsFileset", "VmwareVm", "ManagedVolume", "CASSANDRA_KEYSPACE", "KuprNamespace", "O365Group", "StorageLocation", "AwsNativeEbsVolume", "O365Mailbox", "JobInstance", "Storm", "Ldap", "Db2Database", "AwsEventType", "AzureNativeVm", "Db2Instance", "SmbDomain", "VmwareComputeCluster", "AwsAccount", "SupportBundle", "AwsNativeRdsInstance", "O365Site", "ObjectProtection", "PolarisEc2Instance", "CASSANDRA_SOURCE", "AwsNativeEc2Instance", "PolarisEbsVolume", "CapacityBundle", "DataLocation", "PolarisAccount", "NasHost", "FailoverClusterApp", "OracleHost", "Host", "OracleDb", "CloudNativeVirtualMachine", "WindowsHost", "O365Team", "Certificate", "PublicCloudMachineInstance", "GcpNativeDisk", "AwsNativeAccount", "CloudNativeVm", "Envoy", "LinuxHost", "AuthDomain", "VcdVapp", "Vcd", "SapHanaDb", "ComputeInstance", "AzureNativeDisk", "Mssql", "SlaDomain", "SnapMirrorCloud", "Cluster", "O365Calendar", "O365SharePointDrive", "SapHanaSystem", "Oracle", "O365Onedrive", "Hdfs", "Ec2Instance", "GcpNativeProject", "UnknownObjectType", "SamlSso", "StorageArray", "AzureSqlDatabase", "Vcenter", "HypervServer", "HypervScvmm", "AppBlueprint", "StorageArrayVolumeGroup", "O365SharePointList", "Upgrade", "NutanixCluster", "AzureNativeSubscription", "User", "Exocompute", "KuprCluster", "OracleRac", "AzureSqlManagedInstance", "CASSANDRA_COLUMN_FAMILY", "O365Organization", "GcpNativeGceInstance". | Optional | 
 | cluster_id | Filter the events based on provided cluster IDs. Supports comma separated values.<br/><br/>Note: Users can get the list of cluster IDs by executing the "rubrik-gps-cluster-list" command. | Optional | 
 | start_date | The start date to fetch updated events from.<br/><br/>Formats accepted: 2 minutes, 2 hours, 2 days, 2 weeks, 2 months, 2 years, yyyy-mm-dd, yyyy-mm-ddTHH:MM:SSZ, etc. | Optional | 
 | end_date | The end date to fetch updated events until.<br/><br/>Formats accepted: 2 minutes, 2 hours, 2 days, 2 weeks, 2 months, 2 years, yyyy-mm-dd, yyyy-mm-ddTHH:MM:SSZ, etc. | Optional | 
 | limit | Number of results to retrieve in the response. Maximum size allowed is 1000. Default is 50. | Optional | 
 | next_page_token | The next page cursor to retrieve the next set of results. | Optional | 
-| sort_by | Specify the field to use for sorting the response.<br/><br/>Note: Possible values are: "LastUpdated", "Location", "ObjectType", "ClusterName", "ObjectName", "StartTime", "ActivityType", "Severity", "ActivityStatus". Possible values are: LastUpdated, Location, ObjectType, ClusterName, ObjectName, StartTime, ActivityType, Severity, ActivityStatus. Default is LastUpdated. | Optional | 
-| sort_order | Specify the order to sort the data in.<br/><br/>Possible values are: "Asc", "Desc". Possible values are: Asc, Desc. Default is Desc. | Optional | 
+| sort_by | Specify the field to use for sorting the response.<br/><br/>Note: Possible values are: "LastUpdated", "Location", "ObjectType", "ClusterName", "ObjectName", "StartTime", "ActivityType", "Severity", "ActivityStatus". Default is LastUpdated. | Optional | 
+| sort_order | Specify the order to sort the data in.<br/><br/>Possible values are: "Asc", "Desc". Default is Desc. | Optional | 
 
 
 #### Context Output
@@ -1291,12 +1292,12 @@ Retrieve the list of Rubrik objects, based on the provided filters.
 
 | **Argument Name** | **Description** | **Required** |
 | --- | --- | --- |
-| type_filter | Filter the objects based on the provided object types. Supports comma separated values.<br/><br/>Possible values are: "ShareFileset", "NutanixVirtualMachine", "VolumeGroup", "HypervVirtualMachine", "LinuxFileset", "WindowsFileset", "VmwareVirtualMachine".<br/><br/>Additional values can be found in the documentation. | Optional | 
+| type_filter | Filter the objects based on the provided object types. Supports comma separated values.<br/><br/>Possible values are: "ShareFileset", "NutanixVirtualMachine", "VolumeGroup", "HypervVirtualMachine", "LinuxFileset", "WindowsFileset", "VmwareVirtualMachine", "FilesetTemplate", "VcdOrgVdc", "ManagedVolume", "KuprNamespace", "O365Group", "AwsNativeEbsVolume", "OracleDatabase", "O365Mailbox", "AzureNativeResourceGroup", "AZURE_SQL_MANAGED_INSTANCE_DB", "Db2Database", "AzureNativeVm", "VcdOrg", "Db2Instance", "PhysicalHost", "AwsNativeRdsInstance", "CassandraKeyspace", "AzureSqlManagedInstanceServer", "O365Site", "PolarisEc2Instance", "O365User", "AwsNativeEc2Instance", "PolarisEbsVolume", "MssqlInstance", "O365Org", "FailoverClusterApp", "OracleHost", "MongoCollection", "SapHanaDatabase", "AllSubHierarchyType", "NasSystem", "O365Teams", "VSphereFolder", "VSphereResourcePool", "GcpNativeDisk", "AwsNativeAccount", "VSphereDatacenter", "VSphereComputeCluster", "HypervCluster", "CassandraSource", "VSphereTag", "VcdVapp", "NasVolume", "NasNamespace", "Vcd", "VcdVimServer", "AZURE_SQL_DATABASE_DB", "MssqlDatabaseBatchMaintenance", "VcdCatalog", "O365File", "HypervSCVMM", "Blueprint", "AzureSqlDatabaseServer", "FeldsparSite", "CloudNativeTagRule", "Mssql", "HostShare", "SnapMirrorCloud", "O365Calendar", "O365SharePointDrive", "VSphereNetwork", "Fileset", "SapHanaSystem", "MongoSource", "O365Onedrive", "Hdfs", "Ec2Instance", "WindowsCluster", "GcpNativeProject", "VSphereDatastore", "HypervServer", "VSphereHost", "HostFailoverCluster", "AppBlueprint", "MssqlAvailabilityGroup", "CassandraColumnFamily",  "GcpNativeGCEInstance", "StorageArrayVolumeGroup", "O365SharePointList", "NutanixCluster", "AzureNativeManagedDisk", "AzureNativeSubscription", "VSPHERE_DATASTORE_CLUSTER", "VSphereVCenter", "NasShare", "KuprCluster", "AppflowsBlueprint", "OracleRac", "MongoDb", "VSphereTagCategory", "WindowsVolumeGroup". | Optional | 
 | cluster_id | Filter the objects based on the provided cluster IDs. Supports comma separated values.<br/><br/>Note: Users can get the list of cluster IDs by executing the "rubrik-gps-cluster-list" command. | Optional | 
 | limit | Number of results to retrieve in the response. Maximum size allowed is 1000. Default is 50. | Optional | 
 | next_page_token | The next page cursor to retrieve the next set of results. | Optional | 
-| sort_by | Specify the field to use for sorting the response.<br/><br/>Note: Supported values are "ID" and "NAME" only. For any other values, the obtained result is sorted or not is not confirmed. Possible values are: ID, NAME. Default is ID. | Optional | 
-| sort_order | Specify the order to sort the data in.<br/><br/>Possible values are: "ASC", "DESC". Possible values are: ASC, DESC. Default is ASC. | Optional | 
+| sort_by | Specify the field to use for sorting the response.<br/><br/>Note: Supported values are "ID" and "NAME" only. For any other values, the obtained result is sorted or not is not confirmed. Default is ID. | Optional | 
+| sort_order | Specify the order to sort the data in.<br/><br/>Possible values are: "ASC", "DESC". Default is ASC. | Optional | 
 
 
 #### Context Output
@@ -1334,7 +1335,7 @@ Retrieve the list of Rubrik objects, based on the provided filters.
 |---|---|---|---|---|---|
 | 0014037c-70ae-4c53-b1cf-df6926b88968 | Christian LeCorre | O365User | Rubrik Demo\EMEA Users\AMER Users | x | UNPROTECTED |
 
- Note: To retrieve the next set of results use, "next_page_token" = Y3Vyc29yOmludDow
+ Note: To retrieve the next set of results use, "next_page_token" = xyz
 
 
 
@@ -1356,7 +1357,7 @@ Retrieve Rubrik snapshot(s) of an object, based on the provided object ID.
 | limit | Number of results to retrieve in the response. Maximum size allowed is 1000. Default is 50. | Optional | 
 | next_page_token | The next page cursor to retrieve the next set of results. | Optional | 
 | snapshot_type | List of snapshot types to filter snapshots. Supports comma separated values.<br/><br/>Possible values are: "SCHEDULED", "ON_DEMAND", "DOWNLOADED". | Optional | 
-| sort_order | Specify the order to sort the data in.<br/><br/>Possible values are: "Asc", "Desc". Possible values are: Asc, Desc. Default is Asc. | Optional | 
+| sort_order | Specify the order to sort the data in.<br/><br/>Possible values are: "Asc", "Desc". Default is Asc. | Optional | 
 
 
 #### Context Output
@@ -1384,10 +1385,10 @@ Retrieve Rubrik snapshot(s) of an object, based on the provided object ID.
 | RubrikPolaris.Object.Snapshot.snapshotRetentionInfo.archivalInfos.expirationTime | String | Archival expiration time of snapshot retention of the snapshot. | 
 | RubrikPolaris.Object.Snapshot.snapshotRetentionInfo.localInfo.name | String | Name of snapshot retention of the snapshot. | 
 | RubrikPolaris.Object.Snapshot.snapshotRetentionInfo.localInfo.isExpirationDateCalculated | Boolean | Whether the expiration date is calculated or not. | 
-| RubrikPolaris.Object.Snapshot.snapshotRetentionInfo.localInfo.expirationTime | Date | Expiration time of snapshot retention of the snapshot. | 
+| RubrikPolaris.Object.Snapshot.snapshotRetentionInfo.localInfo.expirationTime | String | Expiration time of snapshot retention of the snapshot. | 
 | RubrikPolaris.PageToken.Object.Snapshot.has_next_page | Boolean | Whether the result has the next page or not. | 
 | RubrikPolaris.PageToken.Object.Snapshot.name | String | Name of the command. | 
-| RubrikPolaris.PageToken.Object.Snapshot.next_page_token | Boolean | Next Page Token. | 
+| RubrikPolaris.PageToken.Object.Snapshot.next_page_token | String | Next Page Token. | 
 
 
 #### Command Example
@@ -1399,7 +1400,7 @@ Retrieve Rubrik snapshot(s) of an object, based on the provided object ID.
 |---|---|---|---|
 | a7adc499-b896-5ad6-bfc2-0aae0ed99459 | 2021-10-28T19:35:52.000Z | sand2-rbk01 | 12hr-30d-AWS |
 
- Note: To retrieve the next set of results use, "next_page_token" = Y3Vyc29yOmludDow
+ Note: To retrieve the next set of results use, "next_page_token" = xyz
 
 
 
@@ -1418,7 +1419,7 @@ Note: To know the results of the scan use the "rubrik-radar-ioc-scan-results" co
 | **Argument Name** | **Description** | **Required** |
 | --- | --- | --- |
 | cluster_id | ID of the cluster on which to perform a scan.<br/><br/>Note: Users can retrieve the list of the cluster IDs by executing the "rubrik-gps-cluster-list" command. | Required | 
-| snappable_id | Snappable object ID of the system on which to perform the scan. Supports comma separated values.<br/><br/>Format accepted: VirtualMachine:::063ab03d-4145-4cb1-008b-e10c4f7a37-vm-12345, VirtualMachine:::063ab03d-4145-4cb1-008b-e10c4f7a37-vm-54321<br/><br/>Note: Users can retrieve the snappable IDs by executing "rubrik-polaris-vm-object-list" or "rubrik-polaris-vm-object-metadata-get" commands and then look for the column "Snappable ID" in the Human readable. | Required | 
+| snappable_id | Snappable object ID of the system on which to perform the scan. Supports comma separated values.<br/><br/>Format accepted: VirtualMachine:::063ab03d-4145-4cb1-008b-e10c4f7a37-vm-12345, VirtualMachine:::063ab03d-4145-4cb1-008b-e10c4f7a37-vm-54321<br/><br/>Note: Users can retrieve the snappable IDs by executing "rubrik-polaris-vm-objects-list" or "rubrik-polaris-vm-object-metadata-get" commands and then look for the column "Snappable ID" in the Human readable. | Required | 
 | ioc_type | The type of the indicator to scan for.<br/><br/>Possible values are: "INDICATOR_OF_COMPROMISE_TYPE_PATH_OR_FILENAME", "INDICATOR_OF_COMPROMISE_TYPE_HASH", "INDICATOR_OF_COMPROMISE_TYPE_YARA_RULE".<br/><br/>Note: To provide multiple IOCs use the argument "advance_ioc". Possible values are: INDICATOR_OF_COMPROMISE_TYPE_PATH_OR_FILENAME, INDICATOR_OF_COMPROMISE_TYPE_HASH, INDICATOR_OF_COMPROMISE_TYPE_YARA_RULE. | Optional | 
 | ioc_value | Value of the indicator to scan for.<br/><br/>Note: To provide multiple IOCs use the argument "advance_ioc". | Optional | 
 | advance_ioc | Json encoded Indicators Of Compromise to scan. Json keys signify the type of IOC and the corresponding list of values are the values of the IOC's. If provided, will ignore the ioc_type and ioc_value arguments.<br/><br/>Possible keys to indicate type of indicator: <br/>INDICATOR_OF_COMPROMISE_TYPE_PATH_OR_FILENAME, INDICATOR_OF_COMPROMISE_TYPE_HASH, INDICATOR_OF_COMPROMISE_TYPE_YARA_RULE<br/><br/>Format Accepted:<br/>{<br/>"&lt;ioc_type1&gt;": ["&lt;ioc_value1&gt;", "&lt;ioc_value2&gt;"],<br/>"&lt;ioc_type2&gt;": "&lt;ioc_value2&gt;"<br/>}<br/><br/>Example:<br/>{<br/>"INDICATOR_OF_COMPROMISE_TYPE_PATH_OR_FILENAME": ["C:\Users\Malware_Executible.ps1", "\bin\Malware_Executible"],<br/>"INDICATOR_OF_COMPROMISE_TYPE_HASH": ["e5c1b9c44be582f895eaea3d3738c5b4", "f541b9844be897f895eaea3d3738cfb2"],<br/>"INDICATOR_OF_COMPROMISE_TYPE_YARA_RULE": "rule match_everything {condition:true}"<br/>}. | Optional | 
@@ -1478,15 +1479,15 @@ Note: To initiate a scan use the "rubrik-radar-ioc-scan" command and to list the
 | RubrikPolaris.RadarIOCScan.indicatorsOfCompromise.iocValue | String | Value of the IOC that was scanned. | 
 | RubrikPolaris.RadarIOCScan.results.objectId | String | ID of the system that was scanned. | 
 | RubrikPolaris.RadarIOCScan.results.SnapshotResult.status | String | Status of the scan on the snapshot. Values: MALWARE_SCAN_IN_SNAPSHOT_STATUS_PENDING, MALWARE_SCAN_IN_SNAPSHOT_STATUS_FINISHED, MALWARE_SCAN_IN_SNAPSHOT_STATUS_ERROR. | 
-| RubrikPolaris.RadarIOCScan.results.SnapshotResult.snapshotDate | Date | The date-time at which the snapshot was taken. | 
+| RubrikPolaris.RadarIOCScan.results.SnapshotResult.snapshotDate | String | The date-time at which the snapshot was taken. | 
 | RubrikPolaris.RadarIOCScan.results.SnapshotResult.snapshotId | String | ID of the snapshot that was scanned. | 
 | RubrikPolaris.RadarIOCScan.results.SnapshotResult.scanStats.numFiles | Number | Number of files encountered during scan. | 
 | RubrikPolaris.RadarIOCScan.results.SnapshotResult.scanStats.numFilesScanned | Number | Number of files that were scanned on that snapshot. | 
 | RubrikPolaris.RadarIOCScan.results.SnapshotResult.scanStats.totalFilesScannedSizeBytes | Number | The total file size of the files scanned. | 
 | RubrikPolaris.RadarIOCScan.results.SnapshotResult.matches.indicatorIndex | Number | Index of indicator in inputs for the scan. | 
 | RubrikPolaris.RadarIOCScan.results.SnapshotResult.matches.paths.aclDetails | String | JSON encoded file access control list \(ACL\) information. | 
-| RubrikPolaris.RadarIOCScan.results.SnapshotResult.matches.paths.creationTime | Date | File creation date-time. | 
-| RubrikPolaris.RadarIOCScan.results.SnapshotResult.matches.paths.modificationTime | Date | File modification date-time. | 
+| RubrikPolaris.RadarIOCScan.results.SnapshotResult.matches.paths.creationTime | String | File creation date-time. | 
+| RubrikPolaris.RadarIOCScan.results.SnapshotResult.matches.paths.modificationTime | String | File modification date-time. | 
 | RubrikPolaris.RadarIOCScan.results.SnapshotResult.matches.paths.path | String | File path that matched the malware Indicator Of Compromise. | 
 | RubrikPolaris.RadarIOCScan.results.SnapshotResult.matches.paths.yaraMatchDetails.name | String | The name of the matching YARA rule. | 
 | RubrikPolaris.RadarIOCScan.results.SnapshotResult.matches.paths.yaraMatchDetails.tags | Unknown | Optional YARA tags. Described in https://yara.readthedocs.io/en/latest/writingrules.html\#rule-tags. | 
@@ -1570,8 +1571,8 @@ Retrieve the list of the available rubrik clusters.
 | name | Filter out clusters based on name. Supports comma separated values. | Optional | 
 | limit | Number of results to retrieve in the response. Maximum size allowed is 1000. Default is 50. | Optional | 
 | next_page_token | The next page cursor to retrieve the next set of results. | Optional | 
-| sort_by | Specify the field to use for sorting the response.<br/><br/>Possible values are: "ClusterName", "ClusterType", "RegisteredAt".<br/>Additional values can be found in the documentation. Default is ClusterName. | Optional | 
-| sort_order | Specify the order to sort the data in.<br/><br/>Possible values are: "Asc", "Desc". Possible values are: Asc, Desc. Default is Asc. | Optional | 
+| sort_by | Specify the field to use for sorting the response.<br/><br/>Possible values are: "ClusterName", "ClusterType", "RegisteredAt", "ESTIMATED_RUNWAY". Default is ClusterName. | Optional | 
+| sort_order | Specify the order to sort the data in.<br/><br/>Possible values are: "Asc", "Desc". Default is Asc. | Optional | 
 
 
 #### Context Output
@@ -1587,14 +1588,14 @@ Retrieve the list of the available rubrik clusters.
 | RubrikPolaris.GPSCluster.cdmUpgradeInfo.clusterStatus.message | String | Message about the cluster upgrade/current condition. | 
 | RubrikPolaris.GPSCluster.cdmUpgradeInfo.clusterStatus.status | String | Upgrade/current status of the cluster. It provides information like -- upgrading, upgrade scheduled, stable, downloading packages, pre-checks running and many more. | 
 | RubrikPolaris.GPSCluster.cdmUpgradeInfo.overallProgress | Number | Progress \(in percentage\) of an upgrade, if running. | 
-| RubrikPolaris.GPSCluster.cdmUpgradeInfo.scheduleUpgradeAt | Date | Shows the date-time of a scheduled upgrade. | 
+| RubrikPolaris.GPSCluster.cdmUpgradeInfo.scheduleUpgradeAt | String | Shows the date-time of a scheduled upgrade. | 
 | RubrikPolaris.GPSCluster.cdmUpgradeInfo.downloadedVersion | String | The version that was downloaded but not yet installed. | 
 | RubrikPolaris.GPSCluster.cdmUpgradeInfo.version | String | The current version of the cluster. | 
 | RubrikPolaris.GPSCluster.productType | String | The product type. Values are CDM, DATOS, POLARIS. | 
 | RubrikPolaris.GPSCluster.estimatedRunway | Number | Estimated number of days remaining before additional data storage space is required on the cluster. | 
 | RubrikPolaris.GPSCluster.snapshotCount | Number | The total number of snapshots that are taken of different objects in the cluster. | 
 | RubrikPolaris.GPSCluster.geoLocation.address | String | Geological address of the cluster. | 
-| RubrikPolaris.GPSCluster.lastConnectionTime | Date | Time when the cluster was last polled. | 
+| RubrikPolaris.GPSCluster.lastConnectionTime | String | Time when the cluster was last polled. | 
 | RubrikPolaris.GPSCluster.metric.totalCapacity | Number | Total storage capacity of the cluster in Bytes. | 
 | RubrikPolaris.GPSCluster.metric.availableCapacity | Number | Available storage capacity of the cluster in Bytes. | 
 | RubrikPolaris.GPSCluster.snappableConnection.count | Number | The number of objects in the cluster whose snapshots can be taken. | 
@@ -1606,7 +1607,7 @@ Retrieve the list of the available rubrik clusters.
 | RubrikPolaris.GPSCluster.passesConnectivityCheck | Boolean | Whether the cluster passes the connectivity check. | 
 | RubrikPolaris.GPSCluster.globalManagerConnectivityStatus.urls.url | String | URL of a global manager of the cluster. | 
 | RubrikPolaris.GPSCluster.globalManagerConnectivityStatus.urls.isReachable | Boolean | Whether the global manager is reachable. | 
-| RubrikPolaris.GPSCluster.connectivityLastUpdated | Date | The date-time of when the cluster was last polled for connectivity. | 
+| RubrikPolaris.GPSCluster.connectivityLastUpdated | String | The date-time of when the cluster was last polled for connectivity. | 
 | RubrikPolaris.GPSCluster.lambdaFeatureHistory.wasRadarEverEnabled | Boolean | Whether Polaris Radar was ever enabled on the cluster. | 
 | RubrikPolaris.GPSCluster.lambdaFeatureHistory.wasSonarEverEnabled | Boolean | Whether Polaris Sonar was ever enabled on the cluster. | 
 | RubrikPolaris.PageToken.GPSCluster.has_next_page | Boolean | Whether the result has the next page or not. | 
@@ -1647,8 +1648,8 @@ Note: To know the results of the scan use the "rubrik-radar-ioc-scan-results" co
 | **Path** | **Type** | **Description** |
 | --- | --- | --- |
 | RubrikPolaris.RadarIOCScan.id | String | ID of the IOC scan. | 
-| RubrikPolaris.RadarIOCScan.startTime | Date | Start time of the scan. | 
-| RubrikPolaris.RadarIOCScan.endTime | Date | End time of the scan. | 
+| RubrikPolaris.RadarIOCScan.startTime | String | Start time of the scan. | 
+| RubrikPolaris.RadarIOCScan.endTime | String | End time of the scan. | 
 | RubrikPolaris.RadarIOCScan.snapshots.id | String | Object ID of the system. | 
 | RubrikPolaris.RadarIOCScan.snapshots.snapshots | Unknown | List of snapshot IDs that are included in the scan. | 
 
