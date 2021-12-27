@@ -26,6 +26,43 @@ This integration was integrated and tested with version 1.0.0 of RubrikPolaris
 ## Commands
 You can execute these commands from the Cortex XSOAR CLI, as part of an automation, or in a playbook.
 After you successfully execute a command, a DBot message appears in the War Room with the command details.
+### rubrik-radar-analysis-status
+***
+Check the Radar Event for updates.
+
+
+#### Base Command
+
+`rubrik-radar-analysis-status`
+#### Input
+
+| **Argument Name** | **Description** | **Required** |
+| --- | --- | --- |
+| activitySeriesId | The ID of the Polaris Event Series. When used in combination with \"Rubrik Radar Anomaly\" incidents, this value will automatically be looked up using the incident context. Otherwise it is a required value.\n\nNote: Users can retrieve the list of the activity series IDs by executing the \"rubrik-event-list\" command. | Required | 
+| clusterId | The ID of the CDM cluster. When used in combination with \"Rubrik Radar Anomaly\" incidents, this value will automatically be looked up using the incident context. Otherwise, it is a required value.\n\nNote: Users can retrieve the list of the cluster IDs by executing the \"rubrik-gps-cluster-list\" command. | Required | 
+
+
+#### Context Output
+
+| **Path** | **Type** | **Description** |
+| --- | --- | --- |
+| Rubrik.Radar.EventComplete | Boolean | Flag that indicates whether Radar has finished analysing the object. | 
+| Rubrik.Radar.Message | Unknown | The text, ID, and timestamp of each message in the Activity Series. | 
+| Rubrik.Radar.ActivitySeriesId | String | The ID of the Rubrik Polaris Activity Series. | 
+| Rubrik.Radar.ClusterId | String | The ID of the cluster. | 
+
+
+#### Command Example
+```!rubrik-radar-analysis-status activitySeriesId="" clusterId="cc19573c-db6c-418a-9d48-067a256543ba"```
+
+#### Human Readable Output
+### Radar Analysis Status
+|Activity Series ID|Cluster ID|Message|Event Complete|
+|---|---|---|---|
+| ec9c48ce-5faf-474a-927c-33667355aecd | cc19573c-db6c-418a-9d48-067a256543ba | Completed backup of the transaction log for SQL Server database 'AdventureWorks2012' from 'sx1-sql12-1\MSSQLSERVER'. | True |
+
+
+
 ### rubrik-sonar-sensitive-hits
 ***
 Find data classification hits on an object.
@@ -815,7 +852,7 @@ Note: To know about the exported VM's status, use the "rubrik-gps-async-result" 
 ### GPS VM Export
 |Snapshot Export Request ID|
 |---|
-| EXPORT_VMWARE_SNAPSHOT_f1fa344e-1953-4576-b84f-0ceb6fefdf0c_27ae4bee-861e-46bd-a4a4-6a8af482f143:::0 |
+| dummy_id |
 
 
 
@@ -1117,7 +1154,7 @@ Note: To know about the live mount status, use the "rubrik-gps-async-result" com
 ### GPS VM Livemount
 |VM Live Mount Request ID|
 |---|
-| MOUNT_SNAPSHOT_dummy_id:::0 |
+| dummy_id |
 
 
 
@@ -1420,7 +1457,7 @@ Note: To know the results of the scan use the "rubrik-radar-ioc-scan-results" co
 | --- | --- | --- |
 | cluster_id | ID of the cluster on which to perform a scan.<br/><br/>Note: Users can retrieve the list of the cluster IDs by executing the "rubrik-gps-cluster-list" command. | Required | 
 | object_id | Object ID of the system on which to perform the scan. Supports comma separated values.<br/><br/>Note: Users can get the list of object IDs by executing the "rubrik-polaris-vm-objects-list" command. | Required | 
-| ioc_type | The type of the indicator to scan for.<br/><br/>Possible values are: "INDICATOR_OF_COMPROMISE_TYPE_PATH_OR_FILENAME", "INDICATOR_OF_COMPROMISE_TYPE_HASH", "INDICATOR_OF_COMPROMISE_TYPE_YARA_RULE".<br/><br/>Note: To provide multiple IOCs use the argument "advance_ioc". Possible values are: INDICATOR_OF_COMPROMISE_TYPE_PATH_OR_FILENAME, INDICATOR_OF_COMPROMISE_TYPE_HASH, INDICATOR_OF_COMPROMISE_TYPE_YARA_RULE. | Optional | 
+| ioc_type | The type of the indicator to scan for.<br/><br/>Possible values are: "INDICATOR_OF_COMPROMISE_TYPE_PATH_OR_FILENAME", "INDICATOR_OF_COMPROMISE_TYPE_HASH", "INDICATOR_OF_COMPROMISE_TYPE_YARA_RULE".<br/><br/>Note: To provide multiple IOCs use the argument "advance_ioc". | Optional | 
 | ioc_value | Value of the indicator to scan for.<br/><br/>Note: To provide multiple IOCs use the argument "advance_ioc". | Optional | 
 | advance_ioc | Json encoded Indicators Of Compromise to scan. Json keys signify the type of IOC and the corresponding list of values are the values of the IOC's. If provided, will ignore the ioc_type and ioc_value arguments.<br/><br/>Possible keys to indicate type of indicator: <br/>INDICATOR_OF_COMPROMISE_TYPE_PATH_OR_FILENAME, INDICATOR_OF_COMPROMISE_TYPE_HASH, INDICATOR_OF_COMPROMISE_TYPE_YARA_RULE<br/><br/>Format Accepted:<br/>{<br/>"&lt;ioc_type1&gt;": ["&lt;ioc_value1&gt;", "&lt;ioc_value2&gt;"],<br/>"&lt;ioc_type2&gt;": "&lt;ioc_value2&gt;"<br/>}<br/><br/>Example:<br/>{<br/>"INDICATOR_OF_COMPROMISE_TYPE_PATH_OR_FILENAME": ["C:\Users\Malware_Executible.ps1", "\bin\Malware_Executible"],<br/>"INDICATOR_OF_COMPROMISE_TYPE_HASH": ["e5c1b9c44be582f895eaea3d3738c5b4", "f541b9844be897f895eaea3d3738cfb2"],<br/>"INDICATOR_OF_COMPROMISE_TYPE_YARA_RULE": "rule match_everything {condition:true}"<br/>}. | Optional | 
 | start_date | Filter the snapshots from the provided date. Any snapshots taken before the provided date-time will be excluded.<br/><br/>Formats accepted: 2 minutes, 2 hours, 2 days, 2 weeks, 2 months, 2 years, yyyy-mm-dd, yyyy-mm-ddTHH:MM:SSZ, etc.<br/><br/>Examples of more supported values can be found at https://dateparser.readthedocs.io/en/latest/#relative-dates. | Optional | 
@@ -1516,7 +1553,7 @@ Status: FINISHED
 
 ### rubrik-gps-async-result
 ***
-Retrieve the result of an asynchronous request. This command will retrieve the result of requests made by commands "rubrik-gps-snapshot-files-download", "rubrik-gps-vm-livemount", "rubrik-gps-vm-export" and "rubrik-gps-vm-snapshot-create".
+Retrieve the result of an asynchronous request. This command will retrieve the result of requests made by commands "rubrik-gps-snapshot-files-download", "rubrik-gps-vm-livemount", "rubrik-gps-vm-export", "rubrik-gps-vm-snapshot-create", and "rubrik-gps-vm-recover-files".
 
 
 #### Base Command
@@ -1663,3 +1700,42 @@ Note: To know the results of the scan use the "rubrik-radar-ioc-scan-results" co
 |---|---|---|---|
 | fcac511b-20b4-472d-9b65-9198cff8cd49 | 2021-10-12T04:52:08.777Z | Not Finished | VirtualMachine:::90da5ffb-432f-4dac-8c73-39260ff5493e-vm-5952003d-f95c-4ae0-bf9b-b5a80b210935 |
 | ad435ff1-617b-468a-b5d3-736fa0e278b0 | 2021-10-28T06:05:53.059Z | 2021-10-28T07:16:16.715Z | VirtualMachine:::868aa03d-4145-4cb1-808b-e10c4f7a3741-vm-72277, VirtualMachine:::868aa03d-4145-4cb1-808b-e10c4f7a3741-vm-72279 |
+
+
+
+
+### rubrik-gps-vm-recover-files
+***
+Recovers files from a snapshot backup, back into a system.
+
+Note: To know about the recovery status, use the "rubrik-gps-async-result" command.
+
+#### Base Command
+
+`rubrik-gps-vm-recover-files`
+#### Input
+
+| **Argument Name** | **Description** | **Required** |
+| --- | --- | --- |
+| cluster_id | ID of the cluster where the snapshot resides.\n\nNote: Users can get the cluster ID by executing the "rubrik-gps-cluster-list" command. | Required | 
+| snapshot_id | ID of the snapshot from which to recover files.\n\nNote: Users can get the snapshot ID by executing the "rubrik-polaris-vm-object-snapshot-list" command. | Required | 
+| paths_to_recover | Comma separated paths of files and directories that will be recovered from the snapshot.\n\nNote: Users can get the list of paths in a snapshot by executing the "rubrik-gps-snapshot-files-list" command. | Required | 
+| restore_path | Path on the destination object on which recovery will be done. | Required | 
+| destination_object_id | ID of the object where the files will be restored into. If not provided, Rubrik will use the snapshots object.\n\nNote: Users can get the object ID by executing the "rubrik-polaris-vm-objects-list" command. | Optional | 
+
+
+#### Context Output
+
+| **Path** | **Type** | **Description** |
+| --- | --- | --- |
+| RubrikPolaris.GPSVMRecoverFiles.id | String | Recover files request ID. | 
+
+
+#### Command Example
+```!rubrik-gps-vm-recover-files cluster_id="052bf7af-93a3-44e9-a7d7-bc8dad4d6b43" snapshot_id="e2a0ffa8-82a3-518b-8532-0608a0e7380f" path_to_recover="/bin,/var/log/boot.log" restore_path="/tmp/backup1"```
+
+#### Human Readable Output
+### GPS VM Recover Files
+|Recover Files Request ID|
+|---|
+| dummy_id |
