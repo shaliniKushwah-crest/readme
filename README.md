@@ -38,8 +38,8 @@ Check the Radar Event for updates.
 
 | **Argument Name** | **Description** | **Required** |
 | --- | --- | --- |
-| activitySeriesId | The ID of the Polaris Event Series. When used in combination with \"Rubrik Radar Anomaly\" incidents, this value will automatically be looked up using the incident context. Otherwise it is a required value.\n\nNote: Users can retrieve the list of the activity series IDs by executing the \"rubrik-event-list\" command. | Required | 
-| clusterId | The ID of the CDM cluster. When used in combination with \"Rubrik Radar Anomaly\" incidents, this value will automatically be looked up using the incident context. Otherwise, it is a required value.\n\nNote: Users can retrieve the list of the cluster IDs by executing the \"rubrik-gps-cluster-list\" command. | Required | 
+| activitySeriesId | The ID of the Polaris Event Series. When used in combination with \"Rubrik Radar Anomaly\" incidents, this value will automatically be looked up using the incident context. Otherwise it is a required value.<br/><br/>Note: Users can retrieve the list of the activity series IDs by executing the \"rubrik-event-list\" command. | Required | 
+| clusterId | The ID of the CDM cluster. When used in combination with \"Rubrik Radar Anomaly\" incidents, this value will automatically be looked up using the incident context. Otherwise, it is a required value.<br/><br/>Note: Users can retrieve the list of the cluster IDs by executing the \"rubrik-gps-cluster-list\" command. | Required | 
 
 
 #### Context Output
@@ -604,7 +604,7 @@ Final status of scan with crawl ID bb4eedc0-594b-4566-b06d-24de0bf752ca is IN_PR
 
 ### rubrik-polaris-vm-object-snapshot-list
 ***
-Search for a Rubrik snapshot of  an object based on the  provided snapshot ID, exact timestamp, or specific value like earliest/latest, or closest before/after a timestamp.
+Search for a Rubrik snapshot of an object based on the provided snapshot ID, exact timestamp, or specific value like earliest/latest, or closest before/after a timestamp.
 
 
 #### Base Command
@@ -829,7 +829,7 @@ Note: To know about the exported VM's status, use the "rubrik-gps-async-result" 
 | object_id | The VM object ID whose snapshot needs to be exported.<br/><br/>Note: Users can get the list of object IDs by executing the "rubrik-polaris-vm-objects-list" command. | Required | 
 | snapshot_id | The ID of the snapshot that is to be exported.<br/><br/>Note: Users can get the list of snapshot IDs by executing the "rubrik-polaris-vm-object-snapshot-list" command. | Required | 
 | datastore_id | The ID of the datastore which will be used by the new VM.<br/><br/>Note: Users can get the list of  datastore IDs by executing the "rubrik-gps-vm-datastore-list" command. | Required | 
-| host_id | The ID of the Vsphere ESXi host on which the new VM will be made. Either host_id or host_compute_cluster_id must be provided.\n<br/>Note: Users can get the list of host IDs by executing the "rubrik-gps-vm-host-list" command. | Optional | 
+| host_id | The ID of the Vsphere ESXi host on which the new VM will be made. Either host_id or host_compute_cluster_id must be provided.<br/><br/>Note: Users can get the list of host IDs by executing the "rubrik-gps-vm-host-list" command. | Optional | 
 | host_compute_cluster_id | The ID of the VSphere Compute Cluster of a host. Either host_id or host_compute_cluster_id must be provided. <br/><br/>Note: Users can get the list of Compute Cluster IDs by executing the "rubrik-gps-vm-host-list" command. The ID must belong to the VSphereComputeCluster objectType. | Optional | 
 | power_on | Whether to turn on the new VM or not.<br/><br/>Possible values are: "True", "False". | Optional | 
 | keep_mac_addresses | Whether the mac addresses of network devices of the new VM be removed or not.<br/><br/>Possible values are: "True", "False". | Optional | 
@@ -927,26 +927,26 @@ Enumerates the available SLA Domains to apply to the on-demand snapshot as a ret
 | RubrikPolaris.GPSSLADomain.baseFrequency.duration | Number | Base snapshot frequency duration. | 
 | RubrikPolaris.GPSSLADomain.baseFrequency.unit | String | Base snapshot frequency unit \(HOURS, DAYS etc\). | 
 | RubrikPolaris.GPSSLADomain.archivalSpec.archivalLocationName | String | Location where the archives are stored. | 
-| RubrikPolaris.GPSSLADomain.archivalSpecList.targetMapping.id | String | ID of the archival target. | 
-| RubrikPolaris.GPSSLADomain.archivalSpecList.targetMapping.name | String | Name of the archival target. | 
-| RubrikPolaris.GPSSLADomain.archivalSpecList.targetMapping.groupType | String | Group type of the archival target. | 
-| RubrikPolaris.GPSSLADomain.archivalSpecList.targetMapping.targetType | String | Target type of the archival target. | 
+| RubrikPolaris.GPSSLADomain.archivalSpecs.storageSetting.id | String | ID of the archival target. | 
+| RubrikPolaris.GPSSLADomain.archivalSpecs.storageSetting.name | String | Name of the archival target. | 
+| RubrikPolaris.GPSSLADomain.archivalSpecs.storageSetting.groupType | String | Group type of the archival target. | 
+| RubrikPolaris.GPSSLADomain.archivalSpecs.storageSetting.targetType | String | Target type of the archival target. | 
 | RubrikPolaris.GPSSLADomain.replicationSpec.replicationType | String | Enum value representing the type of replication. Values: UNKNOWN_REPLICATION_TYPE, UNIDIRECTIONAL_REPLICATION_TO_CLUSTER, REPLICATION_TO_CLOUD_REGION, REPLICATION_TO_CLOUD_LOCATION. | 
 | RubrikPolaris.GPSSLADomain.replicationSpec.specificReplicationSpec.unidirectionalSpec.replicationTargetName | String | Cloud replication target name. | 
 | RubrikPolaris.GPSSLADomain.replicationSpec.specificReplicationSpec.cloudRegionSpec.replicationTargetRegion | String | Cloud replication target region. | 
 | RubrikPolaris.GPSSLADomain.replicationSpec.specificReplicationSpec.cloudRegionSpec.cloudProvider | String | Cloud replication service provider. Values:  AWS, AZURE. | 
 | RubrikPolaris.GPSSLADomain.replicationSpec.specificReplicationSpec.cloudLocationSpec.targetMapping.id | String | ID of the cloud target where replication takes place. | 
 | RubrikPolaris.GPSSLADomain.replicationSpec.specificReplicationSpec.cloudLocationSpec.targetMapping.name | String | Name of the cloud target where replication takes place. | 
-| RubrikPolaris.GPSSLADomain.replicationSpecV2.cluster.id | String | ID of the cluster where replication takes place. | 
-| RubrikPolaris.GPSSLADomain.replicationSpecV2.cluster.name | String | Name of the cluster where replication takes place. | 
-| RubrikPolaris.GPSSLADomain.replicationSpecV2.awsTarget.accountId | String | Account ID on AWS where the replication happens. | 
-| RubrikPolaris.GPSSLADomain.replicationSpecV2.awsTarget.accountName | String | Account name on AWS where the replication happens. | 
-| RubrikPolaris.GPSSLADomain.replicationSpecV2.awsTarget.region | String | Account region on AWS where the replication happens. | 
-| RubrikPolaris.GPSSLADomain.replicationSpecV2.azureTarget.region | String | Account region on Azure where the replication happens. | 
-| RubrikPolaris.GPSSLADomain.replicationSpecV2.retentionDuration.duration | Number | Replication retention duration. | 
-| RubrikPolaris.GPSSLADomain.replicationSpecV2.retentionDuration.unit | String | Replication retention duration unit. | 
-| RubrikPolaris.GPSSLADomain.replicationSpecV2.targetMapping.id | String | ID of the object target where replication takes place. | 
-| RubrikPolaris.GPSSLADomain.replicationSpecV2.targetMapping.name | String | Name of the object target where replication takes place. | 
+| RubrikPolaris.GPSSLADomain.replicationSpecsV2.cluster.id | String | ID of the cluster where replication takes place. | 
+| RubrikPolaris.GPSSLADomain.replicationSpecsV2.cluster.name | String | Name of the cluster where replication takes place. | 
+| RubrikPolaris.GPSSLADomain.replicationSpecsV2.awsTarget.accountId | String | Account ID on AWS where the replication happens. | 
+| RubrikPolaris.GPSSLADomain.replicationSpecsV2.awsTarget.accountName | String | Account name on AWS where the replication happens. | 
+| RubrikPolaris.GPSSLADomain.replicationSpecsV2.awsTarget.region | String | Account region on AWS where the replication happens. | 
+| RubrikPolaris.GPSSLADomain.replicationSpecsV2.azureTarget.region | String | Account region on Azure where the replication happens. | 
+| RubrikPolaris.GPSSLADomain.replicationSpecsV2.retentionDuration.duration | Number | Replication retention duration. | 
+| RubrikPolaris.GPSSLADomain.replicationSpecsV2.retentionDuration.unit | String | Replication retention duration unit. | 
+| RubrikPolaris.GPSSLADomain.replicationSpecsV2.targetMapping.id | String | ID of the object target where replication takes place. | 
+| RubrikPolaris.GPSSLADomain.replicationSpecsV2.targetMapping.name | String | Name of the object target where replication takes place. | 
 | RubrikPolaris.GPSSLADomain.localRetentionLimit.duration | Number | Local retention limit duration. | 
 | RubrikPolaris.GPSSLADomain.localRetentionLimit.unit | String | Local retention limit duration unit. | 
 | RubrikPolaris.GPSSLADomain.snapshotSchedule.minute.basicSchedule.frequency | Number | Snapshot frequency every minute. | 
@@ -985,7 +985,7 @@ Enumerates the available SLA Domains to apply to the on-demand snapshot as a ret
 | RubrikPolaris.GPSSLADomain.objectSpecificConfigs.sapHanaConfig.logRetention.duration | Number | Duration of retensioning SAP HANA Database logs. | 
 | RubrikPolaris.GPSSLADomain.objectSpecificConfigs.sapHanaConfig.logRetention.unit | String | Unit of duration of retentioning SAP HANA Database logs. | 
 | RubrikPolaris.GPSSLADomain.objectSpecificConfigs.vmwareVmConfig.logRetentionSeconds | Number | Seconds of retentioning VMWare virtual machine logs. | 
-| RubrikPolaris.GPSSLADomain.objectTypeList | Unknown | List of object types associated with this SLA Domain. | 
+| RubrikPolaris.GPSSLADomain.objectTypes | Unknown | List of object types associated with this SLA Domain. | 
 | RubrikPolaris.PageToken.GPSSLADomain.next_page_token | String | Next page token. | 
 | RubrikPolaris.PageToken.GPSSLADomain.name | String | Name of the command. | 
 | RubrikPolaris.PageToken.GPSSLADomain.has_next_page | Boolean | Whether the result has the next page or not. | 
@@ -1457,6 +1457,7 @@ Note: To know the results of the scan use the "rubrik-radar-ioc-scan-results" co
 | --- | --- | --- |
 | cluster_id | ID of the cluster on which to perform a scan.<br/><br/>Note: Users can retrieve the list of the cluster IDs by executing the "rubrik-gps-cluster-list" command. | Required | 
 | object_id | Object ID of the system on which to perform the scan. Supports comma separated values.<br/><br/>Note: Users can get the list of object IDs by executing the "rubrik-polaris-vm-objects-list" command. | Required | 
+| scan_name | Name of the scan. Default is PAXSOAR-1.1.0.| Optional | 
 | ioc_type | The type of the indicator to scan for.<br/><br/>Possible values are: "INDICATOR_OF_COMPROMISE_TYPE_PATH_OR_FILENAME", "INDICATOR_OF_COMPROMISE_TYPE_HASH", "INDICATOR_OF_COMPROMISE_TYPE_YARA_RULE".<br/><br/>Note: To provide multiple IOCs use the argument "advance_ioc". | Optional | 
 | ioc_value | Value of the indicator to scan for.<br/><br/>Note: To provide multiple IOCs use the argument "advance_ioc". | Optional | 
 | advance_ioc | Json encoded Indicators Of Compromise to scan. Json keys signify the type of IOC and the corresponding list of values are the values of the IOC's. If provided, will ignore the ioc_type and ioc_value arguments.<br/><br/>Possible keys to indicate type of indicator: <br/>INDICATOR_OF_COMPROMISE_TYPE_PATH_OR_FILENAME, INDICATOR_OF_COMPROMISE_TYPE_HASH, INDICATOR_OF_COMPROMISE_TYPE_YARA_RULE<br/><br/>Format Accepted:<br/>{<br/>"&lt;ioc_type1&gt;": ["&lt;ioc_value1&gt;", "&lt;ioc_value2&gt;"],<br/>"&lt;ioc_type2&gt;": "&lt;ioc_value2&gt;"<br/>}<br/><br/>Example:<br/>{<br/>"INDICATOR_OF_COMPROMISE_TYPE_PATH_OR_FILENAME": ["C:\Users\Malware_Executible.ps1", "\bin\Malware_Executible"],<br/>"INDICATOR_OF_COMPROMISE_TYPE_HASH": ["e5c1b9c44be582f895eaea3d3738c5b4", "f541b9844be897f895eaea3d3738cfb2"],<br/>"INDICATOR_OF_COMPROMISE_TYPE_YARA_RULE": "rule match_everything {condition:true}"<br/>}. | Optional | 
@@ -1467,6 +1468,7 @@ Note: To know the results of the scan use the "rubrik-radar-ioc-scan-results" co
 | paths_to_include | Paths to include in the scan. Supports comma separated values.<br/><br/>Format accepted:<br/>path_to_include_1, path_to_include_2. | Optional | 
 | paths_to_exclude | Paths to exclude from the scan. Supports comma separated values.<br/><br/>Format accepted:<br/>path_to_exclude_1, path_to_exclude_2. | Optional | 
 | paths_to_exempt | Paths to exempt from exclusion. Supports comma separated values.<br/><br/>Format accepted:<br/>path_to_exempt_1, path_to_exempt_2. | Optional | 
+| requested_hash_types | The type of hash values of the matched files to return in the result. Supports comma separated values.<br/><br/>Possible values are: "HASH_TYPE_M_D5", "HASH_TYPE_SH_A1", "HASH_TYPE_SH_A256". | Optional |
 
 
 #### Context Output
@@ -1478,7 +1480,7 @@ Note: To know the results of the scan use the "rubrik-radar-ioc-scan-results" co
 
 
 #### Command Example
-```!rubrik-radar-ioc-scan cluster_id="052bf7af-93a3-44e9-a7d7-bc8dad4d6b43" snappable_id="VirtualMachine:::868aa03d-4145-4cb1-808b-e10c4f7a3741-vm-206037" ```
+```!rubrik-radar-ioc-scan scan_name="Revil Ransomware Scan" ioc_type="INDICATOR_OF_COMPROMISE_TYPE_PATH_OR_FILENAME" ioc_value="revil.exe" cluster_id="052bf7af-93a3-44e9-a7d7-bc8dad4d6b43" object_id="868aa03d-4145-4cb1-808b-e10c4f7a3741" ```
 
 #### Human Readable Output
 ### Radar IOC Scan
@@ -1515,21 +1517,21 @@ Note: To initiate a scan use the "rubrik-radar-ioc-scan" command and to list the
 | RubrikPolaris.RadarIOCScan.indicatorsOfCompromise.iocType | String | Type of IOC that was scanned. | 
 | RubrikPolaris.RadarIOCScan.indicatorsOfCompromise.iocValue | String | Value of the IOC that was scanned. | 
 | RubrikPolaris.RadarIOCScan.results.objectId | String | ID of the system that was scanned. | 
-| RubrikPolaris.RadarIOCScan.results.SnapshotResult.status | String | Status of the scan on the snapshot. Values: MALWARE_SCAN_IN_SNAPSHOT_STATUS_PENDING, MALWARE_SCAN_IN_SNAPSHOT_STATUS_FINISHED, MALWARE_SCAN_IN_SNAPSHOT_STATUS_ERROR. | 
-| RubrikPolaris.RadarIOCScan.results.SnapshotResult.snapshotDate | String | The date-time at which the snapshot was taken. | 
-| RubrikPolaris.RadarIOCScan.results.SnapshotResult.snapshotId | String | ID of the snapshot that was scanned. | 
-| RubrikPolaris.RadarIOCScan.results.SnapshotResult.scanStats.numFiles | Number | Number of files encountered during scan. | 
-| RubrikPolaris.RadarIOCScan.results.SnapshotResult.scanStats.numFilesScanned | Number | Number of files that were scanned on that snapshot. | 
-| RubrikPolaris.RadarIOCScan.results.SnapshotResult.scanStats.totalFilesScannedSizeBytes | Number | The total file size of the files scanned. | 
-| RubrikPolaris.RadarIOCScan.results.SnapshotResult.matches.indicatorIndex | Number | Index of indicator in inputs for the scan. | 
-| RubrikPolaris.RadarIOCScan.results.SnapshotResult.matches.paths.aclDetails | String | JSON encoded file access control list \(ACL\) information. | 
-| RubrikPolaris.RadarIOCScan.results.SnapshotResult.matches.paths.creationTime | String | File creation date-time. | 
-| RubrikPolaris.RadarIOCScan.results.SnapshotResult.matches.paths.modificationTime | String | File modification date-time. | 
-| RubrikPolaris.RadarIOCScan.results.SnapshotResult.matches.paths.path | String | File path that matched the malware Indicator Of Compromise. | 
-| RubrikPolaris.RadarIOCScan.results.SnapshotResult.matches.paths.yaraMatchDetails.name | String | The name of the matching YARA rule. | 
-| RubrikPolaris.RadarIOCScan.results.SnapshotResult.matches.paths.yaraMatchDetails.tags | Unknown | Optional YARA tags. Described in https://yara.readthedocs.io/en/latest/writingrules.html\#rule-tags. | 
-| RubrikPolaris.RadarIOCScan.results.SnapshotResult.matches.paths.requestedHashDetails.hashType | String | Hash algorithm type. | 
-| RubrikPolaris.RadarIOCScan.results.SnapshotResult.matches.paths.requestedHashDetails.hashValue | String | Hash value of the content at path. | 
+| RubrikPolaris.RadarIOCScan.results.snapshotResults.status | String | Status of the scan on the snapshot. Values: MALWARE_SCAN_IN_SNAPSHOT_STATUS_PENDING, MALWARE_SCAN_IN_SNAPSHOT_STATUS_FINISHED, MALWARE_SCAN_IN_SNAPSHOT_STATUS_ERROR. | 
+| RubrikPolaris.RadarIOCScan.results.snapshotResults.snapshotDate | String | The date-time at which the snapshot was taken. | 
+| RubrikPolaris.RadarIOCScan.results.snapshotResults.snapshotId | String | ID of the snapshot that was scanned. | 
+| RubrikPolaris.RadarIOCScan.results.snapshotResults.scanStats.numFiles | Number | Number of files encountered during scan. | 
+| RubrikPolaris.RadarIOCScan.results.snapshotResults.scanStats.numFilesScanned | Number | Number of files that were scanned on that snapshot. | 
+| RubrikPolaris.RadarIOCScan.results.snapshotResults.scanStats.totalFilesScannedSizeBytes | Number | The total file size of the files scanned. | 
+| RubrikPolaris.RadarIOCScan.results.snapshotResults.matches.indicatorIndex | Number | Index of indicator in inputs for the scan. | 
+| RubrikPolaris.RadarIOCScan.results.snapshotResults.matches.paths.aclDetails | String | JSON encoded file access control list \(ACL\) information. | 
+| RubrikPolaris.RadarIOCScan.results.snapshotResults.matches.paths.creationTime | String | File creation date-time. | 
+| RubrikPolaris.RadarIOCScan.results.snapshotResults.matches.paths.modificationTime | String | File modification date-time. | 
+| RubrikPolaris.RadarIOCScan.results.snapshotResults.matches.paths.path | String | File path that matched the malware Indicator Of Compromise. | 
+| RubrikPolaris.RadarIOCScan.results.snapshotResults.matches.paths.yaraMatchDetails.name | String | The name of the matching YARA rule. | 
+| RubrikPolaris.RadarIOCScan.results.snapshotResults.matches.paths.yaraMatchDetails.tags | Unknown | Optional YARA tags. Described in https://yara.readthedocs.io/en/latest/writingrules.html\#rule-tags. | 
+| RubrikPolaris.RadarIOCScan.results.snapshotResults.matches.paths.requestedHashDetails.hashType | String | Hash algorithm type. | 
+| RubrikPolaris.RadarIOCScan.results.snapshotResults.matches.paths.requestedHashDetails.hashValue | String | Hash value of the content at path. | 
 
 
 #### Command Example
@@ -1659,7 +1661,7 @@ Retrieve the list of the available rubrik clusters.
 ### GPS Clusters
 |Cluster ID|Cluster Name|Connection Status|Cluster Location|Total Capacity|Free Space|Protected Objects|Cluster Version|IP Address|
 |---|---|---|---|---|---|---|---|---|
-| cc19573c-db6c-418a-9d48-067a256543ba | sand1-rbk01 | Connected | San Francisco, CA, USA | 52.605821063168 TB | 45.484602130432 TB | 205 | 7.0.0-EA1-14307 | 172.24.97.11, 172.24.97.12 |
+| cc19573c-db6c-418a-9d48-067a256543ba | sand1-rbk01 | Connected | San Francisco, CA, USA | 52.605821063168 TB | 45.484602130432 TB | 205 | 7.0.0-EA1-14307 | X.X.X.X, X.X.X.X |
 
 
 
@@ -1717,11 +1719,11 @@ Note: To know about the recovery status, use the "rubrik-gps-async-result" comma
 
 | **Argument Name** | **Description** | **Required** |
 | --- | --- | --- |
-| cluster_id | ID of the cluster where the snapshot resides.\n\nNote: Users can get the cluster ID by executing the "rubrik-gps-cluster-list" command. | Required | 
-| snapshot_id | ID of the snapshot from which to recover files.\n\nNote: Users can get the snapshot ID by executing the "rubrik-polaris-vm-object-snapshot-list" command. | Required | 
-| paths_to_recover | Comma separated paths of files and directories that will be recovered from the snapshot.\n\nNote: Users can get the list of paths in a snapshot by executing the "rubrik-gps-snapshot-files-list" command. | Required | 
+| cluster_id | ID of the cluster where the snapshot resides.<br/><br/>Note: Users can get the cluster ID by executing the "rubrik-gps-cluster-list" command. | Required | 
+| snapshot_id | ID of the snapshot from which to recover files.<br/><br/>Note: Users can get the snapshot ID by executing the "rubrik-polaris-vm-object-snapshot-list" command. | Required | 
+| paths_to_recover | Comma separated paths of files and directories that will be recovered from the snapshot.<br/><br/>Note: Users can get the list of paths in a snapshot by executing the "rubrik-gps-snapshot-files-list" command. | Required | 
 | restore_path | Path on the destination object on which recovery will be done. | Required | 
-| destination_object_id | ID of the object where the files will be restored into. If not provided, Rubrik will use the snapshots object.\n\nNote: Users can get the object ID by executing the "rubrik-polaris-vm-objects-list" command. | Optional | 
+| destination_object_id | ID of the object where the files will be restored into. If not provided, Rubrik will use the snapshots object.<br/><br/>Note: Users can get the object ID by executing the "rubrik-polaris-vm-objects-list" command. | Optional | 
 
 
 #### Context Output
@@ -1732,7 +1734,7 @@ Note: To know about the recovery status, use the "rubrik-gps-async-result" comma
 
 
 #### Command Example
-```!rubrik-gps-vm-recover-files cluster_id="052bf7af-93a3-44e9-a7d7-bc8dad4d6b43" snapshot_id="e2a0ffa8-82a3-518b-8532-0608a0e7380f" path_to_recover="/bin,/var/log/boot.log" restore_path="/tmp/backup1"```
+```!rubrik-gps-vm-recover-files cluster_id="052bf7af-93a3-44e9-a7d7-bc8dad4d6b43" snapshot_id="e2a0ffa8-82a3-518b-8532-0608a0e7380f" path_to_recover="/bin,/boot" restore_path="/tmp/backup1"```
 
 #### Human Readable Output
 ### GPS VM Recover Files
