@@ -1,464 +1,123 @@
-Use the "BitSight for Security Performance Management" Integration to get company guid, details, and findings. This integration also allows to fetch the findings by using the fetch incidents capability.
-This integration was integrated and tested with version 01 of BitSight for Security Performance Management
+The CyCognito integration empowers the user with the view of their organization's internet-exposed attack surface by fetching issues discovered by the CyCognito platform. These issues provide identification, prioritization, and remediation for the risks the organization faces. The integration contains commands to query assets and issues detected by the CyCognito platform and also includes a rich dashboard and a layout with issue management capability.
+This integration was integrated and tested with CyCognito V1 API.
 
-## Configure BitSight for Security Performance Management on Cortex XSOAR
+## Configure CyCognito on Cortex XSOAR
 
 1. Navigate to **Settings** > **Integrations** > **Servers & Services**.
-2. Search for BitSight for Security Performance Management.
+2. Search for CyCognito.
 3. Click **Add instance** to create and configure a new integration instance.
 
     | **Parameter** | **Description** | **Required** |
     | --- | --- | --- |
-    | API Key |  | True |
-    | Company's GUID | Use "bitsight-companies-guid-get" command to retrieve the company's GUID. | False |
-    | First fetch time in days | Enter the number in days. When the fetch incident runs for first time, incidents will be fetched for a given number of days. | False |
-    | Max Fetch | Maximum number of incidents to fetch. The maximum value is 200. | False |
-    | Findings Minimum Severity | Minimum severity of the findings to fetch. | False |
-    | Findings Minimum Asset Category | Filter by the asset category \(critical, high, medium, low\). | False |
-    | Findings Grade | Filter the result by the value of grade. | False |
-    | Risk Vector ('All' has been selected by default) | This parameter supports comma separated list of values. By default 'All' will be selected, if you need only particular values you can unselect 'All' and select the required values. | False |
-    | Trust any certificate (not secure) |  | False |
-    | Use system proxy settings |  | False |
-    | Fetch incidents |  | False |
+    | API Key | The API Key required to authenticate to the service. | True |
     | Incident type |  | False |
+    | Incident Mirroring Direction | The mirroring direction in which to mirror the incident. You can mirror only in \(from CyCognito to XSOAR\), out \(from XSOAR to CyCognito\), or in both directions. | False |
+    | Fetch incidents |  | False |
+    | First Fetch Time | The date or relative timestamp from which to begin fetching incidents.<br/><br/>Formats accepted: 2 minutes, 2 hours, 2 days, 2 weeks, 2 months, 2 years, yyyy-mm-dd, yyyy-mm-ddTHH:MM:SSZ, etc. | False |
+    | Max Fetch | The maximum number of incidents to fetch every time. The maximum value is '1000'. | False |
+    | Issue Type | The type of issue to fetch. By default, all types of issues will be fetched. Multiple selection is supported. | False |
+    | Locations | Filters incidents according to the geographic locations in which the issue is found. Multiple selection is supported.| False |
+    | Severity | The severity levels of the issues to fetch from CyCognito. By default, all the severity levels will be fetched, Multiple selection is supported. | False |
+    | Investigation Status | The investigation status of the issues to fetch from CyCognito. By default, it fetches uninvestigated issues. | False |
+    | Advanced Filter | Applies a filter to the list of issues based on a JSON-specific query.<br/><br/>Format:<br/>\[\{<br/>    "field": "issue-type",<br/>    "op": "in",<br/>    "values": \[<br/>       "Unsafe Authentication",<br/>       "Vulnerable Software"<br/>    \]	<br/>\},<br/>\{<br/>    "op": "not-in",<br/>    "field": "severity-score",<br/>    "values": \[10, 9\]<br/>\}\]<br/><br/>Note: When using several filtering options \(e.g., 'Issue Type' and 'Advanced Filter'\), Advanced Filter parameters will take precedence over other parameters.<br/>For a complete reference to the CyCognito fields and operations, please refer to the CyCognito API V0 documentation at <br/>https://docs.cycognito.com/reference/query-issues | False |
+    | Trust any certificate (not secure) | Indicates whether to allow connections without verifying SSL certificate's validity. | False |
+    | Use system proxy settings | Indicates whether to use XSOAR's system proxy settings to connect to the API. | False |
+    | Incidents Fetch Interval |  | False |
 
 4. Click **Test** to validate the URLs, token, and connection.
 ## Commands
 You can execute these commands from the Cortex XSOAR CLI, as part of an automation, or in a playbook.
 After you successfully execute a command, a DBot message appears in the War Room with the command details.
-### bitsight-company-details-get
+### cycognito-issue-get
 ***
-BitSight command to get company details based on the provided GUID. The details include rating details, rating history, and grades for individual risk vectors.
+Retrieves information about an issue associated with a particular instance based on the provided issue instance ID.
 
 
 #### Base Command
 
-`bitsight-company-details-get`
+`cycognito-issue-get`
 #### Input
 
 | **Argument Name** | **Description** | **Required** |
 | --- | --- | --- |
-| guid | GUID of the company to fetch its details.<br/><br/>Note: Users can get the list of the GUID by executing the "bitsight-companies-guid-get" command. | Required | 
+| issue_instance_id | Unique issue ID of the instance.<br/><br/>Example: 0.0.0.0-cyc-auth-default-credentials,<br/>example.com-cyc-sql-injection, 0.0.0.0-cyc-exposed-bucket-with-data.<br/><br/>Note: Users can retrieve the list of issue instance IDs by executing the "cycognito-issues-list" command. | Required | 
 
 
 #### Context Output
 
 | **Path** | **Type** | **Description** |
 | --- | --- | --- |
-| BitSight.Company.guid | string | The unique identifier of this company. | 
-| BitSight.Company.customId | string | The customizable ID assigned to this company. | 
-| BitSight.Company.name | string | The name of this company. | 
-| BitSight.Company.description | string | Details about this company, which typically includes its industry and location. | 
-| BitSight.Company.ipv4Count | number | The number of IP addresses attributed to this company. | 
-| BitSight.Company.peopleCount | number | The number of employees in this company. | 
-| BitSight.Company.shortname | string | The abbreviated name of this company. | 
-| BitSight.Company.industry | string | The industry of this company. | 
-| BitSight.Company.industrySlug | string | The industry slug name of this company. | 
-| BitSight.Company.subIndustry | string | The sub-industry of this company. | 
-| BitSight.Company.subIndustrySlug | string | The sub-industry slug name of this company. | 
-| BitSight.Company.homePage | string | The URL of this company's primary external website. | 
-| BitSight.Company.primaryDomain | string | The name of this company's primary domain. | 
-| BitSight.Company.type | string | The type of rating. | 
-| BitSight.Company.displayURL | string | The URL to this company's overview page in the BitSight platform. | 
-| BitSight.Company.ratingDetails.name | string | The name of this risk vector. | 
-| BitSight.Company.ratingDetails.rating | number | Internal rating of this risk vector. | 
-| BitSight.Company.ratingDetails.grade | string | The letter grade of this risk vector. | 
-| BitSight.Company.ratingDetails.percentile | number | This company's performance on this risk vector against their peers. | 
-| BitSight.Company.ratingDetails.gradeColor | string | The hex code to display letter grade colors in HTML applications. | 
-| BitSight.Company.ratingDetails.category | string | The risk category of this risk vector. | 
-| BitSight.Company.ratingDetails.categoryOrder | number | Used to visually sort this risk category in the BitSight platform. | 
-| BitSight.Company.ratingDetails.beta | boolean | A true value indicates this risk vector is in beta and does not affect this company's security rating. | 
-| BitSight.Company.ratingDetails.order | number | Used to visually sort this risk vector in the BitSight platform. | 
-| BitSight.Company.ratingDetails.displayUrl | string | The URL in the BitSight platform that contains the details of this risk vector. | 
-| BitSight.Company.ratings.ratingDate | date | The date when this BitSight Security Rating Report was generated. | 
-| BitSight.Company.ratings.rating | number | The BitSight Security Rating of this company on this day. | 
-| BitSight.Company.ratings.range | string | The rating category of this company on this day. | 
-| BitSight.Company.ratings.ratingColor | string | The hex code to display rating category colors in HTML applications. | 
-| BitSight.Company.searchCount | number | The number of times this company has been listed in search results. | 
-| BitSight.Company.subscriptionType | string | The type of subscription used to monitor this company. | 
-| BitSight.Company.sparkline | string | The URL path to the security rating trend line of this company during the past one year. | 
-| BitSight.Company.subscriptionTypeKey | string | The slug name of the subscription used to monitor this company. | 
-| BitSight.Company.subscriptionEndDate | date | The date when the subscription to this company expires. | 
-| BitSight.Company.bulkEmailSenderStatus | string | A FULL value indicates this company provides bulk email sending services, which excludes this company from the Spam Propagation risk vector. | 
-| BitSight.Company.serviceProvider | boolean | A true value indicates this company is a service provider | 
-| BitSight.Company.customerMonitoringCount | number | The number of companies that are monitoring this company. | 
-| BitSight.Company.availableUpgradeTypes | string | For internal BitSight use. | 
-| BitSight.Company.hasCompanyTree | boolean | A true value indicates this company has a Ratings Tree. | 
-| BitSight.Company.hasPreferredContact | boolean | For internal BitSight use. | 
-| BitSight.Company.isBundle | boolean | A true value indicates this company is part of a ratings bundle. | 
-| BitSight.Company.ratingIndustryMedian | string | Indicates this company's position in the peer group distribution chart. | 
-| BitSight.Company.primaryCompany.guid | string | The unique identifier of this organization's primary company. | 
-| BitSight.Company.primaryCompany.name | string | The name of this organization's primary company. | 
-| BitSight.Company.permissions.canDownloadCompanyReport | boolean | A true value indicates you can view and download BitSight Security Rating Reports \(PDF\). | 
-| BitSight.Company.permissions.canViewForensics | boolean | A true value indicates you have the Event Forensics add-on package. | 
-| BitSight.Company.permissions.canViewServiceProviders | boolean | A true value indicates you can access BitSight for Fourth Party Risk Management. | 
-| BitSight.Company.permissions.canRequestSelfPublishedEntity | boolean | A true value indicates you can request the creation of a self-published rating. | 
-| BitSight.Company.permissions.canViewInfrastructure | boolean | A true value indicates you can view your infrastructure attribution. | 
-| BitSight.Company.permissions.canAnnotate | boolean | A true value indicates you can identify assets and segment your network with infrastructure tags. | 
-| BitSight.Company.permissions.canViewCompanyReports | boolean | A true value indicates you can view BitSight Security Rating Reports. | 
-| BitSight.Company.permissions.hasControl | boolean | For internal BitSight use. | 
-| BitSight.Company.permissions.canEnableVendorAccess | boolean | A true value indicates you can modify vendor access. | 
-| BitSight.Company.isPrimary | boolean | A true value indicates your company is the primary for your organization. | 
-| BitSight.Company.securityGrade | string | For internal BitSight use. | 
-| BitSight.Company.inSpmPortfolio | boolean | A true value indicates this company is in your Security Performance Management portfolio \(My Company, SPM Subsidiary, etc.\). | 
-| BitSight.Company.isMycompMysubsBundle | string | For internal BitSight use. | 
-| BitSight.Company.companyFeatures | string | For internal BitSight use. | 
+| CyCognito.Issue.id | String | Unique ID of the issue. | 
+| CyCognito.Issue.owned_by | String | Organization or owner to which the issue is attributed. | 
+| CyCognito.Issue.references | Unknown | Issue reference. | 
+| CyCognito.Issue.threat | String | The threat that the issue might cause. | 
+| CyCognito.Issue.tags | Unknown | Tags of the issue. | 
+| CyCognito.Issue.organizations | Unknown | Organizations of the instance. | 
+| CyCognito.Issue.issue_id | String | Unique ID of the issue. | 
+| CyCognito.Issue.summary | String | A brief description that summarizes the issue. | 
+| CyCognito.Issue.resolved_at | String | Date/time when the issue was resolved. | 
+| CyCognito.Issue.investigation_status | String | Investigation status of the issue. | 
+| CyCognito.Issue.locations | Unknown | The geographic location of the instance. | 
+| CyCognito.Issue.detection_complexity | String | Measures the difficulty at which a vulnerable asset can be detected by a potential attacker. | 
+| CyCognito.Issue.title | String | Title of the issue. | 
+| CyCognito.Issue.exploitation_score | Number | Exploitation score of the issue. | 
+| CyCognito.Issue.issue_type | String | Type of the issue. | 
+| CyCognito.Issue.comment | String | Comment associated with the issue. | 
+| CyCognito.Issue.severity | String | Severity of the issue. | 
+| CyCognito.Issue.remediation_steps | Unknown | A list of actions that describe how to resolve the issue. | 
+| CyCognito.Issue.potential_impact | Unknown | A list of categories that describe what might happen if the issue is exploited. | 
+| CyCognito.Issue.exploitation_method | String | Exploitation method of the issue. | 
+| CyCognito.Issue.affected_asset | String | The unique ID of the asset with which the issue is associated. | 
+| CyCognito.Issue.severity_score | Number | The numeric severity of the issue is in the range of 0 \(not severe\) through 10 \(severe\). | 
+| CyCognito.Issue.last_detected | Date | The time at which the issue was last detected. | 
+| CyCognito.Issue.first_detected | Date | The time at which the issue was first detected. | 
+| CyCognito.Issue.issue_status | String | Status of the issue found. | 
 
 #### Command example
-```!bitsight-company-details-get guid=00000000-0000-0000-0000-000000000001```
+```!cycognito-issue-get issue_instance_id=127.0.0.1-cve-2019-00000```
 #### Context Example
 ```json
 {
-    "BitSight": {
-        "Company": {
-            "bulkEmailSenderStatus": "NONE",
-            "customerMonitoringCount": 228,
-            "description": "Saperix Technologies LLC develops risk analysis software solutions.",
-            "displayUrl": "https://service.bitsighttech.com/app/company/00000000-0000-0000-0000-000000000001/overview/",
-            "guid": "00000000-0000-0000-0000-000000000001",
-            "hasCompanyTree": true,
-            "hasPreferredContact": true,
-            "homepage": "http://www.saperix.com",
-            "inSpmPortfolio": true,
-            "industry": "Technology",
-            "industrySlug": "technology",
-            "ipv4Count": 4169,
-            "isBundle": false,
-            "isMycompMysubsBundle": false,
-            "isPrimary": false,
-            "name": "Saperix, Inc.",
-            "peopleCount": 400,
-            "permissions": {
-                "canAnnotate": true,
-                "canDownloadCompanyReport": true,
-                "canManagePrimaryCompany": true,
-                "canRequestSelfPublishedEntity": true,
-                "canViewCompanyReports": true,
-                "canViewForensics": true,
-                "canViewInfrastructure": true,
-                "canViewIpAttributions": true,
-                "canViewServiceProviders": true,
-                "hasControl": true
-            },
-            "primaryCompany": {
-                "guid": "00000000-0000-0000-0000-000000000002",
-                "name": "Saperix Corporate"
-            },
-            "primaryDomain": "saperix.com",
-            "ratingDetails": [
-                {
-                    "beta": false,
-                    "category": "Compromised Systems",
-                    "categoryOrder": 0,
-                    "displayUrl": "https://service.bitsighttech.com/app/company/00000000-0000-0000-0000-000000000001/compromised-systems/?filter=Botnet%20Infections",
-                    "grade": "A",
-                    "gradeColor": "#2c4d7f",
-                    "name": "Botnet Infections",
-                    "order": 0,
-                    "percentile": 100,
-                    "rating": 820
-                },
-                {
-                    "beta": false,
-                    "category": "Compromised Systems",
-                    "categoryOrder": 0,
-                    "displayUrl": "https://service.bitsighttech.com/app/company/00000000-0000-0000-0000-000000000001/compromised-systems/?filter=Spam%20Propagation",
-                    "grade": "A",
-                    "gradeColor": "#2c4d7f",
-                    "name": "Spam Propagation",
-                    "order": 1,
-                    "percentile": 100,
-                    "rating": 820
-                },
-                {
-                    "beta": false,
-                    "category": "Compromised Systems",
-                    "categoryOrder": 0,
-                    "displayUrl": "https://service.bitsighttech.com/app/company/00000000-0000-0000-0000-000000000001/compromised-systems/?filter=Malware%20Servers",
-                    "grade": "A",
-                    "gradeColor": "#2c4d7f",
-                    "name": "Malware Servers",
-                    "order": 2,
-                    "percentile": 100,
-                    "rating": 820
-                },
-                {
-                    "beta": false,
-                    "category": "Compromised Systems",
-                    "categoryOrder": 0,
-                    "displayUrl": "https://service.bitsighttech.com/app/company/00000000-0000-0000-0000-000000000001/compromised-systems/?filter=Unsolicited%20Communications",
-                    "grade": "A",
-                    "gradeColor": "#2c4d7f",
-                    "name": "Unsolicited Communications",
-                    "order": 3,
-                    "percentile": 100,
-                    "rating": 820
-                },
-                {
-                    "beta": false,
-                    "category": "Compromised Systems",
-                    "categoryOrder": 0,
-                    "displayUrl": "https://service.bitsighttech.com/app/company/00000000-0000-0000-0000-000000000001/compromised-systems/?filter=Potentially%20Exploited",
-                    "grade": "B",
-                    "gradeColor": "#526d96",
-                    "name": "Potentially Exploited",
-                    "order": 4,
-                    "percentile": 77,
-                    "rating": 760
-                },
-                {
-                    "beta": false,
-                    "category": "Diligence",
-                    "categoryOrder": 1,
-                    "displayUrl": "https://service.bitsighttech.com/app/company/00000000-0000-0000-0000-000000000001/diligence-details/?filter=spf",
-                    "grade": "B",
-                    "gradeColor": "#526d96",
-                    "name": "SPF",
-                    "order": 5,
-                    "percentile": 87,
-                    "rating": 780
-                },
-                {
-                    "beta": false,
-                    "category": "Diligence",
-                    "categoryOrder": 1,
-                    "displayUrl": "https://service.bitsighttech.com/app/company/00000000-0000-0000-0000-000000000001/diligence-details/?filter=dkim",
-                    "grade": "C",
-                    "gradeColor": "#ecb870",
-                    "name": "DKIM",
-                    "order": 6,
-                    "percentile": 54,
-                    "rating": 700
-                },
-                {
-                    "beta": false,
-                    "category": "Diligence",
-                    "categoryOrder": 1,
-                    "displayUrl": "https://service.bitsighttech.com/app/company/00000000-0000-0000-0000-000000000001/diligence-details/?filter=certificate",
-                    "grade": "B",
-                    "gradeColor": "#526d96",
-                    "name": "SSL Certificates",
-                    "order": 7,
-                    "percentile": 86,
-                    "rating": 780
-                },
-                {
-                    "beta": false,
-                    "category": "Diligence",
-                    "categoryOrder": 1,
-                    "displayUrl": "https://service.bitsighttech.com/app/company/00000000-0000-0000-0000-000000000001/diligence-details/?filter=ssl",
-                    "grade": "C",
-                    "gradeColor": "#ecb870",
-                    "name": "SSL Configurations",
-                    "order": 8,
-                    "percentile": 55,
-                    "rating": 700
-                },
-                {
-                    "beta": false,
-                    "category": "Diligence",
-                    "categoryOrder": 1,
-                    "displayUrl": "https://service.bitsighttech.com/app/company/00000000-0000-0000-0000-000000000001/diligence-details/?filter=open_port",
-                    "grade": "A",
-                    "gradeColor": "#2c4d7f",
-                    "name": "Open Ports",
-                    "order": 9,
-                    "percentile": 90,
-                    "rating": 790
-                },
-                {
-                    "beta": false,
-                    "category": "Diligence",
-                    "categoryOrder": 1,
-                    "displayUrl": "https://service.bitsighttech.com/app/company/00000000-0000-0000-0000-000000000001/diligence-details/?filter=http_headers",
-                    "grade": "F",
-                    "gradeColor": "#b24053",
-                    "name": "Web Application Headers",
-                    "order": 10,
-                    "percentile": 8,
-                    "rating": 490
-                },
-                {
-                    "beta": false,
-                    "category": "Diligence",
-                    "categoryOrder": 1,
-                    "displayUrl": "https://service.bitsighttech.com/app/company/00000000-0000-0000-0000-000000000001/diligence-details/?filter=pc",
-                    "grade": "C",
-                    "gradeColor": "#ecb870",
-                    "name": "Patching Cadence",
-                    "order": 11,
-                    "percentile": 62,
-                    "rating": 720
-                },
-                {
-                    "beta": false,
-                    "category": "Diligence",
-                    "categoryOrder": 1,
-                    "displayUrl": "https://service.bitsighttech.com/app/company/00000000-0000-0000-0000-000000000001/diligence-details/?filter=insecure_sys",
-                    "grade": "C",
-                    "gradeColor": "#ecb870",
-                    "name": "Insecure Systems",
-                    "order": 12,
-                    "percentile": 61,
-                    "rating": 700
-                },
-                {
-                    "beta": false,
-                    "category": "Diligence",
-                    "categoryOrder": 1,
-                    "displayUrl": "https://service.bitsighttech.com/app/company/00000000-0000-0000-0000-000000000001/diligence-details/?filter=server_software",
-                    "grade": "A",
-                    "gradeColor": "#2c4d7f",
-                    "name": "Server Software",
-                    "order": 13,
-                    "percentile": 99,
-                    "rating": 810
-                },
-                {
-                    "beta": false,
-                    "category": "Diligence",
-                    "categoryOrder": 1,
-                    "displayUrl": "https://service.bitsighttech.com/app/company/00000000-0000-0000-0000-000000000001/diligence-details/?filter=endpoint_pc",
-                    "grade": "F",
-                    "gradeColor": "#b24053",
-                    "name": "Desktop Software",
-                    "order": 14,
-                    "percentile": 1,
-                    "rating": 400
-                },
-                {
-                    "beta": false,
-                    "category": "Diligence",
-                    "categoryOrder": 1,
-                    "displayUrl": "https://service.bitsighttech.com/app/company/00000000-0000-0000-0000-000000000001/diligence-details/?filter=endpoint_mobile",
-                    "grade": "F",
-                    "gradeColor": "#b24053",
-                    "name": "Mobile Software",
-                    "order": 15,
-                    "percentile": 9,
-                    "rating": 500
-                },
-                {
-                    "beta": true,
-                    "category": "Diligence",
-                    "categoryOrder": 1,
-                    "displayUrl": "https://service.bitsighttech.com/app/company/00000000-0000-0000-0000-000000000001/diligence-details/?filter=dnssec",
-                    "grade": "F",
-                    "gradeColor": "#b24053",
-                    "name": "DNSSEC",
-                    "order": 16,
-                    "percentile": 0,
-                    "rating": 300
-                },
-                {
-                    "beta": true,
-                    "category": "Diligence",
-                    "categoryOrder": 1,
-                    "displayUrl": "https://service.bitsighttech.com/app/company/00000000-0000-0000-0000-000000000001/diligence-details/?filter=mobile_appsec",
-                    "grade": "N/A",
-                    "gradeColor": "#495057",
-                    "name": "Mobile Application Security",
-                    "order": 17,
-                    "percentile": "N/A",
-                    "rating": "N/A"
-                },
-                {
-                    "beta": false,
-                    "category": "User Behavior",
-                    "categoryOrder": 2,
-                    "displayUrl": "https://service.bitsighttech.com/app/company/00000000-0000-0000-0000-000000000001/user-behavior",
-                    "grade": "B",
-                    "gradeColor": "#526d96",
-                    "name": "File Sharing",
-                    "order": 18,
-                    "percentile": 79,
-                    "rating": 750
-                },
-                {
-                    "beta": false,
-                    "category": "Public Disclosures",
-                    "categoryOrder": 3,
-                    "displayUrl": "https://service.bitsighttech.com/app/company/00000000-0000-0000-0000-000000000001/rating-details/?vector=news",
-                    "grade": "C",
-                    "gradeColor": "#ecb870",
-                    "name": "Security Incidents",
-                    "order": 19,
-                    "percentile": 47,
-                    "rating": 790
-                }
+    "CyCognito": {
+        "Issue": {
+            "affected_asset": "ip/127.0.0.1",
+            "detection_complexity": "Service Detection",
+            "exploitation_method": "Metasploit",
+            "exploitation_score": 3,
+            "first_detected": "2022-03-31T03:39:22.568Z",
+            "id": "127.0.0.1-cve-2019-00000",
+            "investigation_status": "investigating",
+            "issue_id": "CVE-2019-00000",
+            "issue_status": "new",
+            "issue_type": "Vulnerable Software",
+            "last_detected": "2022-03-31T03:39:22.568Z",
+            "locations": [
+                "IND"
             ],
-            "ratingIndustryMedian": "below",
-            "ratings": [
-                {
-                    "range": "Basic",
-                    "rating": 600,
-                    "ratingColor": "#b24053",
-                    "ratingDate": "2021-03-10"
-                },
-                {
-                    "range": "Basic",
-                    "rating": 600,
-                    "ratingColor": "#b24053",
-                    "ratingDate": "2021-03-09"
-                },
-                {
-                    "range": "Basic",
-                    "rating": 600,
-                    "ratingColor": "#b24053",
-                    "ratingDate": "2021-03-08"
-                },
-                {
-                    "range": "Basic",
-                    "rating": 600,
-                    "ratingColor": "#b24053",
-                    "ratingDate": "2021-03-07"
-                },
-                {
-                    "range": "Basic",
-                    "rating": 600,
-                    "ratingColor": "#b24053",
-                    "ratingDate": "2021-03-06"
-                },
-                {
-                    "range": "Basic",
-                    "rating": 600,
-                    "ratingColor": "#b24053",
-                    "ratingDate": "2021-03-05"
-                },
-                {
-                    "range": "Basic",
-                    "rating": 600,
-                    "ratingColor": "#b24053",
-                    "ratingDate": "2021-03-04"
-                },
-                {
-                    "range": "Basic",
-                    "rating": 600,
-                    "ratingColor": "#b24053",
-                    "ratingDate": "2021-03-03"
-                },
-                {
-                    "range": "Basic",
-                    "rating": 600,
-                    "ratingColor": "#b24053",
-                    "ratingDate": "2021-03-02"
-                },
-                {
-                    "range": "Basic",
-                    "rating": 600,
-                    "ratingColor": "#b24053",
-                    "ratingDate": "2021-03-01"
-                }
+            "organizations": [
+                "Acme Interior Design",
+                "Acme Corporation"
             ],
-            "searchCount": 8956,
-            "serviceProvider": false,
-            "shortname": "Saperix",
-            "sparkline": "https://api.bitsighttech.com/ratings/v1/companies/00000000-0000-0000-0000-000000000001/sparkline?size=small",
-            "subIndustry": "Computer & Network Security",
-            "subIndustrySlug": "computer_network_security",
-            "subscriptionType": "Total Risk Monitoring",
-            "subscriptionTypeKey": "continuous_monitoring",
-            "type": "CURATED"
+            "owned_by": "Acme Interior Design",
+            "potential_impact": [
+                "Loss of integrity",
+                "Loss of confidentiality",
+                "Data compromise"
+            ],
+            "references": [],
+            "remediation_steps": [
+                "Patch the Pulse Secure VPN to the latest version."
+            ],
+            "severity": "critical",
+            "severity_score": 10,
+            "summary": "| The Pulse Secure VPN has been confirmed to be vulnerable to an arbitrary file reading vulnerability. | Unauthenticated remote attackers can send the asset a specially crafted URI and thereby access arbitrary sensitive files. | Attackers can leverage the harvested information to perform further attacks.",
+            "tags": [
+                "Vulnerable Software",
+                "Pulse Secure",
+                "network vulnerabilities"
+            ],
+            "threat": "Information Disclosure",
+            "title": "Pulse Secure Arbitrary File Reading"
         }
     }
 }
@@ -466,201 +125,217 @@ BitSight command to get company details based on the provided GUID. The details 
 
 #### Human Readable Output
 
->### Company Details:
->|Company Info|Ratings|Rating Details|
->|---|---|---|
->| guid: 00000000-0000-0000-0000-000000000001<br/>customId: null<br/>name: Saperix, Inc.<br/>description: Saperix Technologies LLC develops risk analysis software solutions.<br/>ipv4Count: 4169<br/>peopleCount: 400<br/>shortName: Saperix<br/>industry: Technology<br/>industrySlug: technology<br/>subIndustry: Computer & Network Security<br/>subIndustrySlug: computer_network_security<br/>homePage: http:<span>//</span>www.saperix.com<br/>primaryDomain: saperix.com<br/>type: CURATED<br/>displayURL: https:<span>//</span>service.bitsighttech.com/app/company/00000000-0000-0000-0000-000000000001/overview/ | {'rating': 600, 'rating_date': '2021-03-10', 'range': 'Basic'},<br/>{'rating': 600, 'rating_date': '2021-03-09', 'range': 'Basic'},<br/>{'rating': 600, 'rating_date': '2021-03-08', 'range': 'Basic'},<br/>{'rating': 600, 'rating_date': '2021-03-07', 'range': 'Basic'},<br/>{'rating': 600, 'rating_date': '2021-03-06', 'range': 'Basic'},<br/>{'rating': 600, 'rating_date': '2021-03-05', 'range': 'Basic'},<br/>{'rating': 600, 'rating_date': '2021-03-04', 'range': 'Basic'},<br/>{'rating': 600, 'rating_date': '2021-03-03', 'range': 'Basic'},<br/>{'rating': 600, 'rating_date': '2021-03-02', 'range': 'Basic'},<br/>{'rating': 600, 'rating_date': '2021-03-01', 'range': 'Basic'} | {'name': 'Botnet Infections', 'rating': 820, 'percentile': 100, 'display_url': 'https:<span>//</span>service.bitsighttech.com/app/company/00000000-0000-0000-0000-000000000001/compromised-systems/?filter=Botnet%20Infections'},<br/>{'name': 'Spam Propagation', 'rating': 820, 'percentile': 100, 'display_url': 'https:<span>//</span>service.bitsighttech.com/app/company/00000000-0000-0000-0000-000000000001/compromised-systems/?filter=Spam%20Propagation'},<br/>{'name': 'Malware Servers', 'rating': 820, 'percentile': 100, 'display_url': 'https:<span>//</span>service.bitsighttech.com/app/company/00000000-0000-0000-0000-000000000001/compromised-systems/?filter=Malware%20Servers'},<br/>{'name': 'Unsolicited Communications', 'rating': 820, 'percentile': 100, 'display_url': 'https:<span>//</span>service.bitsighttech.com/app/company/00000000-0000-0000-0000-000000000001/compromised-systems/?filter=Unsolicited%20Communications'},<br/>{'name': 'Potentially Exploited', 'rating': 760, 'percentile': 77, 'display_url': 'https:<span>//</span>service.bitsighttech.com/app/company/00000000-0000-0000-0000-000000000001/compromised-systems/?filter=Potentially%20Exploited'},<br/>{'name': 'SPF', 'rating': 780, 'percentile': 87, 'display_url': 'https:<span>//</span>service.bitsighttech.com/app/company/00000000-0000-0000-0000-000000000001/diligence-details/?filter=spf'},<br/>{'name': 'DKIM', 'rating': 700, 'percentile': 54, 'display_url': 'https:<span>//</span>service.bitsighttech.com/app/company/00000000-0000-0000-0000-000000000001/diligence-details/?filter=dkim'},<br/>{'name': 'SSL Certificates', 'rating': 780, 'percentile': 86, 'display_url': 'https:<span>//</span>service.bitsighttech.com/app/company/00000000-0000-0000-0000-000000000001/diligence-details/?filter=certificate'},<br/>{'name': 'SSL Configurations', 'rating': 700, 'percentile': 55, 'display_url': 'https:<span>//</span>service.bitsighttech.com/app/company/00000000-0000-0000-0000-000000000001/diligence-details/?filter=ssl'},<br/>{'name': 'Open Ports', 'rating': 790, 'percentile': 90, 'display_url': 'https:<span>//</span>service.bitsighttech.com/app/company/00000000-0000-0000-0000-000000000001/diligence-details/?filter=open_port'},<br/>{'name': 'Web Application Headers', 'rating': 490, 'percentile': 8, 'display_url': 'https:<span>//</span>service.bitsighttech.com/app/company/00000000-0000-0000-0000-000000000001/diligence-details/?filter=http_headers'},<br/>{'name': 'Patching Cadence', 'rating': 720, 'percentile': 62, 'display_url': 'https:<span>//</span>service.bitsighttech.com/app/company/00000000-0000-0000-0000-000000000001/diligence-details/?filter=pc'},<br/>{'name': 'Insecure Systems', 'rating': 700, 'percentile': 61, 'display_url': 'https:<span>//</span>service.bitsighttech.com/app/company/00000000-0000-0000-0000-000000000001/diligence-details/?filter=insecure_sys'},<br/>{'name': 'Server Software', 'rating': 810, 'percentile': 99, 'display_url': 'https:<span>//</span>service.bitsighttech.com/app/company/00000000-0000-0000-0000-000000000001/diligence-details/?filter=server_software'},<br/>{'name': 'Desktop Software', 'rating': 400, 'percentile': 1, 'display_url': 'https:<span>//</span>service.bitsighttech.com/app/company/00000000-0000-0000-0000-000000000001/diligence-details/?filter=endpoint_pc'},<br/>{'name': 'Mobile Software', 'rating': 500, 'percentile': 9, 'display_url': 'https:<span>//</span>service.bitsighttech.com/app/company/00000000-0000-0000-0000-000000000001/diligence-details/?filter=endpoint_mobile'},<br/>{'name': 'DNSSEC', 'rating': 300, 'percentile': 0, 'display_url': 'https:<span>//</span>service.bitsighttech.com/app/company/00000000-0000-0000-0000-000000000001/diligence-details/?filter=dnssec'},<br/>{'name': 'Mobile Application Security', 'rating': 'N/A', 'percentile': 'N/A', 'display_url': 'https:<span>//</span>service.bitsighttech.com/app/company/00000000-0000-0000-0000-000000000001/diligence-details/?filter=mobile_appsec'},<br/>{'name': 'File Sharing', 'rating': 750, 'percentile': 79, 'display_url': 'https:<span>//</span>service.bitsighttech.com/app/company/00000000-0000-0000-0000-000000000001/user-behavior'},<br/>{'name': 'Security Incidents', 'rating': 790, 'percentile': 47, 'display_url': 'https:<span>//</span>service.bitsighttech.com/app/company/00000000-0000-0000-0000-000000000001/rating-details/?vector=news'} |
+>### Issue detail:
+>#### ID: 127.0.0.1-cve-2019-00000
+>|Title|Detection Complexity|Investigation Status|Exploitation Score|Owned By|First Detected|Last Detected|Organizations|Severity|Issue Type|Issue Status|Remediation Steps|Potential Impact|Tags|References|Summary|
+>|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+>| Pulse Secure Arbitrary File Reading | Service Detection | investigating | 3 | Acme Interior Design | 31 Mar 2022, 03:39 AM | 31 Mar 2022, 03:39 AM | Acme Interior Design, Acme Corporation | critical | Vulnerable Software | new | Patch the Pulse Secure VPN to the latest version. | Loss of integrity, Loss of confidentiality, Data compromise | Vulnerable Software, Pulse Secure, network vulnerabilities | | The Pulse Secure VPN has been confirmed to be vulnerable to an arbitrary file reading vulnerability. Unauthenticated remote attackers can send the asset a specially crafted URI and thereby access arbitrary sensitive files. Attackers can leverage the harvested information to perform further attacks. |
 
 
-### bitsight-company-findings-get
+### cycognito-asset-get
 ***
-BitSight command to get company findings.
+Retrieves information about a specific asset according to the specified asset type and asset ID.
 
 
 #### Base Command
 
-`bitsight-company-findings-get`
+`cycognito-asset-get`
+#### Input
+
+| **Argument Name** | **Description**                                                                                                                                                                                                                                                                                                                                                                                                                                          | **Required** |
+| --- |----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| --- |
+| asset_type | The type of asset.<br/><br/>Supported values: 'ip', 'domain', 'cert', 'webapp', 'iprange'                                                                                                                                                                                                                                                                                                                                                                | Required | 
+| asset_id | The unique asset identifier.<br/>For an ip, the asset identifier is the IP address.<br/>For a domain, the asset identifier is the domain name.<br/>For a cert, the asset identifier is the signature of the certificate.<br/>For a webapp, the asset identifier is the web application address.<br/>For an iprange, the asset identifier is the IP range.<br/><br/>Note: ip and domain values can be found by executing "cycognito-assets-list" command. | Required | 
+
+
+#### Context Output
+
+| **Path** | **Type** | **Description**                                                                              |
+| --- | --- |----------------------------------------------------------------------------------------------|
+| CyCognito.Asset.alive | Boolean | Indicates whether one or more attributes are true for the asset.                             | 
+| CyCognito.Asset.comment | String | Comment associated with the asset.                                                           | 
+| CyCognito.Asset.id | String | Unique identifier of the asset. <br/>Note: The asset ID is derived from the asset_id input field. | 
+| CyCognito.Asset.type | String | The type of asset.                                                                           | 
+| CyCognito.Asset.business_units | Unknown | The business units of the asset.                                                             | 
+| CyCognito.Asset.signature | String | The identifier of the certificate.                                                           | 
+| CyCognito.Asset.closed_ports.status | String | Status of the open ports object associated with the asset.                                   | 
+| CyCognito.Asset.closed_ports.port | Number | Port of the closed ports object associated with the asset.                                   | 
+| CyCognito.Asset.closed_ports.protocol | String | Protocol associated with the asset.                                                          | 
+| CyCognito.Asset.creation_time | Date | Creation time of the asset.                                                                  | 
+| CyCognito.Asset.domain | String | Domain of the asset.                                                                         | 
+| CyCognito.Asset.domains | Unknown | List of domains associated with the asset.                                                   | 
+| CyCognito.Asset.domain_names | String | List of domain names associated with the asset.                                              | 
+| CyCognito.Asset.expiration_time | Date | The date and time at which the asset expires.                                                | 
+| CyCognito.Asset.first_seen | Date | The time and date at which the asset was first discovered.                                   | 
+| CyCognito.Asset.hosting_type | String | Hosting type of the asset.                                                                   | 
+| CyCognito.Asset.ip | String | IP address of the asset.                                                                     | 
+| CyCognito.Asset.ip_names | String | IP name of the asset.                                                                        | 
+| CyCognito.Asset.issuer_alt_names | Unknown | List of alternative names of the issuers.                                                    | 
+| CyCognito.Asset.issuer_common_name | String | List of common names of the issuer.                                                          | 
+| CyCognito.Asset.issuer_country | String | Country of the issuer.                                                                       | 
+| CyCognito.Asset.issuer_locality | String | Locality of the issuer.                                                                      | 
+| CyCognito.Asset.issuer_organization | String | The issuer's organization.                                                                   | 
+| CyCognito.Asset.issuer_organization_unit | String | The issuer's organization unit.                                                              | 
+| CyCognito.Asset.issuer_state | String | The state of the issuer.                                                                     | 
+| CyCognito.Asset.issues_count | String | Count of the issues.                                                                         | 
+| CyCognito.Asset.last_seen | Date | The time and date at which the asset was last seen.                                          | 
+| CyCognito.Asset.locations | String | Location of the asset.                                                                       | 
+| CyCognito.Asset.open_ports.status | String | Status of the open ports object associated with the asset.                                   | 
+| CyCognito.Asset.open_ports.port | Number | Port of the closed ports object associated with the asset.                                   | 
+| CyCognito.Asset.open_ports.protocol | String | Protocol associated with the asset.                                                          | 
+| CyCognito.Asset.owned_by | String | Asset owner's name.                                                                          | 
+| CyCognito.Asset.organizations | String | Organizations of the asset.                                                                  | 
+| CyCognito.Asset.status | String | Status of the asset.                                                                         | 
+| CyCognito.Asset.security_rating | String | Security rating of the asset.                                                                | 
+| CyCognito.Asset.severe_issues_count | Number | The number of severe issues associated with the asset.                                       | 
+| CyCognito.Asset.signature_algorithm | String | Signature algorithm of the asset.                                                            | 
+| CyCognito.Asset.sub_domains | Unknown | Subdomains of the asset.                                                                     | 
+| CyCognito.Asset.subject_alt_names | Unknown | List of alternate subject names.                                                             | 
+| CyCognito.Asset.subject_common_name | String | Common name of the subject.                                                                  | 
+| CyCognito.Asset.subject_country | String | Subject's country.                                                                           | 
+| CyCognito.Asset.subject_locality | String | Locality of the subject.                                                                     | 
+| CyCognito.Asset.subject_organization | String | Subject's Organization.                                                                      | 
+| CyCognito.Asset.subject_organization_unit | String | The organization unit of the subject.                                                        | 
+| CyCognito.Asset.subject_state | String | State of the subject.                                                                        | 
+| CyCognito.Asset.tags | Unknown | Tags of the asset.                                                                           | 
+| CyCognito.Asset.from_rotating | String | Whether the asset has a rotating IP address.                                                 | 
+| CyCognito.Asset.investigation_status | String | Investigation status of the asset.                                                           | 
+
+#### Command example
+```!cycognito-asset-get asset_type=ip asset_id=127.0.0.1```
+#### Context Example
+```json
+{
+    "CyCognito": {
+        "Asset": {
+            "alive": true,
+            "closed_ports": [
+                {
+                    "port": 8080,
+                    "protocol": "tcp",
+                    "status": "closed"
+                },
+                {
+                    "port": 102,
+                    "protocol": "tcp",
+                    "status": "closed"
+                },
+                {
+                    "port": 445,
+                    "protocol": "tcp",
+                    "status": "closed"
+                },
+                {
+                    "port": 161,
+                    "protocol": "tcp",
+                    "status": "closed"
+                },
+                {
+                    "port": 4040,
+                    "protocol": "tcp",
+                    "status": "closed"
+                },
+                {
+                    "port": 7070,
+                    "protocol": "tcp",
+                    "status": "closed"
+                },
+                {
+                    "port": 1723,
+                    "protocol": "tcp",
+                    "status": "closed"
+                }
+            ],
+            "comment": {
+                "content": "A grade",
+                "last_update": "2022-05-06T05:19:05.931Z"
+            },
+            "dynamically_resolved": "no",
+            "first_seen": "2022-01-20T03:58:36.696Z",
+            "hosting_type": "owned",
+            "id": "127.0.0.1",
+            "investigation_status": "investigated",
+            "ip": "127.0.0.1",
+            "issues_count": 1,
+            "last_seen": "2022-03-31T03:39:22.568Z",
+            "locations": [
+                "IND"
+            ],
+            "open_ports": [
+                {
+                    "port": 9999,
+                    "protocol": "tcp",
+                    "status": "open"
+                },
+                {
+                    "port": 2000,
+                    "protocol": "tcp",
+                    "status": "open"
+                }
+            ],
+            "organizations": [
+                "Acme Interior Design",
+                "Acme Corporation"
+            ],
+            "owned_by": "Acme Interior Design",
+            "security_rating": "B",
+            "severe_issues_count": 0,
+            "status": "new",
+            "tags": [
+                "Gateways",
+                "ACME"
+            ],
+            "type": "ip"
+        }
+    }
+}
+```
+
+#### Human Readable Output
+
+>### Asset Details:
+>|Asset ID|Asset Type|Hosting Type|Alive|Locations|First Seen|Last Seen|Status|Security Rating|Owned By|Tags|Organizations|Severe Issues Count|Investigation Status|Open Ports|
+>|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+>| 127.0.0.1 | ip | owned | true | India | 20 Jan 2022, 03:58 AM | 31 Mar 2022, 03:39 AM | new | B | Acme Interior Design | Gateways,<br/>ACME | Acme Interior Design, Acme Corporation | 0 | investigated | TCP - 9999, TCP - 2000 |
+
+
+### cycognito-asset-investigation-status-change
+***
+Modifies the investigation status of the specified asset.
+
+
+#### Base Command
+
+`cycognito-asset-investigation-status-change`
 #### Input
 
 | **Argument Name** | **Description** | **Required** |
 | --- | --- | --- |
-| guid | GUID of the company.<br/><br/>Note: Users can get the list of the GUID by executing the "bitsight-companies-guid-get" command. | Required | 
-| first_seen | Filter the findings that were seen on and after this date. Format accepted: YYYY-MM-DD, Example: 2021-01-01. | Required | 
-| last_seen | Filter the findings that were seen on and prior to this date. Format accepted: YYYY-MM-DD, Example: 2021-01-01. | Required | 
-| severity | Minimum Severity of the findings. Possible values are: minor, moderate, material, severe. | Optional | 
-| grade | Filter by the grade of the findings. Supports comma separated values. Select the values from the list of predefined values: good, fair, warn, bad and, neutral. | Optional | 
-| asset_category | Minimum Asset Category of the findings.<br/><br/>Example: If low is selected from the options then low, medium, high, and critical will be considered in retrieving results. Possible values are: low, medium, high, critical. | Optional | 
-| risk_vector_label | Risk category of the findings. Supports comma separated values. Select the values from the list of predefined values: Web Application Headers, Botnet Infections, Breaches, Desktop Software, DKIM, DNSSEC, File Sharing, Insecure Systems, Malware Servers, Mobile App Publications, Mobile Application Security, Mobile Software, Open Ports, Patching Cadence, Potentially Exploited, Server Software, Spam Propagation, SPF, SSL Certificates, SSL Configurations and, Unsolicited Communications. | Optional | 
-| limit | Set the maximum number of results to be retrieved. The maximum value is 1000.<br/><br/>Note: If a negative value is provided then the default value of 100 will be used. Default is 100. | Optional | 
-| offset | Set the starting point of the results to be returned. A 0 (zero) value starts the results from the first record in the result set. Default is 0. | Optional | 
+| asset_type | The type of asset.<br/><br/>Supported values: 'ip', 'domain', 'cert', 'webapp', 'iprange' | Required | 
+| asset_id | The unique asset identifier.<br/>For an ip, the asset identifier is the IP address.<br/>For a domain, the asset identifier is the domain name.<br/>For a cert, the asset identifier is the signature of the certificate.<br/>For a webapp, the asset identifier is the web application address.<br/>For an iprange, the asset identifier is the IP range.<br/><br/>Note : IP and Domain values can be found by executing the 'cycognito-assets-list' command. | Required | 
+| investigation_status | The investigation status of the asset. <br/><br/>Supported values: 'uninvestigated', 'investigating', 'investigated'. | Required | 
 
 
 #### Context Output
 
-| **Path** | **Type** | **Description** |
-| --- | --- | --- |
-| BitSight.Company.guid | string | The unique identifier of this company. | 
-| BitSight.Company.CompanyFinding.temporaryId | string | A temporary identifier for this finding. | 
-| BitSight.Company.CompanyFinding.affectsRating | boolean | Indicates if this finding has an impact on the letter grade. | 
-| BitSight.Company.CompanyFinding.assets.asset | string | The asset \(IP address or domain\) associated with this finding. | 
-| BitSight.Company.CompanyFinding.assets.identifier | string | Identifier associated with the asset. | 
-| BitSight.Company.CompanyFinding.assets.category | string | The BitSight-calculated asset importance. | 
-| BitSight.Company.CompanyFinding.assets.importance | number | For internal BitSight use. | 
-| BitSight.Company.CompanyFinding.assets.isIp | boolean | A true value indicates this asset is an IP address. | 
-| BitSight.Company.CompanyFinding.details | string | Details of this finding. The included keys vary, depending on the following risk types Compromised Systems, Diligence, File Sharing. | 
-| BitSight.Company.CompanyFinding.evidenceKey | string | The company's asset \(domain or IP address\) that's attributed to the finding. | 
-| BitSight.Company.CompanyFinding.firstSeen | date | The date of the first observation. | 
-| BitSight.Company.CompanyFinding.lastSeen | date | The date of the most recent observation. | 
-| BitSight.Company.CompanyFinding.relatedFindings | string | Details of related findings. | 
-| BitSight.Company.CompanyFinding.riskCategory | string | The risk category associated with this finding. | 
-| BitSight.Company.CompanyFinding.riskVector | string | The slug name of the risk vector associated with this finding. | 
-| BitSight.Company.CompanyFinding.riskVectorLabel | string | The name of the risk vector associated with this finding. | 
-| BitSight.Company.CompanyFinding.rolledupObservationId | string | A unique identifier for this observation. | 
-| BitSight.Company.CompanyFinding.severity | number | The severity of the finding, which is the measured risk that this finding introduces. | 
-| BitSight.Company.CompanyFinding.severityCategory | string | The slug name of the finding severity. | 
-| BitSight.Company.CompanyFinding.tags | string | Infrastructure tags that help identify this asset. | 
-| BitSight.Company.CompanyFinding.duration | string | For internal BitSight use. | 
-| BitSight.Company.CompanyFinding.comments | string | A thread of finding comments. | 
-| BitSight.Company.CompanyFinding.remainingDecay | number | For internal BitSight use. | 
-| BitSight.Company.CompanyFinding.remediationHistory.lastRequestedRefreshDate | date | The date when a record refresh that included this finding was last requested. | 
-| BitSight.Company.CompanyFinding.remediationHistory.lastRefreshStatusDate | date | The date when a refresh of the remediation status of this finding was last requested. | 
-| BitSight.Company.CompanyFinding.remediationHistory.lastRefreshStatusLabel | string | The current record refresh status of this finding. | 
-| BitSight.Company.CompanyFinding.remediationHistory.lastRefreshReasonCode | string | The reason code of the last refresh of this finding. | 
-| BitSight.Company.CompanyFinding.remediationHistory.lastRemediationStatusLabel | string | The current remediation status of this finding. | 
-| BitSight.Company.CompanyFinding.remediationHistory.lastRemediationStatusDate | date | The date when the remediation status of this finding was last changed. | 
-| BitSight.Company.CompanyFinding.remediationHistory.remediationAssignments | unknown | The users who are assigned to remediate this finding. | 
-| BitSight.Company.CompanyFinding.remediationHistory.lastRemediationStatusUpdatedBy | string | The name of the user who updated the remediation status of this finding. | 
-| BitSight.Company.CompanyFinding.assetOverrides.asset | string | The domain or IP address of the overridden asset. | 
-| BitSight.Company.CompanyFinding.assetOverrides.importance | string | The user-assigned asset importance. | 
-| BitSight.Company.CompanyFinding.assetOverrides.overrideImportance | unknown | For internal BitSight use. | 
-| BitSight.Company.CompanyFinding.attributedCompanies.guid | string | The unique identifier of the company attributed to the finding. | 
-| BitSight.Company.CompanyFinding.attributedCompanies.name | string | The name of the company that is attributed to the finding. | 
-| BitSight.Page.name | String | Name of the command. | 
-| BitSight.Page.next | String | The URL to navigate to the next page of results. | 
-| BitSight.Page.previous | String | The URL to navigate to the previous page of results. | 
-| BitSight.Page.count | Number | The number of findings. | 
+| **Path** | **Type** | **Description**                                                                               |
+| --- | --- |-----------------------------------------------------------------------------------------------|
+| CyCognito.Asset.type | String | The type of the asset.                                                                        | 
+| CyCognito.Asset.id | String | Unique identifier of the asset. <br/>Note: The asset ID is derived from the asset_ID input field. | 
+| CyCognito.Asset.investigation_status | String | Investigation status of the Asset.                                                            | 
+| CyCognito.Asset.action_status | Unknown | Whether the status update is successful or failed.                                            | 
 
 #### Command example
-```!bitsight-company-findings-get guid=00000000-0000-0000-0000-000000000001 first_seen=2021-01-01 last_seen=2022-03-01 limit=2```
+```!cycognito-asset-investigation-status-change asset_type=ip asset_id=127.0.0.1 investigation_status=investigated```
 #### Context Example
 ```json
 {
-    "BitSight": {
-        "Company": {
-            "CompanyFinding": [
-                {
-                    "affectsRating": false,
-                    "assets": [
-                        {
-                            "asset": "X.X.X.1",
-                            "category": "low",
-                            "importance": 0,
-                            "isIp": true
-                        }
-                    ],
-                    "attributedCompanies": [
-                        {
-                            "guid": "00000000-0000-0000-0000-000000000001",
-                            "name": "Saperix, Inc."
-                        }
-                    ],
-                    "details": {
-                        "checkPass": "",
-                        "country": "United States",
-                        "destPort": 22,
-                        "diligenceAnnotations": {
-                            "cPE": [
-                                "a:openbsd:openssh:8.0"
-                            ],
-                            "close-seen": "2022-03-11 16:22:22",
-                            "message": "Detected service: SSH {{(OpenSSH_8.0)}}",
-                            "product": "OpenSSH",
-                            "transport": "tcp",
-                            "version": "8.0"
-                        },
-                        "geoIpLocation": "US",
-                        "grade": "GOOD",
-                        "remediations": [
-                            {
-                                "helpText": "This port was observed running SSH, which is used for sending and receiving secure communication.",
-                                "message": "Detected service: SSH (OpenSSH_8.0)",
-                                "remediationTip": ""
-                            }
-                        ],
-                        "rollupEndDate": "2022-01-28",
-                        "rollupStartDate": "2022-01-28",
-                        "searchableDetails": "Detected service: SSH {{(OpenSSH_8.0)}},tcp,OpenSSH"
-                    },
-                    "evidenceKey": "X.X.X.1:22",
-                    "firstSeen": "2022-01-28",
-                    "lastSeen": "2022-01-28",
-                    "riskCategory": "Diligence",
-                    "riskVector": "open_ports",
-                    "riskVectorLabel": "Open Ports",
-                    "rolledupObservationId": "WCSjqnwwujFfhpr1HUBBGQ==",
-                    "severity": 1,
-                    "severityCategory": "minor",
-                    "temporaryId": "A9Jq47BBjea5b1b4903f5d1440c7abf368a6e828ed"
-                },
-                {
-                    "affectsRating": true,
-                    "assetOverrides": [
-                        {
-                            "asset": "X.X.X.2",
-                            "importance": "high",
-                            "overrideImportance": "high"
-                        }
-                    ],
-                    "assets": [
-                        {
-                            "asset": "X.X.X.2",
-                            "category": "critical",
-                            "importance": 0.49,
-                            "isIp": true
-                        }
-                    ],
-                    "attributedCompanies": [
-                        {
-                            "guid": "00000000-0000-0000-0000-000000000002",
-                            "name": "Saperix Lab"
-                        },
-                        {
-                            "guid": "00000000-0000-0000-0000-000000000001",
-                            "name": "Saperix, Inc."
-                        }
-                    ],
-                    "details": {
-                        "checkPass": "",
-                        "country": "United States",
-                        "destPort": 143,
-                        "geoIpLocation": "US",
-                        "grade": "GOOD",
-                        "observedIps": [
-                            "X.X.X.2:143"
-                        ],
-                        "rollupEndDate": "2022-03-01",
-                        "rollupStartDate": "2021-01-04"
-                    },
-                    "evidenceKey": "X.X.X.2:143",
-                    "firstSeen": "2021-01-04",
-                    "lastSeen": "2022-03-01",
-                    "remainingDecay": 32,
-                    "riskCategory": "Diligence",
-                    "riskVector": "ssl_configurations",
-                    "riskVectorLabel": "SSL Configurations",
-                    "rolledupObservationId": "YUIxAEQMeGnk2izk05TP9g==",
-                    "severity": 1,
-                    "severityCategory": "minor",
-                    "temporaryId": "A9Jq47BBje02d3a6a0d16185882a31616791a94ee3"
-                }
-            ],
-            "guid": "00000000-0000-0000-0000-000000000001"
-        },
-        "Page": {
-            "count": 2441,
-            "name": "bitsight-company-findings-get",
-            "next": "https://api.bitsighttech.com/v1/companies/00000000-0000-0000-0000-000000000001/findings?expand=attributed_companies&first_seen_gte=2021-01-01&last_seen_lte=2022-03-01&limit=2&offset=2&unsampled=true",
-            "previous": null
+    "CyCognito": {
+        "Asset": {
+            "action_status": "Success",
+            "asset_type": "ip",
+            "id": "127.0.0.1",
+            "investigation_status": "investigated"
         }
     }
 }
@@ -668,122 +343,476 @@ BitSight command to get company findings.
 
 #### Human Readable Output
 
->### Company findings:
->Total Findings: 2441
->|Evidence Key|Risk Vector Label|First Seen|Last Seen|ID|Risk Category|Severity|Asset Category|Finding Grade|
->|---|---|---|---|---|---|---|---|---|
->| X.X.X.1:22 | Open Ports | 2022-01-28 | 2022-01-28 | A9Jq47BBjea5b1b4903f5d1440c7abf368a6e828ed | Diligence | minor | X.X.X.1: Low | Good |
->| X.X.X.2:143 | SSL Configurations | 2021-01-04 | 2022-03-01 | A9Jq47BBje02d3a6a0d16185882a31616791a94ee3 | Diligence | minor | X.X.X.2: Critical | Good |
-
-
-### bitsight-companies-guid-get
-***
-BitSight command to get list of companies and GUID.
-
-
-#### Base Command
-
-`bitsight-companies-guid-get`
-#### Input
-
-There are no input arguments for this command.
-
-#### Context Output
-
-| **Path** | **Type** | **Description** |
-| --- | --- | --- |
-| BitSight.Company.name | String | Name of this company. | 
-| BitSight.Company.shortname | String | The abbreviated name of this company. | 
-| BitSight.Company.guid | String | The unique identifier of this company. | 
-| BitSight.Company.customId | String | The customizable ID assigned to this company. | 
-| BitSight.Company.networkSizeV4 | Number | The number of IPv4 addresses attributed to this company. | 
-| BitSight.Company.rating | Number | The most recent security rating of this company. | 
-| BitSight.Company.ratingDate | Date | The date when the rating report for this company was generated. | 
-| BitSight.Company.dateAdded | Date | The date when this company was added to your portfolio. | 
-| BitSight.Company.industry | String | The industry of this company. | 
-| BitSight.Company.industrySlug | String | The slug name of this company's industry. | 
-| BitSight.Company.subIndustry | String | The sub-industry of this company. | 
-| BitSight.Company.subIndustrySlug | String | The slug name of this company's sub-industry. | 
-| BitSight.Company.type | String | The rating type. | 
-| BitSight.Company.logo | String | The URL in the BitSight platform to this company's logo image. | 
-| BitSight.Company.sparkline | String | The URL in the BitSight platform to this company's historical ratings trend line. | 
-| BitSight.Company.externalId | Number | The external ID assigned to this company. | 
-| BitSight.Company.subscriptionType | String | The subscription type used to monitor this company. | 
-| BitSight.Company.subscriptionTypeKey | String | The slug name of the subscription type used to monitor this company. | 
-| BitSight.Company.primaryDomain | String | The primary domain of this company. | 
-| BitSight.Company.securityGrade | String | For internal BitSight use. | 
-| BitSight.Company.gradeDate | Date | For internal BitSight use. | 
-| BitSight.Company.displayURL | String | The URL in the BitSight platform to this company's overview page. | 
-| BitSight.Company.href | String | The URL in the BitSight platform to this company's page. | 
-| BitSight.MyCompany.guid | String | The unique identifier of my company. | 
-
-#### Command example
-```!bitsight-companies-guid-get```
-#### Context Example
-```json
-{
-    "BitSight": {
-        "Company": [
-            {
-                "dateAdded": "2020-09-03",
-                "displayUrl": "https://service.bitsighttech.com/app/company/00000000-0000-0000-0000-000000000001/overview/",
-                "externalId": 14885770,
-                "guid": "00000000-0000-0000-0000-000000000001",
-                "href": "https://api.bitsighttech.com/v1/companies/00000000-0000-0000-0000-000000000001",
-                "industry": "Technology",
-                "industrySlug": "technology",
-                "logo": "https://api.bitsighttech.com/ratings/v1/companies/00000000-0000-0000-0000-000000000001/logo-image",
-                "name": "Saperix, Inc.",
-                "networkSizeV4": 4169,
-                "primaryDomain": "saperix.com",
-                "rating": 640,
-                "ratingDate": "2022-03-29",
-                "shortname": "Saperix",
-                "sparkline": "https://api.bitsighttech.com/ratings/v1/companies/00000000-0000-0000-0000-000000000001/sparkline?size=small",
-                "subIndustry": "Computer & Network Security",
-                "subIndustrySlug": "computer_network_security",
-                "subscriptionType": "Total Risk Monitoring",
-                "subscriptionTypeKey": "continuous_monitoring",
-                "type": "CURATED"
-            },
-            {
-                "dateAdded": "2021-11-23",
-                "displayUrl": "https://service.bitsighttech.com/app/company/00000000-0000-0000-0000-000000000002/overview/",
-                "externalId": 51818179,
-                "guid": "00000000-0000-0000-0000-000000000002",
-                "href": "https://api.bitsighttech.com/v1/companies/00000000-0000-0000-0000-000000000002",
-                "industry": "Technology",
-                "industrySlug": "technology",
-                "logo": "https://api.bitsighttech.com/ratings/v1/companies/00000000-0000-0000-0000-000000000002/logo-image",
-                "name": "Saperix Corporate",
-                "networkSizeV4": 4032,
-                "primaryDomain": "saperix.com",
-                "rating": 730,
-                "ratingDate": "2022-03-29",
-                "shortname": "Saperix Corporate",
-                "sparkline": "https://api.bitsighttech.com/ratings/v1/companies/00000000-0000-0000-0000-000000000002/sparkline?size=small",
-                "subIndustry": "Computer & Network Security",
-                "subIndustrySlug": "computer_network_security",
-                "subscriptionType": "MySubsidiary",
-                "subscriptionTypeKey": "my_subsidiary",
-                "type": "CURATED,SELF-PUBLISHED"
-            }
-        ],
-        "MyCompany": {
-            "guid": "00000000-0000-0000-0000-000000000001"
-        }
-    }
-}
-```
-
-#### Human Readable Output
-
->### Companies:
->My Company: 00000000-0000-0000-0000-000000000001
-> 
-> 
->|Company Name|Company Short Name|GUID|Rating|
+>### Investigation Status has been successfully updated for 127.0.0.1
+>|Asset Type|Asset ID|Investigation Status|Action Status|
 >|---|---|---|---|
->| Saperix, Inc. | Saperix | 00000000-0000-0000-0000-000000000001 | 640 |
->| Saperix Corporate | Saperix Corporate | 00000000-0000-0000-0000-000000000002 | 730 |
+>| ip | 127.0.0.1 | investigated | Success |
 
+
+### cycognito-issue-investigation-status-change
+***
+Modifies the investigation status of the specified issue.
+
+
+#### Base Command
+
+`cycognito-issue-investigation-status-change`
+#### Input
+
+| **Argument Name** | **Description**                                                                                                                                                                                                                                                                                                                     | **Required** |
+| --- |-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| --- |
+| issue_instance_id | The unique issue ID of the instance whose investigation status is to be changed.<br/><br/>Example: 0.0.0.0-cyc-auth-default-credentials,<br/>example.com-cyc-sql-injection, 0.0.0.0-cyc-exposed-bucket-with-data.<br/><br/>Note: Users can retrieve the list of issue instance IDs by executing the "cycognito-issues-list" command. | Required | 
+| investigation_status | The investigation status of the issue.<br/><br/>Supported values: 'uninvestigated', 'investigating', 'investigated'                                                                                                                                                                                                                 | Required | 
+
+
+#### Context Output
+
+| **Path** | **Type** | **Description** |
+| --- | --- | --- |
+| CyCognito.Issue.id | String | Unique ID of the issue. | 
+| CyCognito.Issue.investigation_status | String | Investigation status of the issue. | 
+| CyCognito.Issue.action_status | String | Whether the update is successful or failed. | 
+
+#### Command example
+```!cycognito-issue-investigation-status-change issue_instance_id=127.0.0.1-cve-2019-00000 investigation_status=investigated```
+#### Context Example
+```json
+{
+    "CyCognito": {
+        "Issue": {
+            "action_status": "Success",
+            "id": "127.0.0.1-cve-2019-00000",
+            "investigation_status": "investigated"
+        }
+    }
+}
+```
+
+#### Human Readable Output
+
+>### Investigation Status has been successfully updated for 127.0.0.1-cve-2019-00000
+>|Issue ID|Investigation Status|Action Status|
+>|---|---|---|
+>| 127.0.0.1-cve-2019-00000 | investigated | Success |
+
+
+### cycognito-issues-list
+***
+Retrieves the list of the issues that meet the specified filter criteria.
+
+
+#### Base Command
+
+`cycognito-issues-list`
+#### Input
+
+| **Argument Name** | **Description**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | **Required** |
+| --- |---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| --- |
+| count | The number of results to retrieve.<br/><br/>Maximum value is '1000'. Default is 50.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Optional | 
+| offset | Sets the starting index for the returned results. By specifying offset, you retrieve a subset of records starting with the offset value.<br/><br/>Note: If a negative value is provided then the default value of 0 will be used. Default is 0.                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Optional | 
+| search | An Advanced Search parameter to query the response.<br/><br/>Note: Retrieves all the occurrences that are included in the string.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | Optional | 
+| first_detected | The date and time at which CyCognito first discovered and attributed the asset to the organization.<br/><br/>Supported formats: 2 minutes, 2 hours, 2 days, 2 weeks, 2 months, 2 years, yyyy-mm-dd, yyyy-mm-ddTHH:MM:SSZ<br/><br/>For example: 01 Mar 2021, 01 Feb 2021 04:45:33, 2022-04-17T14:05:44Z.                                                                                                                                                                                                                                                                                                                                                                                                                   | Optional | 
+| last_detected | The date and time at which CyCognito most recently attributed the asset to the organization.<br/><br/>Supported formats: 2 minutes, 2 hours, 2 days, 2 weeks, 2 months, 2 years, yyyy-mm-dd, yyyy-mm-ddTHH:MM:SSZ<br/><br/>For example: 01 Mar 2021, 01 Feb 2021 04:45:33, 2022-04-17T14:05:44Z.                                                                                                                                                                                                                                                                                                                                                                                                                          | Optional | 
+| organizations | Filter the issues based on the provided organizations. Supports comma separated values.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | Optional | 
+| locations | The geographical locations in which the issue is found. Supported values contain the three-letter ISO country code for the respective countries--e.g., IND, USA.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | Optional | 
+| issue_type | Filters the records according to the issue type. Supports comma-separated values.<br/><br/>Supported values:"Abandoned Asset", "Certificate Validity", "Cryptographic Vulnerability", "E-mail Security", "Exposed Asset", "Exposed Data", "Exposed Dev Environment", "Information Gathering", "Phishing Threat", "Potential Imposter Asset", "Security Hygiene", "Unmaintained Asset", "Unsafe Authentication", "Vulnerable Software", "Weak Encryption", "XSS"                                                                                                                                                                                                                                                           | Optional | 
+| sort_by | The name of the field by which to sort the results. The response fields available for sorting the data are found in the following documentation:<br/>https://docs.cycognito.com/reference/reference-getting-started.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | Optional | 
+| sort_order | Specifies whether to sort the results in either ascending or descending order.<br/><br/>Supported values: 'asc', 'desc'                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | Optional | 
+| advanced_filter | Applies a filter to the list of issues based on a JSON-specific query.<br/><br/>Format:<br/>[{<br/>    "field": "issue-type",<br/>    "op": "in",<br/>    "values": [<br/>       "Unsafe Authentication",<br/>       "Vulnerable Software"<br/>    ]	<br/>},<br/>{<br/>    "op": "not-in",<br/>    "field": "severity-score",<br/>    "values": [10, 9]<br/>}]<br/><br/>Note: When using several filtering options (e.g., 'Issue Type' and 'Advanced Filter'), advance_json parameters will take precedence over other parameters. <br/>For a complete reference to the CyCognito fields and operations, please refer to the CyCognito API V0 documentation at <br/><br/>https://docs.cycognito.com/reference/query-issues. | Optional | 
+
+
+#### Context Output
+
+| **Path** | **Type** | **Description** |
+| --- | --- | --- |
+| CyCognito.Issue.id | String | Unique ID of the issue. | 
+| CyCognito.Issue.owned_by | String | Organization or owner to which the issue is attributed. | 
+| CyCognito.Issue.references | Unknown | Reference of the issue. | 
+| CyCognito.Issue.threat | String | The threat that the issue might cause. | 
+| CyCognito.Issue.tags | Unknown | Tags of the issue. | 
+| CyCognito.Issue.organizations | Unknown | Organizations of the instance. | 
+| CyCognito.Issue.issue_id | String | Unique ID of the issue. | 
+| CyCognito.Issue.summary | String | A brief description that summarizes the issue. | 
+| CyCognito.Issue.resolved_at | String | Date/time when the issue was resolved. | 
+| CyCognito.Issue.investigation_status | String | Investigation status of the issue. | 
+| CyCognito.Issue.locations | Unknown | The geographic location of the instance. | 
+| CyCognito.Issue.detection_complexity | String | Measures the difficulty at which a vulnerable asset can be detected by a potential attacker. | 
+| CyCognito.Issue.title | String | Title of the issue. | 
+| CyCognito.Issue.exploitation_score | Number | Exploitation score of the issue. | 
+| CyCognito.Issue.issue_type | String | Type of the issue. | 
+| CyCognito.Issue.comment | String | Comment associated with the issue. | 
+| CyCognito.Issue.severity | String | Severity of the issue. | 
+| CyCognito.Issue.remediation_steps | Unknown | A list of actions that describe how to resolve the issue. | 
+| CyCognito.Issue.potential_impact | Unknown | A list of categories that describe what might happen if the issue is exploited. | 
+| CyCognito.Issue.exploitation_method | String | Exploitation method of the issue. | 
+| CyCognito.Issue.affected_asset | String | The unique ID of the asset with which the issue is associated. | 
+| CyCognito.Issue.severity_score | Number | Severity score of the issue. | 
+| CyCognito.Issue.last_detected | Date | The time at which the issue was last detected. | 
+| CyCognito.Issue.first_detected | Date | The time at which the issue was first detected. | 
+| CyCognito.Issue.issue_status | String | Status of the issue found. | 
+
+#### Command example
+```!cycognito-issues-list count=2```
+#### Context Example
+```json
+{
+    "CyCognito": {
+        "Issue": [
+            {
+                "affected_asset": "ip/127.0.0.1",
+                "detection_complexity": "Service Detection",
+                "exploitation_method": "Metasploit",
+                "exploitation_score": 3,
+                "first_detected": "2022-03-31T03:39:22.568Z",
+                "id": "issue/127.0.0.1-cve-2019-00000",
+                "investigation_status": "investigating",
+                "issue_id": "CVE-2019-00000",
+                "issue_status": "new",
+                "issue_type": "Vulnerable Software",
+                "last_detected": "2022-03-31T03:39:22.568Z",
+                "locations": [
+                    "USA"
+                ],
+                "organizations": [
+                    "ACME Ticketing",
+                    "ACME Cleantech Solutions",
+                    "Acme Holdings"
+                ],
+                "potential_impact": [
+                    "Loss of integrity",
+                    "Loss of confidentiality",
+                    "Loss of availability",
+                    "Data compromise",
+                    "Network breach"
+                ],
+                "references": [],
+                "remediation_steps": [
+                    "Patch the NetScaler to the latest version.",
+                    "If a patch is not feasible, perform \"work-around\" mitigations per Citrix's instructions."
+                ],
+                "severity": "critical",
+                "severity_score": 10,
+                "summary": "| The NetScaler has been confirmed to be vulnerable to CVE-2019-00000 (first made public in December 2019). | Due to improper handling of the path names, CVE-2019-00000 enables attackers to perform directory traversal and unauthenticated, remote arbitrary code execution via specially crafted HTTP requests. | As NetScalers serve as entry-points to organization networks, attackers can exploit this vulnerability to breach organization networks and leverage the NetScaler for further attacks. | This vulnerability has been exploited \"in the wild\" by unknown attackers.",
+                "tags": [
+                    "Pulse Secure"
+                ],
+                "threat": "Remote Code Execution",
+                "title": "CVE-2019-00000 (Unauthenticated Remote Directory Traversal & Code Execution)"
+            },
+            {
+                "affected_asset": "ip/127.0.0.2",
+                "comment": {
+                    "content": "hello",
+                    "last_update": "2022-06-14T06:42:20.952Z"
+                },
+                "detection_complexity": "Handshake",
+                "exploitation_method": "Man-in-the-Middle",
+                "exploitation_score": 4,
+                "first_detected": "2022-03-20T18:48:33.528Z",
+                "id": "issue/127.0.0.2-cyc-tls-hsts-dummy",
+                "investigation_status": "investigating",
+                "issue_id": "CYC-TLS-HSTS-DUMMY",
+                "issue_status": "new",
+                "issue_type": "Cryptographic Vulnerability",
+                "last_detected": "2022-03-20T18:48:33.528Z",
+                "locations": [
+                    "USA"
+                ],
+                "organizations": [
+                    "Acme Homes"
+                ],
+                "owned_by": "Acme Homes",
+                "potential_impact": [
+                    "Loss of integrity",
+                    "Loss of confidentiality"
+                ],
+                "remediation_steps": [
+                    "Enable an HSTS policy of at least 180 days."
+                ],
+                "severity": "critical",
+                "severity_score": 10,
+                "summary": "The server's HSTS policy is either too short or non-existent. | HTTP Strict Transport Security is an optional HTTP header that instructs browsers to only communicate with the server using HTTPS (and not HTTP) for a certain period of time, thus helping prevent \"SSL-stripping\" attacks.",
+                "threat": "Trust",
+                "title": "Insecure HSTS"
+            }
+        ]
+    }
+}
+```
+
+#### Human Readable Output
+
+>### Issues:
+>|ID|Title| Affected Asset |Owned By|First Detected|Last Detected|Organizations|Locations|Issue Status|Issue Type|Investigation Status|Severity|Severity Score|
+>|---|---|---|---|---|---|---|---|---|---|---|---|---|
+>| 127.0.0.1-cve-2019-00000 | CVE-2019-19781 (Unauthenticated Remote Directory Traversal & Code Execution) | ip/127.0.0.1 |  | 31 Mar 2022, 03:39 AM | 31 Mar 2022, 03:39 AM | ACME Ticketing, ACME Cleantech Solutions, Acme Holdings | United States | new | Vulnerable Software | investigating | critical | 10.0 |
+>| 127.0.0.2-cyc-tls-hsts-dummy | Insecure HSTS | ip/127.0.0.2 | Acme Homes | 20 Mar 2022, 06:48 PM | 20 Mar 2022, 06:48 PM | Acme Homes | United States | new | Cryptographic Vulnerability | investigating | critical | 10.0 |
+
+
+### cycognito-assets-list
+***
+Retrieves the list of assets that meet specified filter criteria.
+
+
+#### Base Command
+
+`cycognito-assets-list`
+#### Input
+
+| **Argument Name** | **Description**                                                                                                                                                                                                                                                                                                                                                                                                                                              | **Required** |
+| --- |--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| --- |
+| asset_type | The type of asset.<br/><br/>Supported values: 'ip', 'domain', 'cert', 'webapp', 'iprange'                                                                                                                                                                                                                                                                                                                                                                    | Required | 
+| count | The number of results to be retrieved in a response. <br/><br/>Maximum value is '1000'. Default is 50.                                                                                                                                                                                                                                                                                                                                                       | Optional | 
+| offset | Sets the starting index for the returned results. By specifying offset, you retrieve a subset of records starting with the offset value.<br/><br/>Note: If a negative value is provided then the default value of 0 will be used. Default is 0.                                                                                                                                                                                                              | Optional | 
+| search | An Advanced Search parameter to query the response.<br/><br/>Note: Retrieves all the occurrences that are included in the string.                                                                                                                                                                                                                                                                                                                            | Optional | 
+| status | Filters the assets according to the selected status. Supports comma-separated values.<br/><br/>Supported values: 'changed', 'new', 'normal'                                                                                                                                                                                                                                                                                                                  | Optional | 
+| organizations | Filters the assets according to the provided organizations. Supports comma-separated values.                                                                                                                                                                                                                                                                                                                                                                 | Optional | 
+| security_rating | Filters the assets according to the provided security ratings. Supports comma-separated values.<br/><br/>Supported values: 'A', 'B', 'C', 'D', 'F'<br/><br/>Where:<br/>A = Very strong<br/>B = Strong<br/>C = Less vulnerable<br/>D = Vulnerable<br/>F = Highly vulnerable<br/><br/>Note: This filter does not support IP Range asset types.                                                                                                                 | Optional | 
+| locations | The geographical locations in which the asset is found. Supported values contain the three-letter ISO country code for the respective countries'e.g., IND, USA.<br/>Locations are available only for IP, Domain, and Certificate asset types.                                                                                                                                                                                                                | Optional | 
+| first_seen | The date and time at which CyCognito first discovered and attributed the asset to the organization.<br/><br/>Supported formats: 2 minutes, 2 hours, 2 days, 2 weeks, 2 months, 2 years, yyyy-mm-dd, yyyy-mm-ddTHH:MM:SSZ<br/><br/>For example: 01 Mar 2021, 01 Feb 2021 04:45:33, 2022-04-17T14:05:44Z.                                                                                                                                                      | Optional | 
+| last_seen | The date and time at which CyCognito most recently attributed the asset to the organization.<br/><br/>Supported formats: 2 minutes, 2 hours, 2 days, 2 weeks, 2 months, 2 years, yyyy-mm-dd, yyyy-mm-ddTHH:MM:SSZ<br/><br/>For example: 01 Mar 2021, 01 Feb 2021 04:45:33, 2022-04-17T14:05:44Z.                                                                                                                                                             | Optional | 
+| sort_by | Specifies the field by which to sort.<br/><br/>Note: The response fields available for sorting the data are found in the following documentation:<br/>https://docs.cycognito.com/reference/query-assets.                                                                                                                                                                                                                                                     | Optional | 
+| sort_order | Specifies whether to sort the results in either ascending or descending order.<br/><br/>Supported values: 'asc', 'desc'. Default is desc.                                                                                                                                                                                                                                                                                                                    | Optional | 
+| advanced_filter | Filter out assets based on a JSON-specific query.<br/><br/>Format:<br/>[{<br/>    "field": "status",<br/>    "op": "in",<br/>    "values": [<br/>        "new",<br/>        "changed"<br/>    ]	<br/>},<br/>{<br/>    "op": "not-in",<br/>    "field": "security-rating",<br/>    "values": ["A"]<br/>}]<br/><br/>Note: All the fields and operations that can be performed for filtering can be found at https://docs.cycognito.com/reference/query-assets. | Optional | 
+
+
+#### Context Output
+
+| **Path** | **Type** | **Description** |
+| --- | --- | --- |
+| CyCognito.Asset.alive | Boolean | Whether the port is alive or not. | 
+| CyCognito.Asset.comment | String | Comments related to the asset. | 
+| CyCognito.Asset.id | String | Unique identifier of the asset. <br/>Note: Asset ID is derived from the asset_id input field. | 
+| CyCognito.Asset.type | String | Type of the asset. | 
+| CyCognito.Asset.business_units | Unknown | Business units of the asset. | 
+| CyCognito.Asset.signature | String | The identifier of the certificate. | 
+| CyCognito.Asset.closed_ports.status | String | Status of the close ports object associated with the asset. | 
+| CyCognito.Asset.closed_ports.port | Number | Port of the close ports object associated with the asset. | 
+| CyCognito.Asset.closed_ports.protocol | String | Protocol associated with the asset. | 
+| CyCognito.Asset.creation_time | Date | Date and time at which the asset was created. | 
+| CyCognito.Asset.domain | String | Domain name of the asset. | 
+| CyCognito.Asset.domains | Unknown | Domain of the asset. | 
+| CyCognito.Asset.domain_names | Unknown | List of domain names associated with the asset. | 
+| CyCognito.Asset.expiration_time | Date | Date and time at which the asset is expired. | 
+| CyCognito.Asset.first_seen | Date | Time at which an asset was first discovered and attributed to the organization. | 
+| CyCognito.Asset.hosting_type | String | Hosting type of the asset. | 
+| CyCognito.Asset.investigation_status | String | Investigation status of the asset. | 
+| CyCognito.Asset.ip | String | IP of the asset. | 
+| CyCognito.Asset.ip_names | Unknown | List of IP associated with the asset. | 
+| CyCognito.Asset.issuer_alt_names | Unknown | List of alternate issuer names. | 
+| CyCognito.Asset.issuer_common_name | String | Common name of the Issuer. | 
+| CyCognito.Asset.issuer_country | String | Country of Issuer. | 
+| CyCognito.Asset.issuer_locality | String | Locality of issuer. | 
+| CyCognito.Asset.issuer_organization | String | Organization of the issuer. | 
+| CyCognito.Asset.issuer_organization_unit | String | The organization unit of the issuer. | 
+| CyCognito.Asset.issuer_state | String | State of the issuer. | 
+| CyCognito.Asset.issues_count | String | Count of issues associated with the asset. | 
+| CyCognito.Asset.last_seen | Date | Time at which an asset was discovered and attributed to the organization. | 
+| CyCognito.Asset.locations | Unknown | List of geographic locations with which an asset might be associated. | 
+| CyCognito.Asset.open_ports.status | String | Status of the open ports object associated with the asset. | 
+| CyCognito.Asset.open_ports.port | Number | Port of the open ports object associated with the asset. | 
+| CyCognito.Asset.open_ports.protocol | String | Protocol associated with the asset. | 
+| CyCognito.Asset.owned_by | String | Organization or owner to which the asset is attributed. | 
+| CyCognito.Asset.organizations | Unknown | List of organizations associated with the asset. | 
+| CyCognito.Asset.status | String | Last status of the asset. | 
+| CyCognito.Asset.security_rating | String | Security rating of the asset based on the number and severity of the associated issues. | 
+| CyCognito.Asset.severe_issues_count | Number | The number of severe issues associated with the asset. | 
+| CyCognito.Asset.signature_algorithm | String | Signature algorithm associated with the asset. | 
+| CyCognito.Asset.sub_domains | Unknown | List of subdomains associated with the asset. | 
+| CyCognito.Asset.subject_alt_names | Unknown | List of alternate subject names. | 
+| CyCognito.Asset.subject_common_name | String | Common name of the subject. | 
+| CyCognito.Asset.subject_country | String | Subject's country. | 
+| CyCognito.Asset.subject_locality | String | Locality of issuer. | 
+| CyCognito.Asset.subject_organization | String | Subject's organization. | 
+| CyCognito.Asset.subject_organization_unit | String | The organization unit of the subject. | 
+| CyCognito.Asset.subject_state | String | State of the subject. | 
+| CyCognito.Asset.tags | Unknown | List of tags associated with the asset. | 
+| CyCognito.Asset.from_rotating | String | Whether the asset has a rotating IP address. | 
+
+#### Command example
+```!cycognito-assets-list asset_type=ip count=2```
+#### Context Example
+```json
+{
+    "CyCognito": {
+        "Asset": [
+            {
+                "alive": true,
+                "closed_ports": [
+                    {
+                        "port": 6001,
+                        "protocol": "tcp",
+                        "status": "closed"
+                    },
+                    {
+                        "port": 47808,
+                        "protocol": "tcp",
+                        "status": "closed"
+                    },
+                    {
+                        "port": 5900,
+                        "protocol": "tcp",
+                        "status": "closed"
+                    },
+                    {
+                        "port": 111,
+                        "protocol": "tcp",
+                        "status": "closed"
+                    },
+                    {
+                        "port": 9200,
+                        "protocol": "tcp",
+                        "status": "closed"
+                    },
+                    {
+                        "port": 11211,
+                        "protocol": "tcp",
+                        "status": "closed"
+                    },
+                    {
+                        "port": 1723,
+                        "protocol": "tcp",
+                        "status": "closed"
+                    }
+                ],
+                "dynamically_resolved": "no",
+                "first_seen": "2022-03-23T12:36:17.808Z",
+                "hosting_type": "owned",
+                "id": "ip/127.0.0.1",
+                "investigation_status": "investigated",
+                "ip": "127.0.0.1",
+                "issues_count": 1,
+                "last_seen": "2022-03-31T03:39:22.568Z",
+                "locations": [
+                    "MYS"
+                ],
+                "open_ports": [
+                    {
+                        "port": 465,
+                        "protocol": "tcp",
+                        "status": "open"
+                    },
+                    {
+                        "port": 993,
+                        "protocol": "tcp",
+                        "status": "open"
+                    },
+                    {
+                        "port": 80,
+                        "protocol": "tcp",
+                        "status": "open"
+                    },
+                    {
+                        "port": 53,
+                        "protocol": "udp",
+                        "status": "open"
+                    }
+                ],
+                "organizations": [
+                    "Acme Corporation"
+                ],
+                "security_rating": "F",
+                "severe_issues_count": 1,
+                "status": "new",
+                "tags": [
+                    "Vulnerable Software",
+                    "Red Hat"
+                ],
+                "type": "ip"
+            },
+            {
+                "alive": true,
+                "closed_ports": [
+                    {
+                        "port": 3389,
+                        "protocol": "tcp",
+                        "status": "closed"
+                    },
+                    {
+                        "port": 8888,
+                        "protocol": "tcp",
+                        "status": "closed"
+                    },
+                    {
+                        "port": 110,
+                        "protocol": "tcp",
+                        "status": "closed"
+                    },
+                    {
+                        "port": 548,
+                        "protocol": "tcp",
+                        "status": "closed"
+                    },
+                    {
+                        "port": 23,
+                        "protocol": "tcp",
+                        "status": "closed"
+                    },
+                    {
+                        "port": 11211,
+                        "protocol": "tcp",
+                        "status": "closed"
+                    },
+                    {
+                        "port": 1723,
+                        "protocol": "tcp",
+                        "status": "closed"
+                    }
+                ],
+                "dynamically_resolved": "no",
+                "first_seen": "2022-03-23T12:27:04.354Z",
+                "hosting_type": "owned",
+                "id": "ip/127.0.0.2",
+                "investigation_status": "investigated",
+                "ip": "127.0.0.2",
+                "issues_count": 2,
+                "last_seen": "2022-03-31T03:39:22.568Z",
+                "locations": [
+                    "MYS"
+                ],
+                "open_ports": [
+                    {
+                        "port": 587,
+                        "protocol": "tcp",
+                        "status": "open"
+                    },
+                    {
+                        "port": 21,
+                        "protocol": "tcp",
+                        "status": "open"
+                    },
+                    {
+                        "port": 22,
+                        "protocol": "tcp",
+                        "status": "open"
+                    },
+                    {
+                        "port": 465,
+                        "protocol": "tcp",
+                        "status": "open"
+                    }
+                ],
+                "organizations": [
+                    "Acme Corporation"
+                ],
+                "security_rating": "F",
+                "severe_issues_count": 1,
+                "status": "new",
+                "tags": [
+                    "Block Cipher"
+                ],
+                "type": "ip"
+            }
+        ]
+    }
+}
+```
+
+#### Human Readable Output
+
+>### Asset List:
+>### Assets Type: IP
+>|Asset ID|Hosting Type|First Seen|Last Seen|Security Grade|Status|Organizations|Location|Investigation Status|Severe Issues Count|
+>|---|---|---|---|---|---|---|---|---|---|
+>| 127.0.0.1 | owned | 23 Mar 2022, 12:36 PM | 31 Mar 2022, 03:39 AM | F | new | Acme Corporation | Malaysia | investigated | 1 |
+>| 127.0.0.2 | owned | 23 Mar 2022, 12:27 PM | 31 Mar 2022, 03:39 AM | F | new | Acme Corporation | Malaysia | investigated | 1 |
